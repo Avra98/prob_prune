@@ -32,7 +32,10 @@ sns.set_style('darkgrid')
 # Main
 def main(args, ITE=0):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
     reinit = True if args.prune_type=="reinit" else False
+    ## Confirm why gpu utility is so low 
+    # GPU Utility
 
     # Data Loader
     transform=transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.1307,), (0.3081,))])
@@ -120,23 +123,25 @@ def main(args, ITE=0):
     step = 0
     all_loss = np.zeros(args.end_iter,float)
     all_accuracy = np.zeros(args.end_iter,float)
+    noise_type=args.noise_type
 
 
 
     for _ite in range(args.start_iter, ITERATION):
+        
         if not _ite == 0:
             if args.prune_type=="noise":
-                prune_by_noise(args.prune_percent,train_loader,criterion)
+                prune_by_noise(args.prune_percent, train_loader,criterion,noise_type)
             else:    
                 prune_by_percentile(args.prune_percent, resample=resample, reinit=reinit)
             if reinit:
                 model.apply(weight_init)
                 step = 0
                 for name, param in model.named_parameters():
-                    if 'weight' in name:
-                        weight_dev = param.device
-                        param.data = torch.from_numpy(param.data.cpu().numpy() * mask[step]).to(weight_dev)
-                        step = step + 1
+                    #if 'weight' in name:
+                    weight_dev = param.device
+                    param.data = torch.from_numpy(param.data.cpu().numpy() * mask[step]).to(weight_dev)
+                    step = step + 1
                 step = 0
             else:
                 original_initialization(mask, initial_state_dict)
@@ -149,10 +154,13 @@ def main(args, ITE=0):
 
         print(f"\n--- Pruning Level [{ITE}:{_ite}/{ITERATION}]: ---")
 
+        print(mask)
+
         # Print the table of Nonzeros in each layer
         comp1 = utils.print_nonzeros(model)
         comp[_ite] = comp1
         pbar = tqdm(range(args.end_iter))
+
 
         ## Training starts with the pruned weights here 
 
@@ -268,18 +276,16 @@ def train(model, train_loader, optimizer, criterion, ir,reg):
             output = model(imgs)
             train_loss = criterion(output, targets)
             train_loss.backward()                
-            
-
-
-        
-
+                    
+        step=0
         # Freezing Pruned weights by making their gradients Zero
         for name, p in model.named_parameters():
-            if 'weight' in name:
-                tensor = p.data.cpu().numpy()
-                grad_tensor = p.grad.data.cpu().numpy()
-                grad_tensor = np.where(tensor < EPS, 0, grad_tensor)
-                p.grad.data = torch.from_numpy(grad_tensor).to(device)
+            #if 'weight' in name:
+            tensor = p.data.cpu().numpy()
+            grad_tensor = p.grad.data.cpu().numpy()*mask[step]
+            #grad_tensor = np.where(tensor < EPS, 0, grad_tensor)
+            p.grad.data = torch.from_numpy(grad_tensor).to(device)
+            step+=1
         optimizer.step()
     return train_loss.item()
 
@@ -311,50 +317,41 @@ def prune_by_percentile(percent, resample=False, reinit=False,**kwargs):
         for name, param in model.named_parameters():
 
             # We do not prune bias term
-            if 'weight' in name:
-                tensor = param.data.cpu().numpy()
-                alive = tensor[np.nonzero(tensor)] # flattened array of nonzero values
-                percentile_value = np.percentile(abs(alive), percent)
+            #if 'weight' in name:
+            tensor = param.data.cpu().numpy()
+            alive = tensor[np.nonzero(tensor)] # flattened array of nonzero values
+            percentile_value = np.percentile(abs(alive), percent)
 
-                # Convert Tensors to numpy and calculate
-                weight_dev = param.device
-                new_mask = np.where(abs(tensor) < percentile_value, 0, mask[step])
+            # Convert Tensors to numpy and calculate
+            weight_dev = param.device
+            new_mask = np.where(abs(tensor) < percentile_value, 0, mask[step])
                 
-                # Apply new weight and mask
-                param.data = torch.from_numpy(tensor * new_mask).to(weight_dev)
-                mask[step] = new_mask
-                step += 1
+            # Apply new weight and mask
+            param.data = torch.from_numpy(tensor * new_mask).to(weight_dev)
+            mask[step] = new_mask
+            step += 1
         step = 0
 
 
 
-def prune_by_noise(percent,train_loader,criterion, prior_sigma=1.0,lr=1e-3, num_steps=1000):
+def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, lr=1e-3, num_steps=10):
     global model
     global mask
     global step 
+    EPS=1e-6
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    kl_loss = torch.zeros(1, device=device)
+
+    numel = sum(param.numel() for param in model.parameters())
+
+    _,p,_ , prior_sigma, prior= initialization(model)
+
+    optimizer_p = torch.optim.Adam([p], lr=1e-2)
+    
 
 
-    num_parameters = 0
-    for param in model.parameters():
-        prior_sigma += torch.abs(param).sum().item()
-        num_parameters += param.numel()
-    prior_sigma /= num_parameters
-    print(prior_sigma)
-    # Learn noise level
-    # Initialize p for each model parameter
-  # Learn noise level
-    #p = [torch.ones_like(param).to(device) * 0.5 * np.log(prior_sigma) for param in model.parameters()]
-    #p = [nn.Parameter(torch.ones_like(param).to(device) * 0.5 * np.log(prior_sigma)) for param in model.parameters()]
-    _,p,_ = initialization(model)
 
-
-    #for tensor in p:
-    #    tensor.requires_grad_(True)
-
-    optimizer_p = torch.optim.Adam([p], lr=lr)
-
-    for _ in range(num_steps):
+    for epoch in range(num_steps):
         # Initialize accumulators
         batch_original_loss_after_noise_accum = 0.0
         total_loss_accum = 0.0
@@ -364,92 +361,119 @@ def prune_by_noise(percent,train_loader,criterion, prior_sigma=1.0,lr=1e-3, num_
         for batch_idx, (data, target) in enumerate(train_loader):
             data, target = data.to(device), target.to(device)
 
-            # Forward pass before adding noise
-            output = model(data)
-            batch_original_loss = criterion(output, target)
-            #print(f"Original Loss before adding noise: {batch_original_loss.item()}")
-
             optimizer_p.zero_grad()
             model_copy = copy.deepcopy(model)
 
-            #for i, (name, param) in enumerate(model_copy.named_parameters()):
-            #    if 'weight' in name:
-            #        eps = torch.randn_like(param).to(device)
-            #        noise = torch.exp(p[i]) * eps  
-            #        #param.data.add_(noise) 
-            #        param=param+noise
-            k=0
-            for i, param in enumerate(model.parameters()):
-                t = len(param.view(-1))
-                eps = torch.randn_like(param.data).to(device)                
-                noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size())* eps  
-                 
-                param = param+noise
-                print(noise)
-                k += t        
+            for param in model_copy.parameters():
+                param.requires_grad = False
+            
 
+
+            ## no noise added at the pruned locations
+            if noise_type=="gaussian":
+                k=0
+                step=0
+                for i, param in enumerate(model_copy.parameters()):
+                    with torch.no_grad():
+                        mask_torch = torch.tensor(mask[step]).to(device)
+
+                    t = len(param.view(-1))
+                    eps = torch.randn_like(param.data).to(device)                
+                    noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask_torch
                     #with torch.no_grad(): 
                     #    if batch_idx==0:
-                    #        print(torch.norm(param.data),torch.norm(noise))
-            # Forward pass after adding noise
-            output = model(data)
+                    #        print(torch.mean(torch.abs(param.data).view(-1)/torch.exp(p[k:(k+t)])))                                         
+                    k += t  
+                    step +=1                   
+                    param.add_(noise) 
+                step =0    
+                k=0 
+
+
+            elif noise_type=="bernoulli":                     
+                k=0
+                for i, param in enumerate(model_copy.parameters()):
+                    t = len(param.view(-1))
+                    logits = torch.reshape(p[k:(k+t)], param.data.size()).to(device)
+                    gumbel_noise = -torch.log(-torch.log(torch.rand_like(logits)))
+                    perturbed_logits = logits + gumbel_noise
+                    noise = 1 / (1 + torch.exp(1 - 2*perturbed_logits/1.0))
+                    #noise = gumbel_softmax(logits, temperature=0.1)  # temperature can be adjusted
+                    #print(logits.shape,noise.shape,param.shape)
+                    # noise now is a "soft" one-hot vector, 
+                    # but it's differentiable and its values are between 0 and 1.
+                    with torch.no_grad():
+                        if batch_idx==0:
+                            print(p[k:k+t])               
+                    k += t
+                    param.mul_(noise)
+     
+            # # Forward pass after adding noise
+            output = model_copy(data)
             batch_original_loss_after_noise = criterion(output, target)
-            batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
+
 
             
-            #print(f"Original Loss after adding noise: {batch_original_loss_after_noise.item()}")
+            kl_loss = 0.5 * torch.sum(2*prior - 2*p + (torch.exp(2*p - 2*prior) - 1))
 
-            total_loss = batch_original_loss_after_noise
-            kl_loss = torch.zeros(1, device=device)
-
-           # for i, (name, param) in enumerate(model.named_parameters()):
-           #     if 'weight' in name:
-           #         kl_div = 0.5 * (torch.sum(torch.exp(2*p[i])/prior_sigma - 2*p[i]) - param.numel() - param.numel() * np.log(prior_sigma))
-           #         kl_loss += kl_div.
-
-            #total_loss +=0*kl_loss
-            #with torch.no_grad():
-            #    total_loss_accum += total_loss.item()
-            #    kl_loss_accum += kl_loss
-            #print(kl_loss)
+            total_loss =  batch_original_loss_after_noise + 0* kl_loss
 
             total_loss.backward()
-            #kl_loss.backward()
-            print(p[0].grad)
+            #Freezing noise gradients for pruned weights indieces
+            with torch.no_grad():
+                k=0
+                step=0
+                for name, q in model_copy.named_parameters():
+                    #if 'weight' in name:
+                    t = len(q.view(-1))
+                    grad_tensor_p = torch.reshape(p.grad.data[k:(k+t)], mask[step].shape).cpu().numpy() * mask[step]
+                    p.grad.data[k:(k+t)] = torch.from_numpy(grad_tensor_p.flatten()).to(device)
+                    k += t
+                    step+=1
+                k=0  
+                step=0  
+
+            #print(p.grad)
+
             optimizer_p.step()
 
+
+            with torch.no_grad():
+                total_loss_accum += total_loss.item()
+                kl_loss_accum += kl_loss.item()
+                batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
+
+
         # Average losses for the mini-batch
-        batch_original_loss_after_noise_avg = batch_original_loss_after_noise_accum / len(train_loader)
-        total_loss_avg = total_loss_accum / len(train_loader)
-        kl_loss_avg = kl_loss_accum / len(train_loader)
+        print(f"Epoch {epoch+1}")
+        print(f"Average batch original loss after noise: {batch_original_loss_after_noise_accum / len(train_loader):.6f}")
+        print(f"Average KL loss: {kl_loss_accum / len(train_loader):.6f}")
+        print(f"Average total loss: {total_loss_accum / len(train_loader):.6f}")
 
-        print(f'p optimization step, batch original loss after noise: {batch_original_loss_after_noise_avg:.6f}, Total Loss: {total_loss_avg:.6f}, KL Loss: {kl_loss_avg:.6f}')
-
-
-
-
-
-
-
-    step=0
-    # Prune weights based on learned noise level
-    for i, (name, param) in enumerate(model.named_parameters()):
-        if 'weight' in name:
+        #print(f'p optimization step, batch original loss after noise: {batch_original_loss_after_noise_avg:.6f}, Total Loss: {total_loss_avg:.6f}, KL Loss: {kl_loss_avg:.6f}')
+    with torch.no_grad():    
+        k=0
+        step=0
+        # Prune weights based on learned noise level
+        for i, (name, param) in enumerate(model_copy.named_parameters()):
+            t = len(param.view(-1))
             tensor = param.data.cpu().numpy()
-            # Normalize weights with standard deviation of noise
-            normalized_tensor = np.abs(tensor) / np.exp(p[step].cpu().detach().numpy())
+            # Normalize weights with standard deviation of noise  
+            normalized_tensor = np.abs(tensor) /  torch.reshape(torch.exp(p[k:(k+t)]), tensor.shape).cpu().detach().numpy()
             alive = normalized_tensor[np.nonzero(normalized_tensor)] # flattened array of nonzero values
             percentile_value = np.percentile(alive, percent)
 
             # Convert Tensors to numpy and calculate
             weight_dev = param.device
             new_mask = np.where(normalized_tensor < percentile_value, 0, mask[step])
-                
+                    
             # Apply new weight and mask
             param.data = torch.from_numpy(tensor * new_mask).to(weight_dev)
             mask[step] = new_mask
+            k += t
             step += 1
-    step = 0
+        step = 0
+        k=0
 
 def initialization(model, w0decay=1.0):
     for param in model.parameters():
@@ -461,25 +485,31 @@ def initialization(model, w0decay=1.0):
         w0.append(param.data.view(-1).detach().clone())
     num_layer = layer + 1
     w0 = torch.cat(w0) 
-    p  = nn.Parameter(torch.ones(len(w0), device=device)*torch.log(w0.abs().mean()), requires_grad=True)
+    #p  = nn.Parameter(torch.ones(len(w0), device=device)*torch.log(w0.abs().mean()), requires_grad=True)
+    #p  = nn.Parameter(torch.log(w0.abs()), requires_grad=True)
+    p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0))), requires_grad=True)
+    #p.data[0:int((p.numel()-1)/2)] = p.data[0:int((p.numel()-1)/2)]*2
+    prior_sigma = torch.log(w0.abs().mean())
+    #prior = torch.log(w0.abs())
+    prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0)))
     #we = nn.Parameter(torch.ones(1, device=device)*torch.log(w0.abs().mean()), requires_grad=True)
-    return w0, p, num_layer
+    return w0, p, num_layer, prior_sigma,prior
 
-# Function to make an empty mask of the same size as the model
+# Function to make an empty mask of the same size as the model weights 
 def make_mask(model):
     global step
     global mask
     step = 0
     for name, param in model.named_parameters(): 
-        if 'weight' in name:
-            step = step + 1
+        #if 'weight' in name:
+        step = step + 1
     mask = [None]* step 
     step = 0
     for name, param in model.named_parameters(): 
-        if 'weight' in name:
-            tensor = param.data.cpu().numpy()
-            mask[step] = np.ones_like(tensor)
-            step = step + 1
+        #if 'weight' in name:
+        tensor = param.data.cpu().numpy()
+        mask[step] = np.ones_like(tensor)
+        step = step + 1
     step = 0
 
 def original_initialization(mask_temp, initial_state_dict):
@@ -487,12 +517,12 @@ def original_initialization(mask_temp, initial_state_dict):
     
     step = 0
     for name, param in model.named_parameters(): 
-        if "weight" in name: 
-            weight_dev = param.device
-            param.data = torch.from_numpy(mask_temp[step] * initial_state_dict[name].cpu().numpy()).to(weight_dev)
-            step = step + 1
-        if "bias" in name:
-            param.data = initial_state_dict[name]
+        #if "weight" in name: 
+        weight_dev = param.device
+        param.data = torch.from_numpy(mask_temp[step] * initial_state_dict[name].cpu().numpy()).to(weight_dev)
+        step = step + 1
+        #if "bias" in name:
+        #    param.data = initial_state_dict[name]
     step = 0
 
 # Function for Initialization
@@ -564,11 +594,29 @@ def weight_init(m):
                 init.normal_(param.data)
 
 
+def sample_gumbel(shape, eps=1e-20,device="cuda"):
+    U = torch.rand(shape).to(device)
+    return -torch.log(-torch.log(U + eps) + eps)
+
+def gumbel_softmax_sample(logits, temperature):
+    y = logits + sample_gumbel(logits.size())
+    return F.softmax(y / temperature, dim=-1)
+
+def gumbel_softmax(logits, temperature, hard=False):
+    y = gumbel_softmax_sample(logits, temperature)
+    if hard:
+        shape = y.size()
+        _, ind = y.max(dim=-1)
+        y_hard = torch.zeros_like(y).view(-1, shape[-1])
+        y_hard.scatter_(1, ind.view(-1, 1), 1)
+        y_hard = y_hard.view(*shape)
+        y = (y_hard - y).detach() + y
+    return y                
+
+
 if __name__=="__main__":
     
-    #from gooey import Gooey
-    #@Gooey      
-    
+
     # Arguement Parser
     parser = argparse.ArgumentParser()
     parser.add_argument("--lr",default= 0.1, type=float, help="Learning rate")
@@ -582,10 +630,11 @@ if __name__=="__main__":
     parser.add_argument("--gpu", default="0", type=str)
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121")
-    parser.add_argument("--prune_percent", default=10, type=int, help="Pruning percent")
-    parser.add_argument("--prune_iterations", default=8, type=int, help="Pruning iterations count")
+    parser.add_argument("--prune_percent", default=30, type=int, help="Pruning percent")
+    parser.add_argument("--prune_iterations", default=9, type=int, help="Pruning iterations count")
     parser.add_argument("--er", default=None, type=str, help="type of regularization")
     parser.add_argument("--reg", default=0.1, type=float , help="regularization strength")
+    parser.add_argument("--noise_type", default="gaussian", type=str , help="chose gaussian or bernoulli noise")
     args = parser.parse_args()
 
 
@@ -599,3 +648,6 @@ if __name__=="__main__":
     # Looping Entire process
     #for i in range(0, 5):
     main(args, ITE=1)
+
+
+
