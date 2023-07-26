@@ -47,17 +47,17 @@ def main(args, ITE=0):
     elif args.dataset == "cifar10":
         traindataset = datasets.CIFAR10('../data', train=True, download=True,transform=transform)
         testdataset = datasets.CIFAR10('../data', train=False, transform=transform)      
-        from archs.cifar10 import AlexNet, LeNet5, fc1, vgg, resnet, densenet 
+        from archs.cifar10 import AlexNet, LeNet5, fc1, vgg, resnet, densenet ,fcs
 
     elif args.dataset == "fashionmnist":
         traindataset = datasets.FashionMNIST('../data', train=True, download=True,transform=transform)
         testdataset = datasets.FashionMNIST('../data', train=False, transform=transform)
-        from archs.mnist import AlexNet, LeNet5, fc1, vgg, resnet 
+        from archs.mnist import AlexNet, LeNet5, fc1, vgg, resnet
 
     elif args.dataset == "cifar100":
         traindataset = datasets.CIFAR100('../data', train=True, download=True,transform=transform)
         testdataset = datasets.CIFAR100('../data', train=False, transform=transform)   
-        from archs.cifar100 import AlexNet, fc1, LeNet5, vgg, resnet  
+        from archs.cifar100 import AlexNet, fc1, LeNet5, vgg, resnet  ,fcs
     
     # If you want to add extra datasets paste here
 
@@ -83,6 +83,8 @@ def main(args, ITE=0):
         model = resnet.resnet18().to(device)   
     elif args.arch_type == "densenet121":
         model = densenet.densenet121().to(device)   
+    elif args.arch_type == "fcs":
+        model = fcs.fcs().to(device)    
     # If you want to add extra model paste here
     else:
         print("\nWrong Model choice\n")
@@ -154,7 +156,7 @@ def main(args, ITE=0):
 
         print(f"\n--- Pruning Level [{ITE}:{_ite}/{ITERATION}]: ---")
 
-        print(mask)
+        #utils.plot_and_save_mask(mask, _ite,args)
 
         # Print the table of Nonzeros in each layer
         comp1 = utils.print_nonzeros(model)
@@ -199,18 +201,18 @@ def main(args, ITE=0):
         plt.ylabel("Loss and Accuracy") 
         plt.legend() 
         plt.grid(color="gray") 
-        utils.checkdir(f"{os.getcwd()}/plots/lt/{args.arch_type}/{args.dataset}/")
-        plt.savefig(f"{os.getcwd()}/plots/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_LossVsAccuracy_{comp1}.png", dpi=1200) 
+        utils.checkdir(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/acc")
+        plt.savefig(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/acc/{args.prune_type}_LossVsAccuracy_{comp1}.png") 
         plt.close()
 
         # Dump Plot values
-        utils.checkdir(f"{os.getcwd()}/dumps/lt/{args.arch_type}/{args.dataset}/")
-        all_loss.dump(f"{os.getcwd()}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_all_loss_{comp1}.dat")
-        all_accuracy.dump(f"{os.getcwd()}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_all_accuracy_{comp1}.dat")
+        utils.checkdir(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/")
+        all_loss.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.prune_type}_all_loss_{comp1}.dat")
+        all_accuracy.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.prune_type}_all_accuracy_{comp1}.dat")
         
         # Dumping mask
-        utils.checkdir(f"{os.getcwd()}/dumps/lt/{args.arch_type}/{args.dataset}/")
-        with open(f"{os.getcwd()}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_mask_{comp1}.pkl", 'wb') as fp:
+        utils.checkdir(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/")
+        with open(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.prune_type}_mask_{comp1}.pkl", 'wb') as fp:
             pickle.dump(mask, fp)
         
         # Making variables into 0
@@ -233,8 +235,8 @@ def main(args, ITE=0):
     plt.ylim(0,100)
     plt.legend() 
     plt.grid(color="gray") 
-    utils.checkdir(f"{os.getcwd()}/plots/lt/{args.arch_type}/{args.dataset}/")
-    plt.savefig(f"{os.getcwd()}/plots/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_AccuracyVsWeights.png", dpi=1200) 
+    utils.checkdir(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/acc")
+    plt.savefig(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/acc/{args.prune_type}_AccuracyVsWeights.png", dpi=1200) 
     plt.close()                    
    
 # Function for Training
@@ -243,39 +245,12 @@ def train(model, train_loader, optimizer, criterion, ir,reg):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.train()
     for batch_idx, (imgs, targets) in enumerate(train_loader):
-
-        if ir=="SAM":
+        optimizer.zero_grad()
             #imgs, targets = next(train_loader)
-            imgs, targets = imgs.to(device), targets.to(device)
-            output = model(imgs)
-            train_loss = criterion(output, targets)
-            train_loss.backward()
-            optimizer.first_step(zero_grad=True)
-            criterion(model(imgs), targets).backward()
-            optimizer.second_step(zero_grad=True)
-        elif ir=="Jac":    
-            optimizer.zero_grad()
-            #imgs, targets = next(train_loader)
-            imgs, targets = imgs.to(device), targets.to(device)
-            output = model(imgs)
-            train_loss = criterion(output, targets)
-            train_loss.backward(retain_graph=True, create_graph=True)
-            dot=0.0
-            norm_square_sum=0.0
-            v = torch.randn(output.shape, requires_grad=False).cuda()
-            dot = output.mul(v).sum()/(args.batch_size)
-            grads = torch.autograd.grad(dot, inputs=model.parameters(), create_graph=True)                
-            for g in grads:
-                norm_square_sum += torch.norm(g) ** 2   
-            implicit = reg*norm_square_sum
-            implicit.backward()
-        else:
-            optimizer.zero_grad()
-            #imgs, targets = next(train_loader)
-            imgs, targets = imgs.to(device), targets.to(device)
-            output = model(imgs)
-            train_loss = criterion(output, targets)
-            train_loss.backward()                
+        imgs, targets = imgs.to(device), targets.to(device)
+        output = model(imgs)
+        train_loss = criterion(output, targets)
+        train_loss.backward()                
                     
         step=0
         # Freezing Pruned weights by making their gradients Zero
@@ -283,7 +258,6 @@ def train(model, train_loader, optimizer, criterion, ir,reg):
             #if 'weight' in name:
             tensor = p.data.cpu().numpy()
             grad_tensor = p.grad.data.cpu().numpy()*mask[step]
-            #grad_tensor = np.where(tensor < EPS, 0, grad_tensor)
             p.grad.data = torch.from_numpy(grad_tensor).to(device)
             step+=1
         optimizer.step()
@@ -334,7 +308,7 @@ def prune_by_percentile(percent, resample=False, reinit=False,**kwargs):
 
 
 
-def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, lr=1e-3, num_steps=10):
+def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, lr=1e-3, num_steps=30):
     global model
     global mask
     global step 
@@ -416,7 +390,7 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
             
             kl_loss = 0.5 * torch.sum(2*prior - 2*p + (torch.exp(2*p - 2*prior) - 1))
 
-            total_loss =  batch_original_loss_after_noise + 0* kl_loss
+            total_loss =  batch_original_loss_after_noise + 1e-3* kl_loss
 
             total_loss.backward()
             #Freezing noise gradients for pruned weights indieces
@@ -620,7 +594,7 @@ if __name__=="__main__":
     # Arguement Parser
     parser = argparse.ArgumentParser()
     parser.add_argument("--lr",default= 0.1, type=float, help="Learning rate")
-    parser.add_argument("--batch_size", default=1280, type=int)
+    parser.add_argument("--batch_size", default=60, type=int)
     parser.add_argument("--start_iter", default=0, type=int)
     parser.add_argument("--end_iter", default=10, type=int)
     parser.add_argument("--print_freq", default=1, type=int)
@@ -629,8 +603,8 @@ if __name__=="__main__":
     parser.add_argument("--prune_type", default="lt", type=str, help="lt | reinit|noise")
     parser.add_argument("--gpu", default="0", type=str)
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
-    parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121")
-    parser.add_argument("--prune_percent", default=30, type=int, help="Pruning percent")
+    parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121|fcs")
+    parser.add_argument("--prune_percent", default=50, type=int, help="Pruning percent")
     parser.add_argument("--prune_iterations", default=9, type=int, help="Pruning iterations count")
     parser.add_argument("--er", default=None, type=str, help="type of regularization")
     parser.add_argument("--reg", default=0.1, type=float , help="regularization strength")

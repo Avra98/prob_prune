@@ -32,6 +32,30 @@ def original_initialization(mask_temp, initial_state_dict):
             param.data = initial_state_dict[name]
     step = 0
 
+
+def plot_and_save_mask(mask, prune_iter,args):
+    for i, layer_mask in enumerate(mask):
+        plt.figure(figsize=(10, 10))
+
+        # Check if the layer mask is 1D (e.g., for bias)
+        if len(layer_mask.shape) == 1:
+            # For 1D arrays, use a bar plot
+            plt.bar(np.arange(len(layer_mask)), layer_mask)
+        else:
+            # For 2D arrays, use imshow
+            plt.figure(figsize=(10,3))  # Increase figure size
+            plt.imshow(layer_mask, cmap='gray', aspect='auto')  # Change aspect ratio
+
+        checkdir(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/mask")
+        plt.title(f"Pruning iteration {prune_iter}, Layer {i+1}")
+        #plt.colorbar()
+        #plt.savefig(f"{prune_type}_mask_plot_iter_{prune_iter}_layer_{i+1}.png")
+        plt.savefig(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/mask/{args.prune_type}_mask_plot_iter_{prune_iter}_layer_{i+1}.png", dpi=1200) 
+        plt.show()
+        plt.close()
+
+
+
         
 
 
