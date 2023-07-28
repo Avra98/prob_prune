@@ -363,24 +363,23 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
                 step =0    
                 k=0 
 
+                kl_loss = 0.5 * torch.sum(2*prior - 2*p + (torch.exp(2*p - 2*prior) - 1))
 
             elif noise_type=="bernoulli":                     
                 k=0
                 for i, param in enumerate(model_copy.parameters()):
+                    with torch.no_grad():
+                        mask_torch = torch.tensor(mask[step]).to(device)
                     t = len(param.view(-1))
                     logits = torch.reshape(p[k:(k+t)], param.data.size()).to(device)
-                    gumbel_noise = -torch.log(-torch.log(torch.rand_like(logits)))
-                    perturbed_logits = logits + gumbel_noise
-                    noise = 1 / (1 + torch.exp(1 - 2*perturbed_logits/1.0))
-                    #noise = gumbel_softmax(logits, temperature=0.1)  # temperature can be adjusted
-                    #print(logits.shape,noise.shape,param.shape)
-                    # noise now is a "soft" one-hot vector, 
-                    # but it's differentiable and its values are between 0 and 1.
+                    noise = generate_noise_soft(torch.sigmoid(logits),temp=0.5) *mask_torch
                     with torch.no_grad():
                         if batch_idx==0:
                             print(p[k:k+t])               
                     k += t
                     param.mul_(noise)
+
+                kl_loss = torch.sigmoid(p) * torch.log(torch.sigmoid(p)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p))/(1-prior))
      
             # # Forward pass after adding noise
             output = model_copy(data)
@@ -388,7 +387,7 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
 
 
             
-            kl_loss = 0.5 * torch.sum(2*prior - 2*p + (torch.exp(2*p - 2*prior) - 1))
+            
 
             total_loss =  batch_original_loss_after_noise + 1e-3* kl_loss
 
@@ -407,7 +406,7 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
                 k=0  
                 step=0  
 
-            #print(p.grad)
+            print(p.grad)
 
             optimizer_p.step()
 
@@ -449,7 +448,7 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
         step = 0
         k=0
 
-def initialization(model, w0decay=1.0):
+def initialization(model, w0decay=1.0, noise_type = 'gausssian'):
     for param in model.parameters():
         param.data *= w0decay
 
@@ -461,11 +460,19 @@ def initialization(model, w0decay=1.0):
     w0 = torch.cat(w0) 
     #p  = nn.Parameter(torch.ones(len(w0), device=device)*torch.log(w0.abs().mean()), requires_grad=True)
     #p  = nn.Parameter(torch.log(w0.abs()), requires_grad=True)
-    p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0))), requires_grad=True)
-    #p.data[0:int((p.numel()-1)/2)] = p.data[0:int((p.numel()-1)/2)]*2
-    prior_sigma = torch.log(w0.abs().mean())
-    #prior = torch.log(w0.abs())
-    prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0)))
+    if noise_type=="gaussian":
+        p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0))), requires_grad=True)
+        #p.data[0:int((p.numel()-1)/2)] = p.data[0:int((p.numel()-1)/2)]*2
+        prior_sigma = torch.log(w0.abs().mean())
+        #prior = torch.log(w0.abs())
+        prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0)))
+    elif noise_type=="bernoulli":
+        p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
+        prior = torch.zeros_like(w0)
+        prior_sigma = 0.0
+
+
+            
     #we = nn.Parameter(torch.ones(1, device=device)*torch.log(w0.abs().mean()), requires_grad=True)
     return w0, p, num_layer, prior_sigma,prior
 
@@ -585,7 +592,19 @@ def gumbel_softmax(logits, temperature, hard=False):
         y_hard.scatter_(1, ind.view(-1, 1), 1)
         y_hard = y_hard.view(*shape)
         y = (y_hard - y).detach() + y
-    return y                
+    return y   
+
+def generate_noise_soft(logits,temp=0.5):
+    gumbel1 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
+    gumbel2 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
+    
+    numerator = torch.exp((logits + gumbel1)/temp)
+    denominator = torch.exp((logits + gumbel1)/temp)  + torch.exp(((1 - logits) + gumbel2)/temp)
+    
+    noise = numerator / denominator
+
+    return noise
+
 
 
 if __name__=="__main__":
