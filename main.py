@@ -42,7 +42,7 @@ def main(args, ITE=0):
     if args.dataset == "mnist":
         traindataset = datasets.MNIST('../data', train=True, download=True,transform=transform)
         testdataset = datasets.MNIST('../data', train=False, transform=transform)
-        from archs.mnist import AlexNet, LeNet5, fc1, vgg, resnet
+        from archs.mnist import AlexNet, LeNet5, fc1, vgg, resnet,fcs
 
     elif args.dataset == "cifar10":
         traindataset = datasets.CIFAR10('../data', train=True, download=True,transform=transform)
@@ -318,7 +318,7 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
 
     numel = sum(param.numel() for param in model.parameters())
 
-    _,p,_ , prior_sigma, prior= initialization(model)
+    _,p,_ , prior_sigma, prior= initialization(model,noise_type)
 
     optimizer_p = torch.optim.Adam([p], lr=1e-2)
     
@@ -367,19 +367,24 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
 
             elif noise_type=="bernoulli":                     
                 k=0
+                step=0
                 for i, param in enumerate(model_copy.parameters()):
                     with torch.no_grad():
                         mask_torch = torch.tensor(mask[step]).to(device)
                     t = len(param.view(-1))
                     logits = torch.reshape(p[k:(k+t)], param.data.size()).to(device)
+                    #print(mask_torch.shape,logits.shape,torch.sigmoid(logits).shape)
                     noise = generate_noise_soft(torch.sigmoid(logits),temp=0.5) *mask_torch
                     with torch.no_grad():
-                        if batch_idx==0:
-                            print(p[k:k+t])               
+                        if batch_idx == 0:
+                            print(f"This is p[{k}:{k+t}]:", p[k:k+t])
+                            print("This is noise:", noise)
+            
                     k += t
+                    step +=1
                     param.mul_(noise)
 
-                kl_loss = torch.sigmoid(p) * torch.log(torch.sigmoid(p)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p))/(1-prior))
+                kl_loss = (torch.sigmoid(p) * torch.log(torch.sigmoid(p)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p))/(1-prior))).sum()
      
             # # Forward pass after adding noise
             output = model_copy(data)
@@ -389,24 +394,24 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
             
             
 
-            total_loss =  batch_original_loss_after_noise + 1e-3* kl_loss
+            total_loss =  batch_original_loss_after_noise #+ 1e-3* kl_loss
 
             total_loss.backward()
             #Freezing noise gradients for pruned weights indieces
-            with torch.no_grad():
-                k=0
-                step=0
-                for name, q in model_copy.named_parameters():
-                    #if 'weight' in name:
-                    t = len(q.view(-1))
-                    grad_tensor_p = torch.reshape(p.grad.data[k:(k+t)], mask[step].shape).cpu().numpy() * mask[step]
-                    p.grad.data[k:(k+t)] = torch.from_numpy(grad_tensor_p.flatten()).to(device)
-                    k += t
-                    step+=1
-                k=0  
-                step=0  
+            # with torch.no_grad():
+            #     k=0
+            #     step=0
+            #     for name, q in model_copy.named_parameters():
+            #         #if 'weight' in name:
+            #         t = len(q.view(-1))
+            #         grad_tensor_p = torch.reshape(p.grad.data[k:(k+t)], mask[step].shape).cpu().numpy() * mask[step]
+            #         p.grad.data[k:(k+t)] = torch.from_numpy(grad_tensor_p.flatten()).to(device)
+            #         k += t
+            #         step+=1
+            #     k=0  
+            #     step=0  
 
-            print(p.grad)
+            #print(p.grad)
 
             optimizer_p.step()
 
@@ -448,7 +453,7 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
         step = 0
         k=0
 
-def initialization(model, w0decay=1.0, noise_type = 'gausssian'):
+def initialization(model,noise_type ="gaussian", w0decay=1.0):
     for param in model.parameters():
         param.data *= w0decay
 
@@ -467,13 +472,11 @@ def initialization(model, w0decay=1.0, noise_type = 'gausssian'):
         #prior = torch.log(w0.abs())
         prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0)))
     elif noise_type=="bernoulli":
+        print("here")
         p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
         prior = torch.zeros_like(w0)
         prior_sigma = 0.0
-
-
-            
-    #we = nn.Parameter(torch.ones(1, device=device)*torch.log(w0.abs().mean()), requires_grad=True)
+        
     return w0, p, num_layer, prior_sigma,prior
 
 # Function to make an empty mask of the same size as the model weights 
