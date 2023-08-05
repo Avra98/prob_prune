@@ -104,8 +104,8 @@ def main(args, ITE=0):
 
 
     # Copying and Saving Initial State
-    utils.checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/")
-    torch.save(model, f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/initial_state_dict_{args.prune_type}.pth.tar")
+    utils.checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
+    torch.save(model, f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/initial_state_dict_{args.prune_type}.pth.tar")
 
 
     # Optimizer and Loss
@@ -132,6 +132,8 @@ def main(args, ITE=0):
     all_loss = np.zeros(args.end_iter,float)
     all_accuracy = np.zeros(args.end_iter,float)
     noise_type=args.noise_type
+    prior_sigma = args.prior
+    kl=args.kl
 
 
 
@@ -139,7 +141,7 @@ def main(args, ITE=0):
         
         if not _ite == 0:
             if args.prune_type=="noise":
-                prune_by_noise(args.prune_percent, train_loader,criterion,noise_type)
+                prune_by_noise(args.prune_percent, train_loader,criterion,noise_type,prior_sigma)
             else:    
                 prune_by_percentile(args.prune_percent, resample=resample, reinit=reinit)
             if reinit:
@@ -183,8 +185,8 @@ def main(args, ITE=0):
                 # Save Weights
                 if accuracy > best_accuracy:
                     best_accuracy = accuracy
-                    utils.checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/")
-                    torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{_ite}_model_{args.prune_type}.pth.tar")
+                    utils.checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
+                    torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar")
 
             # Training
             loss = train(model, train_loader, optimizer, criterion, args.er, args.reg)
@@ -205,26 +207,26 @@ def main(args, ITE=0):
         # Plotting Loss (Training), Accuracy (Testing), Iteration Curve
         #NOTE Loss is computed for every iteration while Accuracy is computed only for every {args.valid_freq} iterations. Therefore Accuracy saved is constant during the uncomputed iterations.
         #NOTE Normalized the accuracy to [0,100] for ease of plotting.
-        plt.plot(np.arange(1,(args.end_iter)+1), 100*(all_loss - np.min(all_loss))/np.ptp(all_loss).astype(float), c="blue", label="Loss") 
-        plt.plot(np.arange(1,(args.end_iter)+1), all_accuracy, c="red", label="Accuracy") 
-        plt.title(f"Loss Vs Accuracy Vs Iterations ({args.dataset},{args.arch_type})") 
-        plt.xlabel("Iterations") 
-        plt.ylabel("Loss and Accuracy") 
-        plt.legend() 
-        plt.grid(color="gray") 
-        utils.checkdir(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/acc")
-        plt.savefig(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/acc/{args.prune_type}_LossVsAccuracy_{comp1}.png") 
-        plt.close()
+        # plt.plot(np.arange(1,(args.end_iter)+1), 100*(all_loss - np.min(all_loss))/np.ptp(all_loss).astype(float), c="blue", label="Loss") 
+        # plt.plot(np.arange(1,(args.end_iter)+1), all_accuracy, c="red", label="Accuracy") 
+        # plt.title(f"Loss Vs Accuracy Vs Iterations ({args.dataset},{args.arch_type})") 
+        # plt.xlabel("Iterations") 
+        # plt.ylabel("Loss and Accuracy") 
+        # plt.legend() 
+        # plt.grid(color="gray") 
+        # utils.checkdir(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/acc")
+        # plt.savefig(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/acc/{args.prune_type}_LossVsAccuracy_{comp1}.png") 
+        # plt.close()
 
-        # Dump Plot values
-        utils.checkdir(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/")
-        all_loss.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.prune_type}_all_loss_{comp1}.dat")
-        all_accuracy.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.prune_type}_all_accuracy_{comp1}.dat")
+        # # Dump Plot values
+        # utils.checkdir(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/")
+        # all_loss.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.prune_type}_all_loss_{comp1}.dat")
+        # all_accuracy.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.prune_type}_all_accuracy_{comp1}.dat")
         
-        # Dumping mask
-        utils.checkdir(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/")
-        with open(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.prune_type}_mask_{comp1}.pkl", 'wb') as fp:
-            pickle.dump(mask, fp)
+        # # Dumping mask
+        # utils.checkdir(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/")
+        # with open(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.prune_type}_mask_{comp1}.pkl", 'wb') as fp:
+        #     pickle.dump(mask, fp)
         
         # Making variables into 0
         best_accuracy = 0
@@ -232,22 +234,22 @@ def main(args, ITE=0):
         all_accuracy = np.zeros(args.end_iter,float)
 
     # Dumping Values for Plotting
-    utils.checkdir(f"{os.getcwd()}/dumps/lt/{args.arch_type}/{args.dataset}/")
-    comp.dump(f"{os.getcwd()}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_compression.dat")
-    bestacc.dump(f"{os.getcwd()}/dumps/lt/{args.arch_type}/{args.dataset}/{args.prune_type}_bestaccuracy.dat")
+    utils.checkdir(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
+    comp.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{args.prune_type}_compression.dat")
+    bestacc.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{args.prune_type}_bestaccuracy.dat")
 
     # Plotting
     a = np.arange(args.prune_iterations)
     plt.plot(a, bestacc, c="blue", label="Winning tickets") 
-    plt.title(f"Test Accuracy vs Unpruned Weights Percentage ({args.dataset},{args.arch_type})") 
+    plt.title(f"Test Accuracy vs Unpruned Weights Percentage ({args.dataset},{args.arch_type},{args.prune_type}, Kl:{args.kl}, Prior:{args.prior})")
     plt.xlabel("Unpruned Weights Percentage") 
     plt.ylabel("test accuracy") 
     plt.xticks(a, comp, rotation ="vertical") 
     plt.ylim(0,100)
     plt.legend() 
     plt.grid(color="gray") 
-    utils.checkdir(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/acc")
-    plt.savefig(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/acc/{args.prune_type}_AccuracyVsWeights.png", dpi=1200) 
+    utils.checkdir(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/acc")
+    plt.savefig(f"{os.getcwd()}/plots/{args.prune_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/acc/{args.prune_type}KL{args.kl}P{args.prior}_AccuracyVsWeights.png", dpi=1200) 
     plt.close()                    
    
 # Function for Training
@@ -307,6 +309,8 @@ def prune_by_percentile(percent, resample=False, reinit=False,**kwargs):
 
     # Get the percentile value from all weights (as opposed to only layerwise)
     percentile_value = np.percentile(all_alive_weights, percent)
+    ##print the percentile value
+    print(f'Pruning with threshold : {percentile_value}')
 
     # Now prune the weights
     step = 0
@@ -324,7 +328,7 @@ def prune_by_percentile(percent, resample=False, reinit=False,**kwargs):
 
 
 
-def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, lr=1e-3, num_steps=40):
+def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, lr=1e-3, num_steps=1):
     global model
     global mask
     global step 
@@ -335,7 +339,7 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
 
     numel = sum(param.numel() for param in model.parameters())
 
-    _,p,_ , prior_sigma, prior= initialization(model,noise_type)
+    _,p,_ ,prior= initialization(model,prior_sigma,noise_type)
 
     optimizer_p = torch.optim.Adam([p], lr=1e-2)
 
@@ -495,7 +499,7 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
 
     elif noise_type=="bernoulli":
         with torch.no_grad():    
-            # Apply sigmoid to the p values and convert to numpy
+            
             p_values = p.cpu().numpy()
             unpruned_p_values = []
             k = 0
@@ -527,7 +531,7 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
 
 
 
-def initialization(model,noise_type ="gaussian", w0decay=1.0):
+def initialization(model,prior_sigma,noise_type ="gaussian", w0decay=1.0):
     for param in model.parameters():
         param.data *= w0decay
 
@@ -542,17 +546,14 @@ def initialization(model,noise_type ="gaussian", w0decay=1.0):
     if noise_type=="gaussian":
         p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0))), requires_grad=True)
         #p.data[0:int((p.numel()-1)/2)] = p.data[0:int((p.numel()-1)/2)]*2
-        prior_sigma = torch.log(w0.abs().mean())
+        #prior_sigma = torch.log(w0.abs().mean())
         #prior = torch.log(w0.abs())
         prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0)))
     elif noise_type=="bernoulli":
         p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
-        prior = torch.sigmoid(4*torch.zeros_like(w0))
-        prior_sigma = 0.0
+        prior = torch.sigmoid(prior_sigma*torch.ones_like(w0))
         
-        ## 1/1+e(-100)
-
-    return w0, p, num_layer, prior_sigma,prior
+    return w0, p, num_layer,prior
 
 # Function to make an empty mask of the same size as the model weights 
 def make_mask(model):
@@ -712,11 +713,14 @@ if __name__=="__main__":
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121|fcs")
     parser.add_argument("--prune_percent", default=50, type=int, help="Pruning percent")
-    parser.add_argument("--prune_iterations", default=9, type=int, help="Pruning iterations count")
+    parser.add_argument("--prune_iterations", default=2, type=int, help="Pruning iterations count")
     parser.add_argument("--er", default=None, type=str, help="type of regularization")
     parser.add_argument("--reg", default=0.1, type=float , help="regularization strength")
     parser.add_argument("--noise_type", default="gaussian", type=str , help="chose gaussian or bernoulli noise")
     parser.add_argument("--prune_noise_iter", default=50, type=int , help="number of iterations for pruning by noise")
+    parser.add_argument("--kl", default="yes", type=str , help="if kl should be used or not")
+    parser.add_argument("--prior", default=0.0, type=float , help="prior centre in kl")
+    
     args = parser.parse_args()
 
 
@@ -730,9 +734,3 @@ if __name__=="__main__":
     # Looping Entire process
     #for i in range(0, 5):
     main(args, ITE=1)
-
-
-## set prior of bernoulli to be the percetnage to be pruned
-## use unbalanded initialization for different layers
-
-##
