@@ -7,12 +7,12 @@ def l2_norm(samples):
 
 
 def generate_noise_soft(logits,temp=0.5):
-    #gumbel1 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
-    #gumbel2 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
+    gumbel1 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
+    gumbel2 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
     #gumbel1 = torch.rand_like(logits).requires_grad_(False)
     #gumbel2 = torch.rand_like(logits).requires_grad_(False)
-    gumbel1 =  torch.normal(0.5, 0.05, size=logits.size(), requires_grad=False)
-    gumbel2 =  torch.normal(0.5, 0.05, size=logits.size(), requires_grad=False)
+    #gumbel1 =  torch.normal(0.5, 0.05, size=logits.size(), requires_grad=False)
+    #gumbel2 =  torch.normal(0.5, 0.05, size=logits.size(), requires_grad=False)
     
     numerator = torch.exp((logits + gumbel1)/temp)
     denominator = torch.exp((logits + gumbel1)/temp)  + torch.exp(((1 - logits) + gumbel2)/temp)
