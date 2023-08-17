@@ -56,7 +56,20 @@ def plot_and_save_mask(mask, prune_iter,args):
 
 
 
-        
+def torch_percentile(t, percent):
+    if not isinstance(t, torch.Tensor):
+        if isinstance(t, list):
+            t = torch.cat(t)
+        else:
+            raise TypeError("Input must be a Tensor or a list of Tensors")
+    
+    if not (0 <= percent <= 100):
+        raise ValueError("percent must be in the range [0, 100]")
+
+    sorted_t = torch.sort(t).values
+    index = int(percent/100. * (t.numel()-1))
+    return sorted_t[index]
+      
 
 
 #ANCHOR Checks of the directory exist and if not, creates a new directory
