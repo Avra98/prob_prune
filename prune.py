@@ -33,7 +33,7 @@ sns.set_style('darkgrid')
 def main(args, ITE=0):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    reinit = True if args.prune_type=="reinit" else False
+    reinit = True if args.initial=="reinit" else False
     ## Confirm why gpu utility is so low 
     # GPU Utility
 
@@ -134,6 +134,7 @@ def main(args, ITE=0):
     for _ite in range(args.start_iter, ITERATION):
         
         if not _ite == 0:
+            ## prune here 
             if args.prune_type=="noise":
                 #prune_by_noise(args.prune_percent, train_loader,criterion,noise_type,prior_sigma,kl)
                 prune_by_noise(args.prune_percent, train_loader,criterion,noise_type,prior_sigma,kl,num_steps=noise_step)
@@ -142,7 +143,9 @@ def main(args, ITE=0):
             elif args.prune_type=="random":
                 prune_by_random(args.prune_percent, resample=resample, reinit=reinit)
 
-            if reinit:
+
+            ## initialize here 
+            if args.initial=="reinit":
                 model.apply(weight_init)
                 step = 0
                 for name, param in model.named_parameters():
@@ -151,8 +154,17 @@ def main(args, ITE=0):
                     param.data = torch.from_numpy(param.data.cpu().numpy() * mask[step]).to(weight_dev)
                     step = step + 1
                 step = 0
-            else:
+            elif args.initial=="original":
                 original_initialization(mask, initial_state_dict)
+            elif args.initial=="last":
+                original_initialization(mask, copy.deepcopy(model.state_dict())) ## does not alter the model, only masks it 
+            elif args.initial=="rewind":
+                print("initialization at rewind")
+                ## load the model from the rewind folder
+                model_rewind = torch.load(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/rewind/{args.kl}+{args.prior}/{args.rewind_iter}_model_{args.prune_type}_{args.noise_type}.pth.tar")
+                ## mask the model
+                original_initialization(mask, copy.deepcopy(model_rewind.state_dict()))
+
 
         count_nonzero(model,mask)           
         optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, weight_decay=1e-4)           
@@ -182,9 +194,17 @@ def main(args, ITE=0):
                     torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar")
 
             # Training
-            loss = train(model, train_loader, optimizer, criterion, args.er, args.reg)
+            loss = train(model, train_loader, optimizer, criterion)
             all_loss[iter_] = loss
             all_accuracy[iter_] = accuracy
+
+            if args.initial=="rewind" and args.rewind_iter==iter_ and _ite==0:
+                ## save the model in a separaate folder named rewind
+                utils.checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/rewind/{args.kl}+{args.prior}")
+                torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/rewind/{args.kl}+{args.prior}/{args.rewind_iter}_model_{args.prune_type}_{args.noise_type}.pth.tar")
+                print("here at",iter_)
+
+
 
             #torch.save(model.state_dict(), 'model.pth')
             #model.load_state_dict(torch.load('model.pth'))
@@ -241,12 +261,12 @@ def main(args, ITE=0):
     plt.ylim(0,100)
     plt.legend() 
     plt.grid(color="gray") 
-    utils.checkdir(f"{os.getcwd()}/plots/{args.prune_type}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/acc")
-    plt.savefig(f"{os.getcwd()}/plots/{args.prune_type}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/acc/{args.prune_type}KL{args.kl}P{args.prior}_AccuracyVsWeights.png", dpi=1200) 
+    utils.checkdir(f"{os.getcwd()}/plots/{args.prune_type}/{args.initial}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/acc")
+    plt.savefig(f"{os.getcwd()}/plots/{args.prune_type}/{args.initial}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/acc/{args.prune_type}KL{args.kl}P{args.prior}_AccuracyVsWeights.png", dpi=1200) 
     plt.close()                    
    
 # Function for Training
-def train(model, train_loader, optimizer, criterion, ir,reg):
+def train(model, train_loader, optimizer, criterion):
     EPS = 1e-6
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.train()
@@ -752,12 +772,13 @@ if __name__=="__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--lr",default= 0.05, type=float, help="Learning rate")
     parser.add_argument("--batch_size", default=60, type=int)
-    parser.add_argument("--start_iter", default=0, type=int)
+    parser.add_argument("--start_iter", default=0, type=int) 
     parser.add_argument("--end_iter", default=10, type=int)
     parser.add_argument("--print_freq", default=1, type=int)
     parser.add_argument("--valid_freq", default=1, type=int)
     parser.add_argument("--resume", action="store_true")
-    parser.add_argument("--prune_type", default="lt", type=str, help="lt | reinit|noise|random")
+    parser.add_argument("--prune_type", default="lt", type=str, help="lt |noise|random")
+    parser.add_argument("--initial", default="reinit", type=str, help="reinit|original|last|rewind")
     parser.add_argument("--gpu", default="0", type=str)
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121|fcs")
@@ -769,7 +790,7 @@ if __name__=="__main__":
     parser.add_argument("--kl", default="yes", type=str , help="if kl should be used or not")
     parser.add_argument("--prior", default=0.0, type=float , help="prior centre in kl")
     parser.add_argument("--noise_step", default=10, type=int , help="number of noise iterations")
-    
+    parser.add_argument("--rewind_iter", default=3, type=int , help="number of rewind iterations")
     args = parser.parse_args()
 
 
