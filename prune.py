@@ -352,9 +352,14 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
 
     numel = sum(param.numel() for param in model.parameters())
 
+
     _,p,_ ,prior= initialization(model,prior_sigma,noise_type)
 
     optimizer_p = torch.optim.Adam([p], lr=1e-2)
+
+    # model_copy = copy.deepcopy(model)
+    # for param in model_copy.parameters():
+    #     param.requires_grad = False
 
 
     for epoch in range(num_steps):
@@ -374,22 +379,23 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
                 param.requires_grad = False
                 #print(param)
 
-
             ## no noise added at the pruned locations
             if noise_type=="gaussian":
                 k=0
                 step=0
-                for i, param in enumerate(model_copy.parameters()):
+                for i, (name, param) in enumerate(model_copy.named_parameters()):    
                     with torch.no_grad():
                         mask_torch = torch.tensor(mask[step]).to(device)
 
                     t = len(param.view(-1))
                     eps = torch.randn_like(param.data).to(device)                
                     noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask_torch
-                    with torch.no_grad(): 
-                        if batch_idx==0:
-                            print(torch.mean(torch.abs(param.data).view(-1)/torch.exp(p[k:(k+t)])))    
-                            #print(torch.mean(p[k:(k+t)]))                                     
+                    #with torch.no_grad(): 
+                    #    if batch_idx==0:
+                            #print(torch.mean(torch.abs(param.data).view(-1)/torch.exp(p[k:(k+t)])))    
+                     #       print(f"Layer {name}: {torch.mean(torch.abs(param.data).view(-1) / torch.exp(p[k:(k+t)]))}")
+                            #print(torch.mean(p[k:(k+t)]))   
+                                
                     k += t  
                     step +=1                   
                     param.add_(noise) 
@@ -439,10 +445,11 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
 
 
             if kl=="yes":
-                total_loss =  batch_original_loss_after_noise + 1e-4* kl_loss
+                total_loss = batch_original_loss_after_noise + 1e-4*kl_loss
             else:                    
                 total_loss =  batch_original_loss_after_noise
 
+            #total_loss.backward(retain_graph=True)
             total_loss.backward()
             #Freezing noise gradients for pruned weights indieces
             # with torch.no_grad():
@@ -459,6 +466,9 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
             #     step=0  
 
             #print(p.grad)
+            #for name, q in model_copy.named_parameters():
+            #    print(name,torch.mean(q.data))
+
 
             optimizer_p.step()
 
@@ -560,6 +570,7 @@ def initialization(model,prior_sigma,noise_type ="gaussian", w0decay=1.0):
     #p  = nn.Parameter(torch.log(w0.abs()), requires_grad=True)
     if noise_type=="gaussian":
         p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0))), requires_grad=True)
+        #p  = nn.Parameter(torch.ones(len(w0), device=device)*torch.log(w0.abs().mean()), requires_grad=True)
         #p.data[0:int((p.numel()-1)/2)] = p.data[0:int((p.numel()-1)/2)]*2
         #prior_sigma = torch.log(w0.abs().mean())
         #prior = torch.log(w0.abs())
@@ -646,13 +657,16 @@ def weight_init(m):
             init.normal_(m.bias.data)
     elif isinstance(m, nn.BatchNorm1d):
         init.normal_(m.weight.data, mean=1, std=0.02)
-        init.constant_(m.bias.data, 0)
+        init.normal_(m.bias.data, mean=1, std=0.02)
+        #init.constant_(m.bias.data, 0)
     elif isinstance(m, nn.BatchNorm2d):
         init.normal_(m.weight.data, mean=1, std=0.02)
-        init.constant_(m.bias.data, 0)
+        init.normal_(m.bias.data, mean=1, std=0.02)
+        #init.constant_(m.bias.data, 0)
     elif isinstance(m, nn.BatchNorm3d):
         init.normal_(m.weight.data, mean=1, std=0.02)
-        init.constant_(m.bias.data, 0)
+        init.normal_(m.bias.data, mean=1, std=0.02)
+        #init.constant_(m.bias.data, 0)
     elif isinstance(m, nn.Linear):
         init.xavier_normal_(m.weight.data)
         init.normal_(m.bias.data)
