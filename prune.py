@@ -757,7 +757,7 @@ def prune_by_random(percent, resample=False, reinit=False, **kwargs):
     # print(max(mask_alive_indices)-min(mask_alive_indices) ) 
 
     # Select percent% of the alive indices to prune
-    num_weights_to_prune = int((percent / 100) * len(alive_indices))
+    num_weights_to_prune = int(percent * len(alive_indices))
     indices_to_prune = np.random.choice(alive_indices, num_weights_to_prune, replace=False)
     
     # Update the masks and parameters
