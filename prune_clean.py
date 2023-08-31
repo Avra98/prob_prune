@@ -17,7 +17,7 @@ from utility.prune import *
 from utility.prune_pac import *
 
 # Tensorboard initialization
-writer = SummaryWriter()
+#writer = SummaryWriter()
 
 # Plotting Style
 sns.set_style('darkgrid')
@@ -163,7 +163,7 @@ def main(args):
                 pbar.set_description(
                     f'Train Epoch: {iter_}/{args.end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f}% Best Accuracy: {best_accuracy:.2f}%')       
 
-        writer.add_scalar('Accuracy/test', best_accuracy, comp1)
+        #writer.add_scalar('Accuracy/test', best_accuracy, comp1)
         bestacc[_ite]=best_accuracy
 
         # Making variables into 0
@@ -212,7 +212,7 @@ if __name__=="__main__":
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121|fcs")
     parser.add_argument("--prune_percent", default=0.80, type=float, help="Pruning percent")
-    parser.add_argument("--prune_iterations", default=4, type=int, help="Pruning iterations count")
+    parser.add_argument("--prune_iterations", default=5, type=int, help="Pruning iterations count")
     parser.add_argument("--noise_type", default="gaussian", type=str , help="chose gaussian or bernoulli noise")
     parser.add_argument("--kl", action='store_true', help="if using the kl term")
     parser.add_argument("--augmentation", "-aug", action='store_true', help="if using augmentation.")
