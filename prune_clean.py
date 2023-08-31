@@ -70,8 +70,8 @@ def main(args):
     initial_state_dict = copy.deepcopy(model.state_dict())
 
     # Copying and Saving Initial State
-    checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
-    torch.save(model, f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/initial_state_dict_{args.prune_type}.pth.tar")
+    checkdir(f"{os.getcwd()}/saves/{args.prune_type}/{args.initial}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
+    torch.save(model, f"{os.getcwd()}/saves/{args.prune_type}/{args.initial}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/initial_state_dict_{args.prune_type}.pth.tar")
  
     optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
     criterion = nn.CrossEntropyLoss() # Default was F.nll_loss
@@ -141,8 +141,9 @@ def main(args):
                 # Save Weights
                 if accuracy > best_accuracy:
                     best_accuracy = accuracy
-                    checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
-                    torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar")
+                    #checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
+                    checkdir(f"{os.getcwd()}/saves/{args.prune_type}/{args.initial}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}")
+                    torch.save(model,f"{os.getcwd()}/saves/{args.prune_type}/{args.initial}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar")
 
             # Training
             loss = train(model, mask, dataset.train, optimizer, criterion)
@@ -204,7 +205,7 @@ if __name__=="__main__":
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--threads", default=4, type=int, help="number of threads of data loader")
     parser.add_argument("--prune_type", default="lt", type=str, help="lt |noise|random")
-    parser.add_argument("--initial", default="reinit", type=str, help="reinit|original|last|rewind")
+    parser.add_argument("--initial", default="original", type=str, help="reinit|original|last|rewind")
     parser.add_argument("--gpu", default="0", type=str)
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121|fcs")

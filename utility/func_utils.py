@@ -99,7 +99,7 @@ def test(model, test_loader, criterion):
 
 def original_initialization(model, mask_temp, initial_state_dict): 
     step = 0
-    for name, param in model.parameters(): 
+    for name, param in model.named_parameters(): 
         param.data = mask_temp[step] * initial_state_dict[name]
         step = step + 1
     return

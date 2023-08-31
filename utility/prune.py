@@ -53,6 +53,7 @@ def prune_by_percentile(model, mask, percent):
     return
 
 def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prior_sigma=1.0, kl=False, lr=1e-3, num_steps=1):
+    #torch.manual_seed(0)
     kl_loss = 0.0
     device = next(model.parameters()).device
     _,p,_ ,prior= initialization(model,prior_sigma,noise_type)
@@ -63,6 +64,7 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
         batch_original_loss_after_noise_accum = 0.0
         total_loss_accum = 0.0
         kl_loss_accum = 0.0
+    
 
         # Loop over mini-batches
         for batch_idx, (data, target) in enumerate(train_loader):
@@ -80,7 +82,11 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
                     t = len(param.view(-1))
                     eps = torch.randn_like(param.data, device = device)                
                     noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]             
-                    k += t            
+                    k += t    
+                    # with torch.no_grad():
+                        ## print sum of noise and also batch_idx number 
+                        # if batch_idx==0:
+                        #     print(i,torch.sum(eps))        
                     param.add_(noise)    
                 if kl:
                     kl_loss = 0.5 * torch.sum(2*prior - 2*p + (torch.exp(2*p - 2*prior) - 1))
@@ -106,6 +112,9 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
             else:                    
                 total_loss =  batch_original_loss_after_noise
             total_loss.backward()
+            with torch.no_grad():
+                if batch_idx==1:    
+                    print(torch.mean(p))
             optimizer_p.step()
 
 
