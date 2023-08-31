@@ -77,29 +77,32 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
 
             ## no noise added at the pruned locations
             if noise_type.lower()=="gaussian":
-                k=0
+                k, num_params = 0, 0
                 for i, param in enumerate(model_copy.parameters()):   
                     t = len(param.view(-1))
                     eps = torch.randn_like(param.data, device = device)                
-                    noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]             
-                    k += t            
+                    noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]                       
                     param.add_(noise)    
-                    p.data[k:(k+t)] *= mask[i]
+                    with torch.no_grad():
+                        p.data[k:(k+t)] *= mask[i].view(-1)
+                    k += t 
+                    num_params += mask[i].sum() 
                 if kl:
-                    kl_loss = 0.5 * torch.sum(2*prior - 2*p + (torch.exp(2*p - 2*prior) - 1))
+                    kl_loss = 0.5 *(torch.sum( 2*prior - 2*p + (torch.exp(2*p - 2*prior))) - num_params)
 
             elif noise_type.lower()=="bernoulli":                     
-                k=0
+                k, kl_loss = 0, 0
                 for i, param in enumerate(model_copy.parameters()):   
                     t = len(param.view(-1))
                     logits = torch.reshape(p[k:(k+t)], param.data.size())
                     noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
-                    k += t
                     param.mul_(noise)
-                    p.data[k:(k+t)] *= mask[i]
-                if kl:
-                    kl_loss = (torch.sigmoid(p) * torch.log((torch.sigmoid(p)+1e-6)/prior) + \
-                                (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p)+1e-6)/(1-prior))).sum()
+                    k += t
+                    
+                    if kl:
+                        kl_loss += (mask[i].view(-1)*(
+                            torch.sigmoid(p[k:(k+t)]) * torch.log((torch.sigmoid(p[k:(k+t)])+1e-6)/prior[k:(k+t)]) + \
+                            (1-torch.sigmoid(p[k:(k+t)])) * torch.log((1-torch.sigmoid(p[k:(k+t)])+1e-6)/(1-prior[k:(k+t)])))).sum()
      
             # Forward pass after adding noise
             output = model_copy(data)
@@ -110,6 +113,9 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
             else:                    
                 total_loss =  batch_original_loss_after_noise
             total_loss.backward()
+
+            print(p.grad)
+
             optimizer_p.step()
 
 
