@@ -44,8 +44,8 @@ def plot_and_save_mask(mask, prune_iter,args):
 
 #ANCHOR Checks of the directory exist and if not, creates a new directory
 def checkdir(directory):
-            if not os.path.exists(directory):
-                os.makedirs(directory)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
 #FIXME 
 def plot_train_test_stats(stats,

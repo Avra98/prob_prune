@@ -14,6 +14,7 @@ from utility.data import *
 from utility.log_utils import *
 from utility.func_utils import *
 from utility.prune import *
+from utility.prune_pac import *
 
 # Tensorboard initialization
 writer = SummaryWriter()
@@ -21,7 +22,7 @@ writer = SummaryWriter()
 # Plotting Style
 sns.set_style('darkgrid')
 
-torch.manual_seed(42)
+torch.manual_seed(0)
 def main(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     reinit = True if args.initial=="reinit" else False
@@ -72,8 +73,6 @@ def main(args):
     # Copying and Saving Initial State
     checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
     torch.save(model, f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/initial_state_dict_{args.prune_type}.pth.tar")
- 
-    optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
     criterion = nn.CrossEntropyLoss() # Default was F.nll_loss
 
     # Pruning
@@ -90,7 +89,7 @@ def main(args):
     prior_sigma = args.prior
     kl=args.kl
     noise_step = args.noise_step
-
+    
     for _ite in range(args.start_iter, ITERATION):
         
         if not _ite == 0:
@@ -98,6 +97,9 @@ def main(args):
             if args.prune_type=="noise":
                 prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
                 	prior_sigma,kl,num_steps=noise_step,lr=args.lr_p)
+            elif args.prune_type=="noise_pac":
+                prune_by_noise_trainable_prior(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
+                    num_steps=noise_step,lr=args.lr_p)                
             elif args.prune_type=="lt":    
                 prune_by_percentile(model, mask, args.prune_percent)
             elif args.prune_type=="random":
@@ -124,7 +126,8 @@ def main(args):
                 original_initialization(model, mask, copy.deepcopy(model_rewind.state_dict()))
 
         count_nonzero(model, mask)           
-        optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)           
+        optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, 
+        								momentum=0.9, weight_decay=5e-4)           
 
         print(f"\n--- Pruning Level [{_ite}/{ITERATION}]: ---")
         # Print the table of Nonzeros in each layer
@@ -193,10 +196,10 @@ def main(args):
 if __name__=="__main__":
     # Arguement Parser
     parser = argparse.ArgumentParser()
-    parser.add_argument("--lr",default= 0.05, type=float, help="Learning rate")
-    parser.add_argument("--weight_decay", default=1e-4, type=float, help="Weight Decay")
+    parser.add_argument("--lr",default= 0.02, type=float, help="Learning rate")
+    #parser.add_argument("--weight_decay", default=1e-4, type=float, help="Weight Decay")
     parser.add_argument("--lr_p", default=1e-2, type=float, help="lr for posterier variance")
-    parser.add_argument("--batch_size", default=60, type=int)
+    parser.add_argument("--batch_size", default=128, type=int)
     parser.add_argument("--start_iter", default=0, type=int) 
     parser.add_argument("--end_iter", default=10, type=int)
     parser.add_argument("--print_freq", default=1, type=int)
@@ -209,7 +212,7 @@ if __name__=="__main__":
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121|fcs")
     parser.add_argument("--prune_percent", default=0.80, type=float, help="Pruning percent")
-    parser.add_argument("--prune_iterations", default=10, type=int, help="Pruning iterations count")
+    parser.add_argument("--prune_iterations", default=4, type=int, help="Pruning iterations count")
     parser.add_argument("--noise_type", default="gaussian", type=str , help="chose gaussian or bernoulli noise")
     parser.add_argument("--kl", action='store_true', help="if using the kl term")
     parser.add_argument("--augmentation", "-aug", action='store_true', help="if using augmentation.")
