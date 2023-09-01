@@ -20,7 +20,7 @@ def func_sum(x, gamma, error_list, error_mean_list):
     return sum_output
 
 
-def gen_output(model, prior, mask, dataset, n, criterion):
+def gen_output(model, prior, mask, dataset, n, criterion, noise='gaussian'):
     error_list = []
     error_mean_list = []
 
@@ -32,7 +32,11 @@ def gen_output(model, prior, mask, dataset, n, criterion):
             model1 = copy.deepcopy(model)
             # generating a random model/network from the prior distribtuion
             for k, param in enumerate(model1.parameters()):
-                param.data += torch.randn(param.data.size(), device=device)*mask[k]*prior
+                param.data *= mask[k]
+                if noise == 'gaussian':
+                    param.data += torch.randn(param.data.size(), device=device)*mask[k]*prior
+                else:
+                    param.data = nn.functional.dropout(param.data, p = prior, training=True)
 
             errors = []
             for batch in train:
@@ -45,7 +49,7 @@ def gen_output(model, prior, mask, dataset, n, criterion):
             error_mean_list.append(np.mean(errors))
     return error_list, error_mean_list
 
-def compute_K_sample(model, mask, dataset, criterion, min_gamma, max_gamma, 
+def compute_K_sample(model, mask, dataset, criterion, min_gamma, max_gamma, noise='gaussian',
                         min_nu=-6, max_nu=-2.5):
     reduction = criterion.reduction
     criterion.reduction = 'none'
@@ -53,13 +57,16 @@ def compute_K_sample(model, mask, dataset, criterion, min_gamma, max_gamma,
         # estimate k within a certain gamma range given prior
         gamma_grid = np.exp(np.linspace(np.log(min_gamma), np.log(max_gamma), 10))
         print('searching for K4....')
-        error_list, error_mean_list = gen_output(model, prior, mask, dataset, 10, criterion)
+        error_list, error_mean_list = gen_output(model, prior, mask, dataset, 10, criterion, noise)
             
         while min(func_sum(x, gamma_grid, error_list, error_mean_list)) < 0:
             x = x*1.1
         return x
 
-    prior_list = np.exp(np.linspace(min_nu, max_nu, int(2*(max_nu-min_nu)) ))
+    prior_list = np.linspace(min_nu, max_nu, 8)
+    if noise == 'gaussian':
+        prior_list = np.exp(prior_list)
+
     K_list = [1e-3]
     for i in range(len(prior_list)):
         K_list.append(est_K(prior_list[i], K_list[-1]))
@@ -135,7 +142,15 @@ def prune_by_noise_trainable_prior(model, mask, percent,train_loader,criterion, 
 
     min_gamma = 0.5
     max_gamma = 10
-    prior_list, K_list = compute_K_sample(model, mask, train_loader, criterion, min_gamma, max_gamma)
+    if noise_type == 'gaussian':
+        min_nu=-6
+        max_nu=-2.5
+    else:
+        min_nu=0.0
+        max_nu=0.999
+
+    prior_list, K_list = compute_K_sample(model, mask, train_loader, criterion, min_gamma, max_gamma, noise_type,
+                                            min_nu, max_nu)
     print("prior:", prior_list)
     print("K:", K_list)
 
@@ -175,6 +190,9 @@ def prune_by_noise_trainable_prior(model, mask, percent,train_loader,criterion, 
                     k += t
 
                 KL *= 0.5
+                gamma1 = fun_K_auto(torch.exp(prior.mean()), prior_list, K_list)**(-1)*( 2*(KL+60) /len(train_loader.dataset)/3 )**0.5
+                gamma1 = torch.clip(gamma1,max=max_gamma,min=min_gamma)
+                kl_loss = 3*fun_K_auto(torch.exp(prior.mean()), prior_list, K_list)**2*gamma1/2 + (KL+60)/len(train_loader.dataset)/gamma1
 
             elif noise_type.lower()=="bernoulli":                     
                 k, KL = 0, 0
@@ -193,10 +211,10 @@ def prune_by_noise_trainable_prior(model, mask, percent,train_loader,criterion, 
                             (1-prob_p) * torch.log( (1-prob_p)/(1-prob_prior) ) 
                         )).sum()
                     k += t
-
-            gamma1 = fun_K_auto(torch.exp(prior.mean()), prior_list, K_list)**(-1)*( 2*(KL+60) /len(train_loader.dataset)/3 )**0.5
-            gamma1 = torch.clip(gamma1,max=max_gamma,min=min_gamma)
-            kl_loss = 3*fun_K_auto(torch.exp(prior.mean()), prior_list, K_list)**2*gamma1/2 + (KL+60)/len(train_loader.dataset)/gamma1
+                    
+                    gamma1 = fun_K_auto(prob_prior.mean(), prior_list, K_list)**(-1)*( 2*(KL+60) /len(train_loader.dataset)/3 )**0.5
+                    gamma1 = torch.clip(gamma1,max=max_gamma,min=min_gamma)
+                    kl_loss = 3*fun_K_auto(prob_prior.mean(), prior_list, K_list)**2*gamma1/2 + (KL+60)/len(train_loader.dataset)/gamma1
 
             # Forward pass after adding noise
             output = model_copy(data)
