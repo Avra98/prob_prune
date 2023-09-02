@@ -127,7 +127,7 @@ def main(args):
 
         count_nonzero(model, mask)           
         optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, 
-        								 weight_decay=5e-4)           
+        								 weight_decay=1e-4)           
 
         print(f"\n--- Pruning Level [{_ite}/{ITERATION}]: ---")
         # Print the table of Nonzeros in each layer
@@ -208,12 +208,12 @@ if __name__=="__main__":
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--threads", default=4, type=int, help="number of threads of data loader")
     parser.add_argument("--prune_type", default="lt", type=str, help="lt |noise|random")
-    parser.add_argument("--initial", default="original", type=str, help="reinit|original|last|rewind")
+    parser.add_argument("--initial", default="last", type=str, help="reinit|original|last|rewind")
     parser.add_argument("--gpu", default="0", type=str)
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121|fcs")
-    parser.add_argument("--prune_percent", default=0.8, type=float, help="Pruning percent")
-    parser.add_argument("--prune_iterations", default=5, type=int, help="Pruning iterations count")
+    parser.add_argument("--prune_percent", default=0.5, type=float, help="Pruning percent")
+    parser.add_argument("--prune_iterations", default=10, type=int, help="Pruning iterations count")
     parser.add_argument("--noise_type", default="gaussian", type=str , help="chose gaussian or bernoulli noise")
     parser.add_argument("--kl", action='store_true', help="if using the kl term")
     parser.add_argument("--augmentation", "-aug", action='store_true', help="if using augmentation.")
