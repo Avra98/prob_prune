@@ -84,12 +84,11 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
                     eps = torch.randn_like(param.data, device = device)                
                     noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]                       
                     param.add_(noise)    
-                    with torch.no_grad():
-                         p.data[k:(k+t)] *= mask[i].view(-1)
+
                     k += t 
-                    num_params += mask[i].sum() 
+                    #num_params += mask[i].sum() 
                 if kl:
-                    kl_loss = 0.5 *(torch.sum( 2*prior - 2*p + (torch.exp(2*p - 2*prior))) - num_params)
+                    kl_loss = 0.5 *(torch.sum( 2*prior - 2*p + (torch.exp(2*p - 2*prior))-1)) #- num_params)
 
             elif noise_type.lower()=="bernoulli":                     
                 k, kl_loss = 0, 0

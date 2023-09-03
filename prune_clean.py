@@ -83,14 +83,17 @@ def main(args):
     comp = np.zeros(ITERATION,float)
     bestacc = np.zeros(ITERATION,float)
     step = 0
-    all_loss = np.zeros(args.end_iter,float)
-    all_accuracy = np.zeros(args.end_iter,float)
+    end_iter = args.end_iter
+    all_loss = np.zeros(end_iter,float)
+    all_accuracy = np.zeros(end_iter,float)
+
     noise_type=args.noise_type
     prior_sigma = args.prior
     kl=args.kl
     noise_step = args.noise_step
     
     for _ite in range(args.start_iter, ITERATION):
+
         
         if not _ite == 0:
             ## prune here 
@@ -106,6 +109,7 @@ def main(args):
                 prune_by_random(model, mask, args.prune_percent)
 
 
+
             ## initialize here 
             if args.initial=="reinit":
                 reset_all_weights(model)
@@ -118,6 +122,7 @@ def main(args):
                 original_initialization(model, mask, initial_state_dict)
             elif args.initial=="last":
                 original_initialization(model, mask, copy.deepcopy(model.state_dict())) ## does not alter the model, only masks it 
+                end_iter = args.red_end_iter
             elif args.initial=="rewind":
                 print("initialization at rewind")
                 ## load the model from the rewind folder
@@ -133,7 +138,7 @@ def main(args):
         # Print the table of Nonzeros in each layer
         comp1 = print_nonzeros(model)
         comp[_ite] = comp1
-        pbar = tqdm(range(args.end_iter))
+        pbar = tqdm(range(end_iter))
 
         for iter_ in pbar:
 
@@ -161,16 +166,16 @@ def main(args):
             # Frequency for Printing Accuracy and Loss
             if iter_ % args.print_freq == 0:
                 pbar.set_description(
-                    f'Train Epoch: {iter_}/{args.end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f}% Best Accuracy: {best_accuracy:.2f}%')       
+                    f'Train Epoch: {iter_}/{end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f}% Best Accuracy: {best_accuracy:.2f}%')       
 
-            print(f'Train Epoch: {iter_}/{args.end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f}% Best Accuracy: {best_accuracy:.2f}%') 
+            print(f'Train Epoch: {iter_}/{end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f}% Best Accuracy: {best_accuracy:.2f}%') 
         #writer.add_scalar('Accuracy/test', best_accuracy, comp1)
         bestacc[_ite]=best_accuracy
 
         # Making variables into 0
         best_accuracy = 0
-        all_loss = np.zeros(args.end_iter,float)
-        all_accuracy = np.zeros(args.end_iter,float)
+        all_loss = np.zeros(end_iter,float)
+        all_accuracy = np.zeros(end_iter,float)
      
     # Dumping Values for Plotting
     checkdir(f"{os.getcwd()}/dumps/{args.prune_type}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
@@ -193,7 +198,6 @@ def main(args):
 
 
 
-
 if __name__=="__main__":
     # Arguement Parser
     parser = argparse.ArgumentParser()
@@ -202,7 +206,8 @@ if __name__=="__main__":
     parser.add_argument("--lr_p", default=1e-2, type=float, help="lr for posterier variance")
     parser.add_argument("--batch_size", default=128, type=int)
     parser.add_argument("--start_iter", default=0, type=int) 
-    parser.add_argument("--end_iter", default=10, type=int)
+    parser.add_argument("--end_iter", default=25, type=int)
+    parser.add_argument("--red_end_iter", default=5, type=int)
     parser.add_argument("--print_freq", default=1, type=int)
     parser.add_argument("--valid_freq", default=1, type=int)
     parser.add_argument("--resume", action="store_true")
