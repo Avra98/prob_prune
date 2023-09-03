@@ -61,7 +61,7 @@ def compute_K_sample(model, mask, dataset, criterion, min_gamma, max_gamma,
             x = x*1.1
         return x
 
-    prior_list = np.linspace(min_nu, max_nu, 2)
+    prior_list = np.linspace(min_nu, max_nu, 8)
     prior_list = np.exp(prior_list)
 
     K_list = [1e-3]
