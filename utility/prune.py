@@ -22,9 +22,11 @@ def initialization(model,prior_sigma,noise_type ="gaussian", w0decay=1.0):
     num_layer = layer + 1
     w0 = torch.cat(w0) 
     if noise_type=="gaussian":
-        #p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0))), requires_grad=True)
-        p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.ones_like(torch.mean(torch.abs(w0))))), requires_grad=True)
-        prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.ones_like(torch.mean(torch.abs(w0)))))
+        p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0))), requires_grad=True)
+        # p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.mean(torch.abs(w0))*torch.ones_like(w0))), requires_grad=True)
+        prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0)))
+        # prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.mean(torch.abs(w0))*torch.ones_like(w0)))
+        print(prior)
     elif noise_type=="bernoulli":
         p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
         prior = torch.sigmoid(prior_sigma*torch.ones_like(w0))
@@ -118,7 +120,7 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
             
             with torch.no_grad():
                 if batch_idx==0:
-                    print(torch.mean(p),torch.mean(p.grad))
+                    print(torch.mean(p),torch.var(p),torch.mean(p.grad))
             optimizer_p.step()
 
 
