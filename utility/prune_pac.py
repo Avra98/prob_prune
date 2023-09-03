@@ -20,7 +20,7 @@ def func_sum(x, gamma, error_list, error_mean_list):
     return sum_output
 
 
-def gen_output(model, prior, mask, dataset, n, criterion, noise='gaussian'):
+def gen_output(model, prior, mask, dataset, n, criterion):
     error_list = []
     error_mean_list = []
 
@@ -33,10 +33,8 @@ def gen_output(model, prior, mask, dataset, n, criterion, noise='gaussian'):
             # generating a random model/network from the prior distribtuion
             for k, param in enumerate(model1.parameters()):
                 param.data *= mask[k]
-                if noise == 'gaussian':
-                    param.data += torch.randn(param.data.size(), device=device)*mask[k]*prior
-                else:
-                    param.data = nn.functional.dropout(param.data, p = prior, training=True)
+                param.data += torch.randn(param.data.size(), device=device)*mask[k]*prior
+
 
             errors = []
             for batch in train:
@@ -49,7 +47,7 @@ def gen_output(model, prior, mask, dataset, n, criterion, noise='gaussian'):
             error_mean_list.append(np.mean(errors))
     return error_list, error_mean_list
 
-def compute_K_sample(model, mask, dataset, criterion, min_gamma, max_gamma, noise='gaussian',
+def compute_K_sample(model, mask, dataset, criterion, min_gamma, max_gamma,
                         min_nu=-6, max_nu=-2.5):
     reduction = criterion.reduction
     criterion.reduction = 'none'
@@ -57,15 +55,14 @@ def compute_K_sample(model, mask, dataset, criterion, min_gamma, max_gamma, nois
         # estimate k within a certain gamma range given prior
         gamma_grid = np.exp(np.linspace(np.log(min_gamma), np.log(max_gamma), 10))
         print('searching for K4....')
-        error_list, error_mean_list = gen_output(model, prior, mask, dataset, 10, criterion, noise)
+        error_list, error_mean_list = gen_output(model, prior, mask, dataset, 10, criterion)
             
         while min(func_sum(x, gamma_grid, error_list, error_mean_list)) < 0:
             x = x*1.1
         return x
 
-    prior_list = np.linspace(min_nu, max_nu, 8)
-    if noise == 'gaussian':
-        prior_list = np.exp(prior_list)
+    prior_list = np.linspace(min_nu, max_nu, 2)
+    prior_list = np.exp(prior_list)
 
     K_list = [1e-3]
     for i in range(len(prior_list)):
@@ -89,9 +86,9 @@ def compute_K_sample(model, mask, dataset, criterion, min_gamma, max_gamma, nois
 def fun_K_auto(x,exp_prior_list,K_list):
     n = len(exp_prior_list)
     i = 0
-    while x>exp_prior_list[i]:
+    while x > exp_prior_list[i]:
         i +=1
-        if i == n-1:
+        if i >= n-1:
             break
     if i==0:
         fa = K_list[0]+exp_prior_list[0]
@@ -105,11 +102,11 @@ def fun_K_auto(x,exp_prior_list,K_list):
         b = exp_prior_list[i]
     return (b-x)/(b-a)*fa + (x-a)/(b-a)*fb
 
-def weight_decay_mulb(model, b, model_init):
+def weight_decay_mulb(model, b, model_init, mask):
     # noise injection
-    k, weights = 0, 0
-    for i, (param1, param2) in enumerate( zip(model.parameters(), model_init.parameters()) ):
-        weights += torch.norm( ((param1-param2)*mask[i]).view(-1) )**2*torch.exp(-2*b[i].double())
+    weights = 0
+    for i, (param, param_init) in enumerate( zip(model.parameters(), model_init.parameters()) ):
+        weights += torch.norm( ((param - param_init)*mask[i]).view(-1) )**2*torch.exp(-2*b[i].double())
     return weights
 
 def get_kl_term_with_b(weight_decay, p, b):
@@ -140,7 +137,7 @@ def generate_noise_soft(logits,temp=0.5):
     noise = numerator / denominator
     return noise
 
-def initialization_pac(model, mask, noise_type ="gaussian", w0decay=1.0):
+def initialization_pac(model, mask, w0decay=1.0):
     for param in model.parameters():
         param.data *= w0decay
 
@@ -153,20 +150,25 @@ def initialization_pac(model, mask, noise_type ="gaussian", w0decay=1.0):
 
     num_layer = layer + 1
     w0 = torch.cat(w0) 
-    if noise_type=="gaussian":
-        p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(w0.abs())), requires_grad=True)
-        prior = nn.Parameter(torch.ones(num_layer, device=device)*(torch.log(w0.abs().sum()/num_params)), requires_grad=True)
-    elif noise_type=="bernoulli":
-        p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
-        prior = nn.Parameter(torch.zeros(num_layer, device=device), requires_grad=True)
+    p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(w0.abs())), requires_grad=True)
+    prior = nn.Parameter(torch.ones(num_layer, device=device)*(torch.log(w0.abs().sum()/num_params)), requires_grad=True)
     return w0, p, num_layer, prior
 
-def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader,criterion, noise_type,
+def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader,criterion,
                                 lr=1e-3, num_steps=1):
 
+    min_gamma = 0.5
+    max_gamma = 10
+    min_nu=-6
+    max_nu=-2.5
+
+    prior_list, K_list = compute_K_sample(model, mask, train_loader, criterion, min_gamma, max_gamma,
+                                            min_nu, max_nu)
+    print("prior:", prior_list)
+    print("K:", K_list)
 
     device = next(model.parameters()).device
-    _, p,_ ,prior= initialization_pac(model, mask, noise_type)
+    _, p,_ ,prior = initialization_pac(model, mask)
 
     optimizer_p = torch.optim.Adam([p, prior], lr=lr)
 
@@ -187,48 +189,23 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
 
             wdecay = weight_decay_mulb(model_copy, prior, model_init, mask)
             ## no noise added at the pruned locations
-            if noise_type.lower()=="gaussian":
-                k = 0
-                KL = 0
-                for i, param in enumerate(model_copy.parameters()):   
-                    t = len(param.view(-1))
-                    eps = torch.randn_like(param.data, device = device)                
-                    noise = torch.reshape(torch.exp(p[k:(k+t)]), param.data.size()) * eps  * mask[i]                   
-                    param.add_(noise)  
-                    # mask p
-                    with torch.no_grad():  
-                        p.data[k:(k+t)] *= mask[i].view(-1)
-                    k += t
+            k = 0
+            for i, param in enumerate(model_copy.parameters()):   
+                t = len(param.view(-1))
+                eps = torch.randn_like(param.data, device = device)                
+                noise = torch.reshape(torch.exp(p[k:(k+t)]), param.data.size()) * eps  * mask[i]                   
+                param.add_(noise)  
+                # mask p
+                with torch.no_grad():  
+                    p.data[k:(k+t)] *= mask[i].view(-1)
+                k += t
 
-                kl = get_kl_term_layer_pb(model_copy, wdecay, p, b)
-                K = fun_K_auto(torch.exp(prior.mean()),prior_list,K_list)
+            kl = get_kl_term_layer_pb(model_copy, wdecay, p, prior)
+            K = fun_K_auto(torch.exp(prior.mean()),prior_list,K_list)
 
-                gamma1 = K**(-1)*( 2*(kl+60+num_params*3) /(5e4*augmentation)/3 )**0.5
-                gamma_value = gamma1.detach().item()
-                gamma1 = torch.clip(gamma1, max=max_gamma, min=min_gamma)
-                kl_loss = 3*K**2*gamma1/2 + (kl+60+num_params*3)/len(train_loader.dataset)/gamma1
-
-            elif noise_type.lower()=="bernoulli":                     
-                k, KL = 0, 0
-                for i, param in enumerate(model_copy.parameters()):   
-                    t = len(param.view(-1))
-                    logits = torch.reshape(p[k:(k+t)], param.data.size())
-                    noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
-                    param.mul_(noise)
-
-                    prob_p     = torch.sigmoid(p[k:(k+t)]).clamp(0.001, 0.999)
-                    prob_prior = torch.sigmoid(prior[i]).clamp(0.001, 0.999)
-
-                    KL += (mask[i].view(-1)*
-                        (
-                            prob_p * torch.log( prob_p/prob_prior ) + \
-                            (1-prob_p) * torch.log( (1-prob_p)/(1-prob_prior) ) 
-                        )).sum()
-                    k += t
-                    
-                    gamma1 = fun_K_auto(prob_prior.mean(), prior_list, K_list)**(-1)*( 2*(KL+60) /len(train_loader.dataset)/3 )**0.5
-                    gamma1 = torch.clip(gamma1,max=max_gamma,min=min_gamma)
-                    kl_loss = 3*fun_K_auto(prob_prior.mean(), prior_list, K_list)**2*gamma1/2 + (KL+60)/len(train_loader.dataset)/gamma1
+            gamma1 = K**(-1)*( 2*(kl+60+len(prior)*3) /len(train_loader.dataset)/3 )**0.5
+            gamma1 = torch.clip(gamma1, max=max_gamma, min=min_gamma)
+            kl_loss = 3*K**2*gamma1/2 + (kl+60+len(prior)*3)/len(train_loader.dataset)/gamma1
 
             # Forward pass after adding noise
             output = model_copy(data)
@@ -236,17 +213,6 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
 
             total_loss = batch_original_loss_after_noise + kl_loss
             total_loss.backward()
-
-            # warmup steps for p
-            if epoch < int(num_steps//2):
-                k = 0
-                for i, param in enumerate(model.parameters()):
-                    t = param.data.numel()
-                    num_para = mask[i].sum() 
-                    num_para = 1 if num_para < 1 else num_para
-                    p.grad[k:(k+t)] = p.grad[k:(k+t)].sum()/(num_para)*(torch.ones(t, device=p.device))
-                    k += t
-
             optimizer_p.step()
 
             with torch.no_grad():
@@ -261,55 +227,28 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
         print(f"Average KL loss: {kl_loss_accum / len(train_loader):.6f}")
         print(f"Average total loss: {total_loss_accum / len(train_loader):.6f}")
 
-    if noise_type.lower()=="gaussian":
-        with torch.no_grad():    
-            k=0
-            # Flatten all weights into a single list
-            all_normalized_tensors = []
-            for i, param in enumerate(model_copy.parameters()):   
-                t = len(param.view(-1))
-                normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
-                alive = normalized_tensor[torch.nonzero(normalized_tensor,as_tuple=True)]
-                all_normalized_tensors.extend(alive)
-                k += t
-            all_normalized_tensors = torch.stack(all_normalized_tensors)
-            # Get the percentile value from all weights (as opposed to only layerwise)
-            percentile_value = np.quantile(all_normalized_tensors.cpu().numpy(), percent)
+    with torch.no_grad():    
+        k = 0
+        # Flatten all weights into a single list
+        all_normalized_tensors = []
+        for i, param in enumerate(model_copy.parameters()):   
+            t = len(param.view(-1))
+            normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
+            alive = normalized_tensor[torch.nonzero(normalized_tensor,as_tuple=True)]
+            all_normalized_tensors.extend(alive)
+            k += t
+        all_normalized_tensors = torch.stack(all_normalized_tensors)
+        # Get the percentile value from all weights (as opposed to only layerwise)
+        percentile_value = np.quantile(all_normalized_tensors.cpu().numpy(), percent)
 
-            # Now prune the weights
-            k = 0
-            for i, param in enumerate(model_copy.parameters()):   
-                t = len(param.view(-1))
-                normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
-                # Apply new weight and mask
-                mask[i] = torch.where(normalized_tensor < percentile_value, 0, mask[i])
-                param.data = param.data * mask[i] 
-                k += t
-
-    elif noise_type.lower()=="bernoulli":
-        with torch.no_grad():    
-            
-            unpruned_p_values = []
-            k = 0
-            for m in mask:
-                t = m.numel()  # total elements in current layer
-                layer_p_values = p[k:(k+t)]  # get p_values for the current layer
-                unpruned_indices = torch.nonzero(m.flatten())  # unpruned indices for the current layer
-                unpruned_p_values.extend(layer_p_values[unpruned_indices])
-                k += t           
-            unpruned_p_values = torch.stack(unpruned_p_values)
-            # Get the percentile value from all p values
-            percentile_value = np.quantile(unpruned_p_values.cpu().numpy(), percent)
-            #print(f" Percentile value: {percentile_value}")
-
-            # Pruning the weights
-            k = 0
-            for i, param in enumerate(model_copy.parameters()):   
-                t = len(param.data.view(-1))
-                
-                # Apply new weight and mask
-                mask[i] = torch.where(torch.reshape(p[k:(k+t)], param.shape) < percentile_value, 0, mask[i])  # Prune based on reshaped p_values
-                param.data = param.data * mask[i]
-                k += t
+        # Now prune the weights
+        k = 0
+        for i, param in enumerate(model_copy.parameters()):   
+            t = len(param.view(-1))
+            normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
+            # Apply new weight and mask
+            mask[i] = torch.where(normalized_tensor < percentile_value, 0, mask[i])
+            param.data = param.data * mask[i] 
+            k += t
 
     return 

@@ -68,8 +68,7 @@ def main(args):
     mask = make_mask(model)
 
     # Initial Model
-    initial_state_dict = copy.deepcopy(model.state_dict())
-
+    model_init = copy.deepcopy(model)
     # Copying and Saving Initial State
     checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
     torch.save(model, f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/initial_state_dict_{args.prune_type}.pth.tar")
@@ -93,7 +92,6 @@ def main(args):
     noise_step = args.noise_step
     
     for _ite in range(args.start_iter, ITERATION):
-
         
         if not _ite == 0:
             ## prune here 
@@ -101,7 +99,14 @@ def main(args):
                 prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
                 	prior_sigma,kl,num_steps=noise_step,lr=args.lr_p)
             elif args.prune_type=="noise_pac":
-                prune_by_noise_trainable_prior(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
+                # reweight weight
+                with torch.no_grad():
+                    for i, (param1, param2) in enumerate(zip(model.parameters(), model_init.parameters())):
+                        param2.data = (torch.norm(param1.data * mask[i]) / 
+                                                    (torch.norm(param2.data * mask[i])+1e-6) * 
+                                                    param2.data * mask[i])
+
+                prune_by_noise_trainable_prior(model, model_init, mask, args.prune_percent, dataset.train,criterion,
                     num_steps=noise_step,lr=args.lr_p)                
             elif args.prune_type=="lt":    
                 prune_by_percentile(model, mask, args.prune_percent)
@@ -118,16 +123,15 @@ def main(args):
                         param.data = param.data * mask[step]
                         step += 1
             elif args.initial=="original":
-                original_initialization(model, mask, initial_state_dict)
+                original_initialization(model, mask, model_init)
             elif args.initial=="last":
-                original_initialization(model, mask, copy.deepcopy(model.state_dict())) ## does not alter the model, only masks it 
-                end_iter = args.red_end_iter
+                original_initialization(model, mask, copy.deepcopy(model)) ## does not alter the model, only masks it 
             elif args.initial=="rewind":
                 print("initialization at rewind")
                 ## load the model from the rewind folder
                 model_rewind = torch.load(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/rewind/{args.kl}+{args.prior}/{args.rewind_iter}_model_{args.prune_type}_{args.noise_type}.pth.tar")
                 ## mask the model
-                original_initialization(model, mask, copy.deepcopy(model_rewind.state_dict()))
+                original_initialization(model, mask, copy.deepcopy(model_rewind))
 
         count_nonzero(model, mask)           
         optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, 
@@ -140,6 +144,7 @@ def main(args):
         comp[_ite] = comp1
         pbar = tqdm(range(end_iter))
 
+        torlence_iter = 0
         for iter_ in pbar:
 
             # Frequency for Testing
@@ -149,8 +154,14 @@ def main(args):
                 # Save Weights
                 if accuracy > best_accuracy:
                     best_accuracy = accuracy
+                    torlence_iter = 0
                     checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
                     torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar")
+                else:
+                    torlence_iter += 1
+
+                if torlence_iter > 5:
+                    break
 
             # Training
             loss = train(model, mask, dataset.train, optimizer, criterion)
@@ -208,7 +219,6 @@ if __name__=="__main__":
     parser.add_argument("--batch_size", default=128, type=int)
     parser.add_argument("--start_iter", default=0, type=int) 
     parser.add_argument("--end_iter", default=25, type=int)
-    parser.add_argument("--red_end_iter", default=5, type=int)
     parser.add_argument("--print_freq", default=1, type=int)
     parser.add_argument("--valid_freq", default=1, type=int)
     parser.add_argument("--resume", action="store_true")

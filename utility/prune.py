@@ -7,7 +7,7 @@ import math
 
 def sigmoid(x):
   return 1 / (1 + math.exp(-x))
-  
+
 def generate_noise_soft(logits,temp=0.5):
     gumbel1 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
     gumbel2 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)    
@@ -96,7 +96,7 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
                     k += t 
                     #num_params += mask[i].sum() 
                 if kl:
-                    kl_loss = 0.5 *(torch.sum( 2*prior - 2*p + (torch.exp(2*p - 2*prior))-1)) #- num_params)
+                    kl_loss = 0.5 *(torch.sum( 2*prior - 2*p + (torch.exp(2*p - 2*prior))-1 ) ) #- num_params)
 
             elif noise_type.lower()=="bernoulli":                     
                 k, kl_loss = 0, 0

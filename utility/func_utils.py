@@ -5,7 +5,7 @@ import numpy as np
 def make_mask(model):
     mask = []
     for param in model.parameters(): 
-        mask.append(torch.ones_like(param.data))
+        mask.append(torch.ones_like(param.data, requires_grad=False))
     return mask
 
 def torch_percentile(t, percent):
@@ -97,9 +97,7 @@ def test(model, test_loader, criterion):
     return accuracy
 
 
-def original_initialization(model, mask_temp, initial_state_dict): 
-    step = 0
-    for name, param in model.named_parameters(): 
-        param.data = mask_temp[step] * initial_state_dict[name]
-        step = step + 1
+def original_initialization(model, mask_temp, model_init): 
+    for i, (param1, param2) in enumerate(zip(model.parameters(), model_init.parameters())): 
+        param1.data = mask_temp[i] * param2.data
     return
