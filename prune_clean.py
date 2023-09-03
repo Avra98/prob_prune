@@ -109,7 +109,6 @@ def main(args):
                 prune_by_random(model, mask, args.prune_percent)
 
 
-
             ## initialize here 
             if args.initial=="reinit":
                 reset_all_weights(model)
@@ -132,7 +131,8 @@ def main(args):
 
         count_nonzero(model, mask)           
         optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, 
-        								 weight_decay=1e-4)           
+                                         momentum = args.momentum,
+        								 weight_decay = args.weight_decay)           
 
         print(f"\n--- Pruning Level [{_ite}/{ITERATION}]: ---")
         # Print the table of Nonzeros in each layer
@@ -168,7 +168,7 @@ def main(args):
                 pbar.set_description(
                     f'Train Epoch: {iter_}/{end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f}% Best Accuracy: {best_accuracy:.2f}%')       
 
-            print(f'Train Epoch: {iter_}/{end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f}% Best Accuracy: {best_accuracy:.2f}%') 
+        print(f'Train Epoch: {iter_}/{end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f}% Best Accuracy: {best_accuracy:.2f}%') 
         #writer.add_scalar('Accuracy/test', best_accuracy, comp1)
         bestacc[_ite]=best_accuracy
 
@@ -202,7 +202,8 @@ if __name__=="__main__":
     # Arguement Parser
     parser = argparse.ArgumentParser()
     parser.add_argument("--lr",default= 0.02, type=float, help="Learning rate")
-    #parser.add_argument("--weight_decay", default=1e-4, type=float, help="Weight Decay")
+    parser.add_argument("--momentum", default=0.0, type=float, help="momentum for SGD")
+    parser.add_argument("--weight_decay", default=1e-4, type=float, help="Weight Decay")
     parser.add_argument("--lr_p", default=1e-2, type=float, help="lr for posterier variance")
     parser.add_argument("--batch_size", default=128, type=int)
     parser.add_argument("--start_iter", default=0, type=int) 
@@ -220,7 +221,7 @@ if __name__=="__main__":
     parser.add_argument("--prune_percent", default=0.8, type=float, help="Pruning percent")
     parser.add_argument("--prune_iterations", default=6, type=int, help="Pruning iterations count")
     parser.add_argument("--noise_type", default="gaussian", type=str , help="chose gaussian or bernoulli noise")
-    parser.add_argument("--kl", action='store_true', help="if using the kl term")
+    parser.add_argument("--kl", default=1e-4, type=float, help="if using the kl term")
     parser.add_argument("--augmentation", "-aug", action='store_true', help="if using augmentation.")
     parser.add_argument("--prior", default=0.0, type=float , help="prior centre in kl")
     parser.add_argument("--noise_step", default=10, type=int , help="number of noise iterations")

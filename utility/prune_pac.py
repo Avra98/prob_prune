@@ -105,6 +105,30 @@ def fun_K_auto(x,exp_prior_list,K_list):
         b = exp_prior_list[i]
     return (b-x)/(b-a)*fa + (x-a)/(b-a)*fb
 
+def weight_decay_mulb(model, b, model_init):
+    # noise injection
+    k, weights = 0, 0
+    for i, (param1, param2) in enumerate( zip(model.parameters(), model_init.parameters()) ):
+        weights += torch.norm( ((param1-param2)*mask[i]).view(-1) )**2*torch.exp(-2*b[i].double())
+    return weights
+
+def get_kl_term_with_b(weight_decay, p, b):
+    d = len(p)
+    KL = (torch.exp(-2*b.double())*torch.exp( 2*(p).double() ).sum() /d - 
+                        ( 2*(p).double().sum()/d - 2*b.double() + 1 ))
+    return (KL * d + weight_decay*torch.exp(-2*b))/2
+
+def get_kl_term_layer_pb(model, wdecay_mulb, p, b):
+    k, KL1, KL2 = 0, 0, 0
+    for i, param in enumerate(model.parameters()):
+        t = len(param.view(-1))
+        KL1 += torch.exp(-2*b[i].double())*torch.exp(2*(p[k:(k+t)]).double()).sum()
+        KL2 += 2*b[i].double()*t
+        k += t
+
+    KL = KL1 - ( 2*(p).double().sum() - KL2 + len(p) )
+    return (KL + wdecay_mulb)/2
+
 ######################################################################
 ######################################################################
 
@@ -137,22 +161,9 @@ def initialization_pac(model, mask, noise_type ="gaussian", w0decay=1.0):
         prior = nn.Parameter(torch.zeros(num_layer, device=device), requires_grad=True)
     return w0, p, num_layer, prior
 
-def prune_by_noise_trainable_prior(model, mask, percent,train_loader,criterion, noise_type,
+def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader,criterion, noise_type,
                                 lr=1e-3, num_steps=1):
 
-    min_gamma = 0.5
-    max_gamma = 10
-    if noise_type == 'gaussian':
-        min_nu=-6
-        max_nu=-2.5
-    else:
-        min_nu=0.0
-        max_nu=0.999
-
-    prior_list, K_list = compute_K_sample(model, mask, train_loader, criterion, min_gamma, max_gamma, noise_type,
-                                            min_nu, max_nu)
-    print("prior:", prior_list)
-    print("K:", K_list)
 
     device = next(model.parameters()).device
     _, p,_ ,prior= initialization_pac(model, mask, noise_type)
@@ -174,6 +185,7 @@ def prune_by_noise_trainable_prior(model, mask, percent,train_loader,criterion, 
             for param in model_copy.parameters():
                 param.requires_grad = False
 
+            wdecay = weight_decay_mulb(model_copy, prior, model_init, mask)
             ## no noise added at the pruned locations
             if noise_type.lower()=="gaussian":
                 k = 0
@@ -186,13 +198,15 @@ def prune_by_noise_trainable_prior(model, mask, percent,train_loader,criterion, 
                     # mask p
                     with torch.no_grad():  
                         p.data[k:(k+t)] *= mask[i].view(-1)
-                    KL += ( (2*(prior[i]-p[k:(k+t)]) + torch.exp(2*p[k:(k+t)]-2*prior[i]))*mask[i].view(-1) ).sum() - mask[i].sum() 
                     k += t
 
-                KL *= 0.5
-                gamma1 = fun_K_auto(torch.exp(prior.mean()), prior_list, K_list)**(-1)*( 2*(KL+60) /len(train_loader.dataset)/3 )**0.5
-                gamma1 = torch.clip(gamma1,max=max_gamma,min=min_gamma)
-                kl_loss = 3*fun_K_auto(torch.exp(prior.mean()), prior_list, K_list)**2*gamma1/2 + (KL+60)/len(train_loader.dataset)/gamma1
+                kl = get_kl_term_layer_pb(model_copy, wdecay, p, b)
+                K = fun_K_auto(torch.exp(prior.mean()),prior_list,K_list)
+
+                gamma1 = K**(-1)*( 2*(kl+60+num_params*3) /(5e4*augmentation)/3 )**0.5
+                gamma_value = gamma1.detach().item()
+                gamma1 = torch.clip(gamma1, max=max_gamma, min=min_gamma)
+                kl_loss = 3*K**2*gamma1/2 + (kl+60+num_params*3)/len(train_loader.dataset)/gamma1
 
             elif noise_type.lower()=="bernoulli":                     
                 k, KL = 0, 0
@@ -202,8 +216,8 @@ def prune_by_noise_trainable_prior(model, mask, percent,train_loader,criterion, 
                     noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
                     param.mul_(noise)
 
-                    prob_p     = torch.sigmoid(p[k:(k+t)]).clamp(1e-6, 1.0)
-                    prob_prior = torch.sigmoid(prior[i]).clamp(1e-6, 1.0)
+                    prob_p     = torch.sigmoid(p[k:(k+t)]).clamp(0.001, 0.999)
+                    prob_prior = torch.sigmoid(prior[i]).clamp(0.001, 0.999)
 
                     KL += (mask[i].view(-1)*
                         (
