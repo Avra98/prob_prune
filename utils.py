@@ -74,8 +74,8 @@ def torch_percentile(t, percent):
 
 #ANCHOR Checks of the directory exist and if not, creates a new directory
 def checkdir(directory):
-            if not os.path.exists(directory):
-                os.makedirs(directory)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
 #FIXME 
 def plot_train_test_stats(stats,

@@ -187,11 +187,14 @@ def main(args):
         best_accuracy = 0
         all_loss = np.zeros(end_iter,float)
         all_accuracy = np.zeros(end_iter,float)
-     
+        
+        checkdir(f"{os.getcwd()}/dumps/{args.prune_type}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
+        all_loss.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{args.prune_type}_all_loss{str(_ite)}.dat")
+
     # Dumping Values for Plotting
-    checkdir(f"{os.getcwd()}/dumps/{args.prune_type}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
     comp.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{args.prune_type}_compression.dat")
     bestacc.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{args.prune_type}_bestaccuracy.dat")
+    
 
     # Plotting
     a = np.arange(args.prune_iterations)
