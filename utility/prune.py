@@ -198,4 +198,42 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
                 k += t
 
     return 
-        
+
+
+
+def prune_by_random(model, mask, percent):
+    
+    # Collect all the alive weight indices 
+    alive_indices = []
+    cumulative_length = 0
+
+    for param in model.parameters():
+        flat_tensor = param.data.view(-1)
+    
+        tensor_alive_indices = (torch.nonzero(flat_tensor).squeeze() + cumulative_length).tolist()
+
+        # Get the indices of non-zero elements in the tensor
+        alive_indices.extend(tensor_alive_indices)
+
+        cumulative_length += flat_tensor.numel()
+
+    # Select percent% of the alive indices to prune
+    num_weights_to_prune = int((percent) * len(alive_indices))
+    random_idx = torch.randperm(len(alive_indices))[:num_weights_to_prune]
+    indices_to_prune = torch.tensor(alive_indices)[random_idx].tolist()
+
+    # Update the masks and parameters
+    current_index = 0
+    for param, mask_param in zip(model.parameters(), mask):
+        flat_mask = mask_param.view(-1)
+        length = flat_mask.numel()
+
+        layer_indices_to_prune = [i - current_index for i in indices_to_prune if current_index <= i < current_index + length]
+
+        flat_mask[layer_indices_to_prune] = 0
+
+        # Apply new weight and mask
+        param.data *= mask_param
+        current_index += length
+
+    return mask

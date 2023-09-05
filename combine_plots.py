@@ -4,33 +4,43 @@ import numpy as np
 import os
 from tqdm import tqdm
 
-
 DPI = 1200
-prune_iterations = 35
-arch_types = ["fc1", "lenet5", "resnet18"]
-datasets = ["mnist", "fashionmnist", "cifar10", "cifar100"]
+prune_iterations = 5
+arch_types = ["fc1"]
+prune_type=["lt","noise","random"]
+noise_type=["bernoulli","gaussian"]
+datasets = ["mnist", "fashionmnist"]
 
+sns.set_style('darkgrid')
 
 for arch_type in tqdm(arch_types):
-    for dataset in tqdm(datasets):
-        d = np.load(f"{os.getcwd()}/dumps/lt/{arch_type}/{dataset}/lt_compression.dat", allow_pickle=True)
-        b = np.load(f"{os.getcwd()}/dumps/lt/{arch_type}/{dataset}/lt_bestaccuracy.dat", allow_pickle=True)
-        c = np.load(f"{os.getcwd()}/dumps/lt/{arch_type}/{dataset}/reinit_bestaccuracy.dat", allow_pickle=True)
+    
+    plt.figure(figsize=(12, 6))  # Set the figure size
+    
+    for idx, dataset in enumerate(datasets, start=1):  # enumerate to get index for subplot
+        d_lt = np.load(f"{os.getcwd()}/dumps/lt/gaussian/{arch_type}/{dataset}/0.0001+0.0/lt_compression.dat", allow_pickle=True)
+        b_lt = np.load(f"{os.getcwd()}/dumps/lt/gaussian/{arch_type}/{dataset}/0.0001+0.0/lt_bestaccuracy.dat", allow_pickle=True)
 
-        #plt.clf()
-        #sns.set_style('darkgrid')
-        #plt.style.use('seaborn-darkgrid')
+        d_random = np.load(f"{os.getcwd()}/dumps/random/gaussian/{arch_type}/{dataset}/0.0001+0.0/random_compression.dat", allow_pickle=True)
+        b_random = np.load(f"{os.getcwd()}/dumps/random/gaussian/{arch_type}/{dataset}/0.0001+0.0/random_bestaccuracy.dat", allow_pickle=True)
+
         a = np.arange(prune_iterations)
-        plt.plot(a, b, c="blue", label="Winning tickets") 
-        plt.plot(a, c, c="red", label="Random reinit") 
-        plt.title(f"Test Accuracy vs Weights % ({arch_type} | {dataset})") 
-        plt.xlabel("Weights %") 
-        plt.ylabel("Test accuracy") 
-        plt.xticks(a, d, rotation ="vertical") 
-        plt.ylim(0,100)
-        plt.legend() 
-        plt.grid(color="gray") 
+        
+        plt.subplot(1, 2, idx)  # 1 row, 2 columns, index=idx
 
-        plt.savefig(f"{os.getcwd()}/plots/lt/combined_plots/combined_{arch_type}_{dataset}.png", dpi=DPI, bbox_inches='tight') 
-        plt.close()
-        #print(f"\n combined_{arch_type}_{dataset} plotted!\n")
+        plt.plot(a, b_lt, '-o', c="blue", label="Magnitude pruning", linewidth=2, markersize=8, markerfacecolor="white", markeredgecolor="blue")
+        plt.plot(a, b_random, '-*', c="red", label="Random pruning", linewidth=2, markersize=8, markerfacecolor="white", markeredgecolor="red")
+        
+        plt.title(f"{dataset}", fontsize=15)
+        plt.xlabel("Unpruned Weights %", fontsize=14, weight='bold')
+        plt.ylabel("Test accuracy %", fontsize=14, weight='bold')
+        plt.xticks(a, d_lt, rotation="vertical", fontsize=12, weight='bold')
+        plt.yticks(fontsize=12, weight='bold')
+        plt.ylim(0,100)
+        plt.legend(fontsize=12, loc='lower left')
+        plt.grid(color="gray", linestyle="--", linewidth=0.5)  # Here's the dashed grid
+    
+    plt.tight_layout()  # Adjusts subplot layout
+    plt.savefig(f"{os.getcwd()}/plots/combined_{arch_type}.png", dpi=DPI, bbox_inches='tight') 
+    plt.close()
+
