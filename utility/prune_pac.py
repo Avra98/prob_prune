@@ -196,8 +196,8 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
                 noise = torch.reshape(torch.exp(p[k:(k+t)]), param.data.size()) * eps  * mask[i]                   
                 param.add_(noise)  
                 # mask p
-                with torch.no_grad():  
-                    p.data[k:(k+t)] *= mask[i].view(-1)
+                # with torch.no_grad():  
+                #     p.data[k:(k+t)] *= mask[i].view(-1)
                 k += t
 
             kl = get_kl_term_layer_pb(model_copy, wdecay, p, prior)
@@ -234,7 +234,7 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
         for i, param in enumerate(model_copy.parameters()):   
             t = len(param.view(-1))
             normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
-            alive = normalized_tensor[torch.nonzero(normalized_tensor,as_tuple=True)]
+            alive = normalized_tensor[torch.nonzero(mask[i], as_tuple=True)]
             all_normalized_tensors.extend(alive)
             k += t
         all_normalized_tensors = torch.stack(all_normalized_tensors)

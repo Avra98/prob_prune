@@ -31,7 +31,7 @@ def initialization(model,prior_sigma,noise_type ="gaussian", w0decay=1.0):
         p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), 
             torch.log(torch.mean(torch.abs(w0))*torch.ones_like(w0))), requires_grad=True)
         #prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0)))
-        prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.mean(torch.abs(w0))*torch.ones_like(w0)))
+        prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log( torch.mean(torch.abs(w0))*torch.ones_like(w0) ))
     elif noise_type=="bernoulli":
         p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
         prior = sigmoid(prior_sigma)
@@ -92,8 +92,8 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
                     eps = torch.randn_like(param.data, device = device)                
                     noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]                       
                     param.add_(noise)    
-                    with torch.no_grad():
-                         p.data[k:(k+t)] *= mask[i].view(-1)
+                    # with torch.no_grad():
+                    #      p.data[k:(k+t)] *= mask[i].view(-1)
                     k += t 
                     #num_params += mask[i].sum() 
                 if kl:

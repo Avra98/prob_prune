@@ -22,7 +22,10 @@ from utility.prune_pac import *
 # Plotting Style
 sns.set_style('darkgrid')
 
-torch.manual_seed(0)
+torch.manual_seed(42)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
 def main(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     reinit = True if args.initial=="reinit" else False
@@ -47,7 +50,7 @@ def main(args):
 
     # Model Loader
     if args.arch_type.lower() == "fc1":
-       model = fc1.fc1().to(device)
+        model = fc1.fc1().to(device)
     elif args.arch_type.lower() == "lenet5":
         model = LeNet5.LeNet5().to(device)
     elif args.arch_type.lower() == "alexnet":
