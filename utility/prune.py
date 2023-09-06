@@ -60,7 +60,7 @@ def prune_by_percentile(model, mask, percent):
         # Apply new weight and mask
         param.data = param.data * new_mask
         mask[i] = new_mask
-    return
+    return mask
 
 def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
                         kl=0.0, lr=1e-3, num_steps=1):
@@ -197,7 +197,7 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
                 param.data = param.data * mask[i]
                 k += t
 
-    return 
+    return mask
 
 
 

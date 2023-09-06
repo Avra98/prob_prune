@@ -172,6 +172,7 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
 
     optimizer_p = torch.optim.Adam([p, prior], lr=lr)
 
+    torlence_iter, best_loss = 0, 1000000.0
     for epoch in range(num_steps):
         # Initialize accumulators
         batch_original_loss_after_noise_accum = 0.0
@@ -220,6 +221,14 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
                 kl_loss_accum += kl_loss.item()
                 batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
 
+        if total_loss_accum / len(train_loader) < best_loss:
+            torlence_iter = 0
+            best_loss = total_loss_accum / len(train_loader)
+        else:
+            torlence_iter += 1
+
+        if torlence_iter > 5:
+            break
 
         # Average losses for the mini-batch
         print(f"Epoch {epoch+1}")
@@ -233,7 +242,9 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
         all_normalized_tensors = []
         for i, param in enumerate(model_copy.parameters()):   
             t = len(param.view(-1))
-            normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
+            #normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
+            normalized_tensor = 1.0 / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
+            
             alive = normalized_tensor[torch.nonzero(mask[i], as_tuple=True)]
             all_normalized_tensors.extend(alive)
             k += t
@@ -251,4 +262,4 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
             param.data = param.data * mask[i] 
             k += t
 
-    return 
+    return mask

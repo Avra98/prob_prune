@@ -38,7 +38,7 @@ do
 		   	COUNTER=$((COUNTER + 1))
 
 		    python3 -u prune_clean.py --lr 1e-2 --lr_p 1e-2 --momentum 0.9 --weight_decay 5e-4 --prune_type="noise_pac" \
-		    	 --end_iter=100 --arch_type $arch_type   --noise_step=50 --prune_percent $percent \
+		    	 --end_iter=100 --arch_type $arch_type   --noise_step=200 --prune_percent $percent \
 		    	 --gpu ${gpu_arr[$((COUNTER%LEN))]} --dataset $dataset \
 		    	  >> "$FILE"/"pac_data{$dataset}_arch{$arch_type}_percent{$percent}.out" &
 		   	COUNTER=$((COUNTER + 1))

@@ -99,7 +99,7 @@ def main(args):
         if not _ite == 0:
             ## prune here 
             if args.prune_type=="noise":
-                prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
+                mask = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
                 	prior_sigma,kl,num_steps=noise_step,lr=args.lr_p)
             elif args.prune_type=="noise_pac":
                 # reweight weight
@@ -109,12 +109,12 @@ def main(args):
                                                     (torch.norm(param2.data * mask[i])+1e-6) * 
                                                     param2.data * mask[i])
 
-                prune_by_noise_trainable_prior(model, model_init, mask, args.prune_percent, dataset.train,criterion,
+                mask = prune_by_noise_trainable_prior(model, model_init, mask, args.prune_percent, dataset.train,criterion,
                     num_steps=noise_step,lr=args.lr_p)                
             elif args.prune_type=="lt":    
-                prune_by_percentile(model, mask, args.prune_percent)
+                mask = prune_by_percentile(model, mask, args.prune_percent)
             elif args.prune_type=="random":
-                prune_by_random(model, mask, args.prune_percent)
+                mask = prune_by_random(model, mask, args.prune_percent)
 
 
             ## initialize here 
