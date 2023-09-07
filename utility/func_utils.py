@@ -61,7 +61,6 @@ def count_nonzero(model, mask):
 
 # Function for Training
 def train(model, mask, train_loader, optimizer, criterion):
-    EPS = 1e-6
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.train()
     for batch_idx, (imgs, targets) in enumerate(train_loader):
@@ -101,3 +100,40 @@ def original_initialization(model, mask_temp, model_init):
     for i, (param1, param2) in enumerate(zip(model.parameters(), model_init.parameters())): 
         param1.data = mask_temp[i] * param2.data
     return
+
+
+def train_with_noise(model, mask, train_loader, optimizer, criterion, 
+                        noise_std=0.01, noise_type='iso'):
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.train()
+    
+    total_layers = len(list(model.parameters()))
+    # Create a list of coefficients:
+    for batch_idx, (imgs, targets) in enumerate(train_loader):
+        optimizer.zero_grad()
+        noise_list = []
+        
+        # Injecting noise into the weights
+        for i, param in enumerate(model.parameters()):
+            # Scale the noise_std by the layer's coefficient
+            if noise_type[:3] != 'iso':
+                scaled_noise_std = noise_std * (i+1)
+            noise = torch.randn_like(param) * scaled_noise_std
+            param.data += (noise * mask[i])
+            noise_list.append(noise)
+
+        imgs, targets = imgs.to(device), targets.to(device)
+        output = model(imgs)
+        train_loss = criterion(output, targets)
+        train_loss.backward()                
+                    
+        # Freezing Pruned weights by making their gradients Zero
+        for i, param in enumerate(model.parameters()):
+            param.grad.data = param.grad.data * mask[i]
+        optimizer.step()
+
+        # Removing the added noise (resetting to the original weights before the next iteration)
+        for i, (param, noise) in enumerate(zip(model.parameters(), noise_list)):
+            param.data -= (noise * mask[i])
+    
+    return train_loss.item()

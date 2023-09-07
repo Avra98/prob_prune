@@ -6,7 +6,7 @@ from tqdm import tqdm
 import torch
 import numpy as np
 import torch.nn as nn
-
+import torch.nn.init as init
 #from tensorboardX import SummaryWriter
 
 # Custom Libraries
@@ -136,10 +136,14 @@ def main(args):
                 ## mask the model
                 original_initialization(model, mask, copy.deepcopy(model_rewind))
 
-        count_nonzero(model, mask)           
-        optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, 
-                                         momentum = args.momentum,
-        								 weight_decay = args.weight_decay)           
+        count_nonzero(model, mask)   
+        if args.optimizer.lower() == "sgd":         
+            optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, 
+                                            momentum = args.momentum,
+            								 weight_decay = args.weight_decay)
+        else:     
+            optimizer = torch.optim.Adam(model.parameters(), lr=args.lr, 
+                                         weight_decay = args.weight_decay)           
 
         print(f"\n--- Pruning Level [{_ite}/{ITERATION}]: ---")
         # Print the table of Nonzeros in each layer
@@ -167,7 +171,12 @@ def main(args):
                     break
 
             # Training
-            loss = train(model, mask, dataset.train, optimizer, criterion)
+            if args.noise_std == 0:
+                loss = train(model, mask, dataset.train, optimizer, criterion)
+            else:
+                loss = train_with_noise(model, mask, dataset.train, optimizer, criterion, 
+                                            noise_std=args.noise_std, noise_type=args.noise_injection)
+
             all_loss[iter_] = loss
             all_accuracy[iter_] = accuracy
 
@@ -219,6 +228,7 @@ if __name__=="__main__":
     # Arguement Parser
     parser = argparse.ArgumentParser()
     parser.add_argument("--lr",default= 0.02, type=float, help="Learning rate")
+    parser.add_argument("--optimizer", "-opt", default="SGD", help="optimizer")
     parser.add_argument("--momentum", default=0.0, type=float, help="momentum for SGD")
     parser.add_argument("--weight_decay", default=1e-4, type=float, help="Weight Decay")
     parser.add_argument("--lr_p", default=1e-2, type=float, help="lr for posterier variance")
@@ -228,7 +238,7 @@ if __name__=="__main__":
     parser.add_argument("--print_freq", default=1, type=int)
     parser.add_argument("--valid_freq", default=1, type=int)
     parser.add_argument("--resume", action="store_true")
-    parser.add_argument("--threads", default=4, type=int, help="number of threads of data loader")
+    parser.add_argument("--threads", default=1, type=int, help="number of threads of data loader")
     parser.add_argument("--prune_type", default="lt", type=str, help="lt |noise|random")
     parser.add_argument("--initial", default="last", type=str, help="reinit|original|last|rewind")
     parser.add_argument("--gpu", default="0", type=str)
@@ -239,6 +249,10 @@ if __name__=="__main__":
     parser.add_argument("--noise_type", default="gaussian", type=str , help="chose gaussian or bernoulli noise")
     parser.add_argument("--kl", default=1e-4, type=float, help="if using the kl term")
     parser.add_argument("--augmentation", "-aug", action='store_true', help="if using augmentation.")
+    
+    parser.add_argument("--noise_std", default=0, type=float, help="if using nosie injection during training.")
+    parser.add_argument("--noise_type", default="iso", type=str, help="noise type for noise injection: isotropic (iso) | anisotropic (ani) ")
+
     parser.add_argument("--prior", default=0.0, type=float , help="prior centre in kl")
     parser.add_argument("--noise_step", default=10, type=int , help="number of noise iterations")
     parser.add_argument("--rewind_iter", default=3, type=int , help="number of rewind iterations")

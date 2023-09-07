@@ -256,7 +256,9 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
         k = 0
         for i, param in enumerate(model_copy.parameters()):   
             t = len(param.view(-1))
-            normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
+            
+            #normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
+            normalized_tensor = 1.0 / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
             # Apply new weight and mask
             mask[i] = torch.where(normalized_tensor < percentile_value, 0, mask[i])
             param.data = param.data * mask[i] 

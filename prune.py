@@ -29,6 +29,10 @@ writer = SummaryWriter()
 # Plotting Style
 sns.set_style('darkgrid')
 
+torch.manual_seed(42)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
 # Main
 def main(args, ITE=0):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -180,7 +184,8 @@ def main(args, ITE=0):
 
 
         ## Training starts with the pruned weights here 
-
+        torlence_iter = 0
+        best_accuracy = 0
         for iter_ in pbar:
 
             # Frequency for Testing
@@ -190,8 +195,14 @@ def main(args, ITE=0):
                 # Save Weights
                 if accuracy > best_accuracy:
                     best_accuracy = accuracy
+                    torlence_iter = 0
                     utils.checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
                     torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar")
+                else:
+                    torlence_iter += 1
+
+                if torlence_iter > 5:
+                    break
 
             # Training
             loss = train(model, train_loader, optimizer, criterion)
@@ -348,7 +359,7 @@ def prune_by_noise(percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
     EPS=1e-6
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     kl_loss = torch.zeros(1, device=device)
-    torch.manual_seed(0)
+    #torch.manual_seed(0)
 
     numel = sum(param.numel() for param in model.parameters())
 
