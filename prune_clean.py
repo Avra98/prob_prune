@@ -175,7 +175,7 @@ def main(args):
                 loss = train(model, mask, dataset.train, optimizer, criterion)
             else:
                 loss = train_with_noise(model, mask, dataset.train, optimizer, criterion, 
-                                            noise_std=args.noise_std, noise_type=args.noise_injection)
+                                            noise_std=args.noise_std, noise_type=args.inject_noise)
 
             all_loss[iter_] = loss
             all_accuracy[iter_] = accuracy
@@ -251,7 +251,7 @@ if __name__=="__main__":
     parser.add_argument("--augmentation", "-aug", action='store_true', help="if using augmentation.")
     
     parser.add_argument("--noise_std", default=0, type=float, help="if using nosie injection during training.")
-    parser.add_argument("--noise_type", default="iso", type=str, help="noise type for noise injection: isotropic (iso) | anisotropic (ani) ")
+    parser.add_argument("--inject_noise", default="iso", type=str, help="noise type for noise injection: isotropic (iso) | anisotropic (ani) ")
 
     parser.add_argument("--prior", default=0.0, type=float , help="prior centre in kl")
     parser.add_argument("--noise_step", default=10, type=int , help="number of noise iterations")
