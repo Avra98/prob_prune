@@ -94,13 +94,18 @@ def main(args):
     kl=args.kl
     noise_step = args.noise_step
     
+    p_old = None
     for _ite in range(args.start_iter, ITERATION):
         
         if not _ite == 0:
             ## prune here 
             if args.prune_type=="noise":
-                mask = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
-                	prior_sigma,kl,num_steps=noise_step,lr=args.lr_p)
+
+                mask, p_new = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
+                	   prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old)
+                if args.initial_p == "last":
+                    p_old = p_new.detach().clone()
+
             elif args.prune_type=="noise_pac":
                 # reweight weight
                 with torch.no_grad():
@@ -240,7 +245,10 @@ if __name__=="__main__":
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--threads", default=1, type=int, help="number of threads of data loader")
     parser.add_argument("--prune_type", default="lt", type=str, help="lt |noise|random")
+    
     parser.add_argument("--initial", default="last", type=str, help="reinit|original|last|rewind")
+    parser.add_argument("--initial_p", default="last", type=str, help="reinit|last")
+
     parser.add_argument("--gpu", default="0", type=str)
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121|fcs")
