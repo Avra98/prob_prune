@@ -42,11 +42,11 @@ def main(args):
     elif args.dataset.lower() == "cifar100":
         size = (32, 32)
         dataset = Cifar100(args.batch_size, args.threads, size, args.augmentation)
-        from archs.cifar100 import AlexNet, fc1, LeNet5, vgg, resnet  ,fcs
+        from archs.cifar100 import AlexNet, fc1, LeNet5, vgg, resnet 
     else:
         size = (28, 28)
         dataset = MNIST(args.batch_size, args.threads, size, args.augmentation)
-        from archs.mnist import AlexNet, LeNet5, fc1, vgg, resnet, fcs
+        from archs.mnist import AlexNet, LeNet5, fc1, vgg, resnet
 
     # Model Loader
     if args.arch_type.lower() == "fc1":
