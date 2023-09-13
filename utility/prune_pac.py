@@ -154,21 +154,25 @@ def initialization_pac(model, mask, w0decay=1.0):
     prior = nn.Parameter(torch.ones(num_layer, device=device)*(torch.log(w0.abs().sum()/num_params)), requires_grad=True)
     return w0, p, num_layer, prior
 
-def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader,criterion,
-                                lr=1e-3, num_steps=1):
+def prune_by_noise_trainable_prior(model, model_init, mask, percent, train_loader_raw, criterion,
+                                lr=1e-3, num_steps=1, p_init=None):
 
     min_gamma = 0.5
     max_gamma = 10
     min_nu=-6
     max_nu=-2.5
 
+    train_loader = torch.utils.data.DataLoader(train_loader_raw.dataset, batch_size=1024)
     prior_list, K_list = compute_K_sample(model, mask, train_loader, criterion, min_gamma, max_gamma,
                                             min_nu, max_nu)
     print("prior:", prior_list)
     print("K:", K_list)
 
     device = next(model.parameters()).device
-    _, p,_ ,prior = initialization_pac(model, mask)
+    _,p,_ ,prior= initialization_pac(model,prior_sigma,noise_type)
+    if p_init is not None:
+        p = p_init.detach().clone()
+        p.requires_grad_(True)
 
     optimizer_p = torch.optim.Adam([p, prior], lr=lr)
 
@@ -197,8 +201,8 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
                 noise = torch.reshape(torch.exp(p[k:(k+t)]), param.data.size()) * eps  * mask[i]                   
                 param.add_(noise)  
                 # mask p
-                # with torch.no_grad():  
-                #     p.data[k:(k+t)] *= mask[i].view(-1)
+                with torch.no_grad():  
+                    p.data[k:(k+t)] *= mask[i].view(-1)
                 k += t
 
             kl = get_kl_term_layer_pb(model_copy, wdecay, p, prior)
@@ -227,7 +231,7 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent,train_loader
         else:
             torlence_iter += 1
 
-        if torlence_iter > 5:
+        if torlence_iter > 10:
             break
 
         # Average losses for the mini-batch

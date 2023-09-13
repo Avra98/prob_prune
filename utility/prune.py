@@ -62,7 +62,7 @@ def prune_by_percentile(model, mask, percent):
         mask[i] = new_mask
     return mask
 
-def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
+def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,prior_sigma=1.0, 
                         kl=0.0, lr=1e-3, num_steps=1, p_init=None):
     kl_loss = 0.0
     device = next(model.parameters()).device
@@ -70,10 +70,12 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
     _,p,_ ,prior= initialization(model,prior_sigma,noise_type)
     if p_init is not None:
         p = p_init.detach().clone()
+        p.requires_grad_(True)
 
-
+    train_loader = torch.utils.data.DataLoader(train_loader_raw.dataset, batch_size=1024)
     optimizer_p = torch.optim.Adam([p], lr=lr)
 
+    torlence_iter, best_loss = 0, 1000000.0
     for epoch in range(num_steps):
         # Initialize accumulators
         batch_original_loss_after_noise_accum = 0.0
@@ -141,6 +143,15 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
                 if kl:
                     kl_loss_accum += kl_loss.item()
                 batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
+
+            if total_loss_accum / len(train_loader) < best_loss:
+                torlence_iter = 0
+                best_loss = total_loss_accum / len(train_loader)
+            else:
+                torlence_iter += 1
+
+            if torlence_iter > 10:
+                break
 
 
         # Average losses for the mini-batch
