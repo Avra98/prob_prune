@@ -183,7 +183,8 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
                 t = len(param.view(-1))
                 normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
                 # Apply new weight and mask
-                mask[i] = torch.where(normalized_tensor < percentile_value, 0, mask[i])
+                #mask[i] = torch.where(normalized_tensor < percentile_value, 0, mask[i])
+                mask[i] = 1.0*(normalized_tensor >= percentile_value) * mask[i]  # Prune based on reshaped p_values
                 param.data = param.data * mask[i] 
                 k += t
 
@@ -209,7 +210,9 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
                 t = len(param.data.view(-1))
                 
                 # Apply new weight and mask
-                mask[i] = torch.where(torch.reshape(p[k:(k+t)], param.shape) < percentile_value, 0, mask[i])  # Prune based on reshaped p_values
+                #mask[i] = torch.where(torch.reshape(p[k:(k+t)], param.shape) < percentile_value, 0, mask[i])  # Prune based on reshaped p_values
+                mask[i] = 1.0*(torch.reshape(p[k:(k+t)], param.shape) >= percentile_value) * mask[i]  # Prune based on reshaped p_values
+
                 param.data = param.data * mask[i]
                 k += t
 
