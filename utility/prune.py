@@ -144,7 +144,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
                     kl_loss_accum += kl_loss.item()
                 batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
 
-            if total_loss_accum / len(train_loader) < best_loss:
+            if total_loss_accum / len(train_loader) <= best_loss:
                 torlence_iter = 0
                 best_loss = total_loss_accum / len(train_loader)
             else:
