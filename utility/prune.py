@@ -16,22 +16,24 @@ def generate_noise_soft(logits,temp=0.5):
     noise = numerator / denominator
     return noise
 
-def initialization(model,prior_sigma,noise_type ="gaussian", w0decay=1.0):
+def initialization(model,mask,prior_sigma,noise_type ="gaussian", w0decay=1.0):
     for param in model.parameters():
         param.data *= w0decay
 
     device = next(model.parameters()).device
-    w0 = []
+    
+    w0, num_params = [], 0
     for layer, param in enumerate(model.parameters()):
-        w0.append(param.data.view(-1).detach().clone())
+        w0.append(param.data.view(-1).detach().clone()*mask[layer].view(-1))
+        num_params += mask[layer].sum()
+
     num_layer = layer + 1
     w0 = torch.cat(w0) 
     if noise_type=="gaussian":
         #p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0))), requires_grad=True)
         p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), 
             torch.log(torch.mean(torch.abs(w0))*torch.ones_like(w0))), requires_grad=True)
-        #prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0)))
-        prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log( torch.mean(torch.abs(w0))*torch.ones_like(w0) ))
+        prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log( torch.log(w0.abs().sum()/num_params) ))
     elif noise_type=="bernoulli":
         p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
         prior = sigmoid(prior_sigma)
@@ -67,7 +69,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
     kl_loss = 0.0
     device = next(model.parameters()).device
     
-    _,p,_ ,prior= initialization(model,prior_sigma,noise_type)
+    _,p,_ ,prior= initialization(model,mask,prior_sigma,noise_type)
     if p_init is not None:
         p = p_init.detach().clone()
         p.requires_grad_(True)
