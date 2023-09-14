@@ -16,10 +16,7 @@ def generate_noise_soft(logits,temp=0.5):
     noise = numerator / denominator
     return noise
 
-def initialization(model,mask,prior_sigma,noise_type ="gaussian", w0decay=1.0):
-    for param in model.parameters():
-        param.data *= w0decay
-
+def initialization(model,mask,prior_sigma,noise_type ="gaussian"):
     device = next(model.parameters()).device
     
     w0, num_params = [], 0
@@ -30,10 +27,8 @@ def initialization(model,mask,prior_sigma,noise_type ="gaussian", w0decay=1.0):
     num_layer = layer + 1
     w0 = torch.cat(w0) 
     if noise_type=="gaussian":
-        #p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(torch.abs(w0))), requires_grad=True)
-        p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), 
-            torch.log(torch.mean(torch.abs(w0))*torch.ones_like(w0))), requires_grad=True)
-        prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log( torch.log(w0.abs().sum()/num_params) ))
+        p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log( w0.abs().sum()/num_params) ), requires_grad=True)
+        prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log( w0.abs().sum()/num_params ))
     elif noise_type=="bernoulli":
         p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
         prior = sigmoid(prior_sigma)
@@ -42,26 +37,36 @@ def initialization(model,mask,prior_sigma,noise_type ="gaussian", w0decay=1.0):
 # Prune by Percentile module
 def prune_by_percentile(model, mask, percent):
     # Calculate percentile value
-    all_alive_weights = []
+    importance_score = []
     for name, param in model.named_parameters():
         # We prune bias term
         alive = torch.nonzero(param.data.abs(), as_tuple=True) # flattened array of nonzero values
-        all_alive_weights.extend(param.data.abs()[alive])
+        importance_score.extend(param.data.abs())
 
-    all_alive_weights = torch.stack(all_alive_weights)
+    importance_score = torch.stack(importance_score)
     # Get the percentile value from all weights (as opposed to only layerwise)
-    percentile_value = np.quantile(all_alive_weights.cpu().numpy(), percent)
+    percentile_value = np.quantile(importance_score.cpu().numpy(), percent)
 
     ##print the percentile value
     print(f'Pruning with threshold : {percentile_value}')
 
-    # Now prune the weights
+    # Identify and shuffle indices of the flattened weights
+    all_masks = torch.cat([m.view(-1) for m in mask])
+    weight_indices = torch.arange(len(all_masks), device=all_masks.device)[all_masks > 0]
+    permuted_indices = torch.argsort(importance_score[all_masks > 0])
+    
+    num_to_prune = int(all_masks.sum() * percent)
+    indices_to_prune = permuted_indices[:num_to_prune]
+    all_masks[weight_indices[indices_to_prune]] = 0.0
+
+    # Updating original weights with pruned values
+    start_idx = 0
     for i, param in enumerate(model.parameters()):
-        new_mask = torch.where(param.data.abs() < percentile_value, 0, mask[i])
-                
-        # Apply new weight and mask
-        param.data = param.data * new_mask
-        mask[i] = new_mask
+        end_idx = start_idx + param.numel()
+        mask[i] = all_masks[start_idx:end_idx].view(mask[i].shape)
+        param.data *= mask[i] 
+        start_idx = end_idx
+
     return mask
 
 def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,prior_sigma=1.0, 
@@ -101,10 +106,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
                     eps = torch.randn_like(param.data, device = device)                
                     noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]                       
                     param.add_(noise)    
-                    # with torch.no_grad():
-                    #      p.data[k:(k+t)] *= mask[i].view(-1)
                     k += t 
-                    #num_params += mask[i].sum() 
                 if kl:
                     kl_loss = 0.5 *(torch.sum( 2*prior - 2*p + (torch.exp(2*p - 2*prior))-1 ) ) #- num_params)
 
@@ -115,11 +117,6 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
                     logits = torch.reshape(p[k:(k+t)], param.data.size())
                     noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
                     param.mul_(noise)
-                    
-                    # if kl:
-                    #     kl_loss += (mask[i].view(-1)*(
-                    #         torch.sigmoid(p[k:(k+t)]) * torch.log((torch.sigmoid(p[k:(k+t)])+1e-6)/prior) + \
-                    #         (1-torch.sigmoid(p[k:(k+t)])) * torch.log((1-torch.sigmoid(p[k:(k+t)])+1e-6)/(1-prior)))).sum()
                     k += t
                 if kl:
                     kl_loss = (torch.sigmoid(p) * torch.log((torch.sigmoid(p)+1e-6)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p)+1e-6)/(1-prior))).sum()
@@ -167,94 +164,68 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
         with torch.no_grad():    
             k=0
             # Flatten all weights into a single list
-            all_normalized_tensors = []
+            importance_score = []
             for i, param in enumerate(model_copy.parameters()):   
-                t = len(param.view(-1))
+                t = param.numel()
                 normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
-                alive = normalized_tensor[torch.nonzero(normalized_tensor,as_tuple=True)]
-                # print(alive.shape)
-                all_normalized_tensors.extend(alive)
+                importance_score.extend(normalized_tensor.flatten())
                 k += t
-            all_normalized_tensors = torch.stack(all_normalized_tensors)
-            # print(all_normalized_tensors.shape)
-            # Get the percentile value from all weights (as opposed to only layerwise)
-            percentile_value = np.quantile(all_normalized_tensors.cpu().numpy(), percent)
-            # Now prune the weights
-            k = 0
-            for i, param in enumerate(model_copy.parameters()):   
-                t = len(param.view(-1))
-                normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
-                # Apply new weight and mask
-                #mask[i] = torch.where(normalized_tensor < percentile_value, 0, mask[i])
-                mask[i] = 1.0*(normalized_tensor >= percentile_value) * mask[i]  # Prune based on reshaped p_values
-                param.data = param.data * mask[i] 
-                k += t
+            importance_score = torch.stack(importance_score)
 
     elif noise_type.lower()=="bernoulli":
         with torch.no_grad():    
             
-            unpruned_p_values = []
+            importance_score = []
             k = 0
             for m in mask:
                 t = m.numel()  # total elements in current layer
-                layer_p_values = p[k:(k+t)]  # get p_values for the current layer
-                unpruned_indices = torch.nonzero(m.flatten())  # unpruned indices for the current layer
-                unpruned_p_values.extend(layer_p_values[unpruned_indices])
+                importance_score.extend(p[k:(k+t)])
                 k += t           
-            unpruned_p_values = torch.stack(unpruned_p_values)
-            # Get the percentile value from all p values
-            percentile_value = np.quantile(unpruned_p_values.cpu().numpy(), percent)
-            print(f" Percentile value: {percentile_value}")
+            importance_score = torch.stack(importance_score)
 
-            # Pruning the weights
-            k = 0
-            for i, param in enumerate(model_copy.parameters()):   
-                t = len(param.data.view(-1))
-                
-                # Apply new weight and mask
-                #mask[i] = torch.where(torch.reshape(p[k:(k+t)], param.shape) < percentile_value, 0, mask[i])  # Prune based on reshaped p_values
-                mask[i] = 1.0*(torch.reshape(p[k:(k+t)], param.shape) >= percentile_value) * mask[i]  # Prune based on reshaped p_values
+    # Identify and shuffle indices of the flattened weights
+    all_masks = torch.cat([m.view(-1) for m in mask])
+    weight_indices = torch.arange(len(all_masks), device=all_masks.device)[all_masks > 0]
+    permuted_indices = torch.argsort(importance_score[all_masks > 0])
+    
+    num_to_prune = int(all_masks.sum() * percent)
+    indices_to_prune = permuted_indices[:num_to_prune]
+    all_masks[weight_indices[indices_to_prune]] = 0.0
 
-                param.data = param.data * mask[i]
-                k += t
+    # Get the percentile value from all weights (as opposed to only layerwise)
+    percentile_value = np.quantile(importance_score[all_masks > 0].cpu().numpy(), percent)
+    print(f" Percentile value: {percentile_value}")
+
+    # Updating original weights with pruned values
+    start_idx = 0
+    for i, param in enumerate(model.parameters()):
+        end_idx = start_idx + param.numel()
+        mask[i] = all_masks[start_idx:end_idx].view(mask[i].shape)
+        param.data *= mask[i] 
+        start_idx = end_idx
 
     return mask, p.detach().clone()
 
-
-
 def prune_by_random(model, mask, percent):
+    # Flatten all weights of the model
+    all_masks = torch.cat([m.view(-1) for m in mask])
+
+    # Identify and shuffle indices of the flattened weights
+    weight_indices = torch.arange(len(all_masks), device=all_masks.device)[all_masks > 0]
+    permuted_indices = torch.randperm(weight_indices.size(0))
     
-    # Collect all the alive weight indices 
-    alive_indices = []
-    cumulative_length = 0
-
-    for param in model.parameters():
-        flat_tensor = param.data.view(-1)
+    # Calculate the number of weights to set to zero
+    num_to_prune = int(all_masks.sum() * percent)
+    indices_to_prune = permuted_indices[:num_to_prune]
     
-        tensor_alive_indices = (torch.nonzero(flat_tensor).squeeze() + cumulative_length).tolist()
-
-        # Get the indices of non-zero elements in the tensor
-        alive_indices.extend(tensor_alive_indices)
-
-        cumulative_length += flat_tensor.numel()
-
-    # Select percent% of the alive indices to prune
-    num_weights_to_prune = int((percent) * len(alive_indices))
-    random_idx = torch.randperm(len(alive_indices))[:num_weights_to_prune]
-    indices_to_prune = torch.tensor(alive_indices)[random_idx].tolist()
-
-    # Update the masks and parameters
-    current_index = 0
-    for param, mask_param in zip(model.parameters(), mask):
-        flat_mask = mask_param.view(-1)
-        length = flat_mask.numel()
-
-        layer_indices_to_prune = [i - current_index for i in indices_to_prune if current_index <= i < current_index + length]
-
-        flat_mask[layer_indices_to_prune] = 0
-
-        # Apply new weight and mask
-        param.data *= mask_param
-        current_index += length
-
+    # Set those weights to zero
+    all_masks[weight_indices[indices_to_prune]] = 0.0
+    
+    # Updating original weights with pruned values
+    start_idx = 0
+    for i, param in enumerate(model.parameters()):
+        end_idx = start_idx + param.numel()
+        mask[i] = all_masks[start_idx:end_idx].view(mask[i].shape)
+        param.data *= mask[i] 
+        start_idx = end_idx
     return mask
