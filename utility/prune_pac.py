@@ -260,7 +260,7 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent, train_loade
     all_masks[weight_indices[indices_to_prune]] = 0.0
 
     # Get the percentile value from all weights (as opposed to only layerwise)
-    percentile_value = np.quantile(importance_score[all_masks > 0].cpu().numpy(), percent)
+    percentile_value = np.quantile(importance_score[all_masks > 0].detach().cpu().numpy(), percent)
     print(f" Percentile value: {percentile_value}")
 
     # Updating original weights with pruned values

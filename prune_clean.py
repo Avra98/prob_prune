@@ -167,7 +167,7 @@ def main(args):
                 accuracy = test(model, dataset.test, criterion)
 
                 # Save Weights
-                if accuracy > best_accuracy:
+                if accuracy >= best_accuracy:
                     best_accuracy = accuracy
                     torlence_iter = 0
                     checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
