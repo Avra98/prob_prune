@@ -77,7 +77,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
         p = p_init.detach().clone()
         p.requires_grad_(True)
 
-    train_loader = torch.utils.data.DataLoader(train_loader_raw.dataset, batch_size=1024)
+    train_loader = torch.utils.data.DataLoader(train_loader_raw.dataset, batch_size=1024, shuffle=True)
     optimizer_p = torch.optim.Adam([p], lr=lr)
 
     torlence_iter, best_loss = 0, 1000000.0
