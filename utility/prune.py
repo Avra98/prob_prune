@@ -40,21 +40,19 @@ def prune_by_percentile(model, mask, percent):
     importance_score = []
     for name, param in model.named_parameters():
         # We prune bias term
-        alive = torch.nonzero(param.data.abs(), as_tuple=True) # flattened array of nonzero values
-        importance_score.extend(param.data.abs())
+        #alive = torch.nonzero(param.data.abs(), as_tuple=True) # flattened array of nonzero values
+        importance_score.extend(param.data.abs().view(-1))
 
     importance_score = torch.stack(importance_score)
-    # Get the percentile value from all weights (as opposed to only layerwise)
-    percentile_value = np.quantile(importance_score.cpu().numpy(), percent)
-
-    ##print the percentile value
-    print(f'Pruning with threshold : {percentile_value}')
-
     # Identify and shuffle indices of the flattened weights
     all_masks = torch.cat([m.view(-1) for m in mask])
     weight_indices = torch.arange(len(all_masks), device=all_masks.device)[all_masks > 0]
     permuted_indices = torch.argsort(importance_score[all_masks > 0])
-    
+    # Get the percentile value from all weights (as opposed to only layerwise)
+    percentile_value = np.quantile(importance_score[all_masks > 0].cpu().numpy(), percent)
+    # print the percentile value
+    print(f'Pruning with threshold : {percentile_value}')
+
     num_to_prune = int(all_masks.sum() * percent)
     indices_to_prune = permuted_indices[:num_to_prune]
     all_masks[weight_indices[indices_to_prune]] = 0.0

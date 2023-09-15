@@ -169,7 +169,7 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent, train_loade
     print("K:", K_list)
 
     device = next(model.parameters()).device
-    _,p,_ ,prior= initialization_pac(model,prior_sigma,noise_type)
+    _,p,_ ,prior= initialization_pac(model,noise_type)
     if p_init is not None:
         p = p_init.detach().clone()
         p.requires_grad_(True)
