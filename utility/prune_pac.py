@@ -150,7 +150,7 @@ def initialization_pac(model, mask, w0decay=1.0):
 
     num_layer = layer + 1
     w0 = torch.cat(w0) 
-    p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(w0.abs())), requires_grad=True)
+    p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log(w0.abs().sum()/num_params)), requires_grad=True)
     prior = nn.Parameter(torch.ones(num_layer, device=device)*(torch.log(w0.abs().sum()/num_params)), requires_grad=True)
     return w0, p, num_layer, prior
 
@@ -169,7 +169,7 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent, train_loade
     print("K:", K_list)
 
     device = next(model.parameters()).device
-    _,p,_ ,prior= initialization_pac(model,noise_type)
+    _,p,_ ,prior= initialization_pac(model, mask)
     if p_init is not None:
         p = p_init.detach().clone()
         p.requires_grad_(True)
