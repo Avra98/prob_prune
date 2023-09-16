@@ -165,6 +165,7 @@ def main(args):
             # Frequency for Testing
             if iter_ % args.valid_freq == 0:
                 accuracy = test(model, dataset.test, criterion)
+                train_acc = test(model, dataset.train, criterion)
 
                 # Save Weights
                 if accuracy >= best_accuracy:
@@ -197,9 +198,9 @@ def main(args):
             # Frequency for Printing Accuracy and Loss
             if iter_ % args.print_freq == 0:
                 pbar.set_description(
-                    f'Train Epoch: {iter_}/{end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f}% Best Accuracy: {best_accuracy:.2f}%')       
+                    f'Train Epoch: {iter_}/{end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f} {train_acc:.2f} % Best test Accuracy: {best_accuracy:.2f}%')       
 
-        print(f'Train Epoch: {iter_}/{end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f}% Best Accuracy: {best_accuracy:.2f}%') 
+        print(f'Train Epoch: {iter_}/{end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f} {train_acc:.2f} % Best test Accuracy: {best_accuracy:.2f}%') 
         #writer.add_scalar('Accuracy/test', best_accuracy, comp1)
         bestacc[_ite]=best_accuracy
 
