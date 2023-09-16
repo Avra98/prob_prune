@@ -126,15 +126,12 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
                 output = model_copy(data)
                 batch_original_loss_after_noise = criterion(output, target)
 
-                if kl:
-                    total_loss += (batch_original_loss_after_noise + kl*kl_loss)
-                else:                    
-                    total_loss += (batch_original_loss_after_noise)
-                
+                total_loss = (batch_original_loss_after_noise + kl*kl_loss)
+                total_loss_accum += (total_loss/num_injection).item()
                 if n_j == num_injection - 1:
-                    total_loss.backward()
+                    (total_loss/num_injection).backward()
                 else:
-                    total_loss.backward(retain_graph=True)
+                    (total_loss/num_injection).backward(retain_graph=True)
 
 
                 with torch.no_grad():
@@ -144,12 +141,8 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
             optimizer_p.step()
 
 
-            with torch.no_grad():
-                total_loss_accum += total_loss.item()
-                if kl:
-                    kl_loss_accum += kl_loss.item()
-                batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
-
+            kl_loss_accum += kl_loss.item()
+            batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
             if total_loss_accum / len(train_loader) <= best_loss:
                 torlence_iter = 0
                 best_loss = total_loss_accum / len(train_loader)
@@ -164,7 +157,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
         print(f"Epoch {epoch+1}")
         print(f"Average batch original loss after noise: {batch_original_loss_after_noise_accum / len(train_loader):.6f}")
         if kl:
-            print(f"Average KL loss: {kl_loss_accum / len(train_loader):.6f}")
+            print(f"Average KL loss: {kl*kl_loss_accum / len(train_loader):.6f}")
         print(f"Average total loss: {total_loss_accum / len(train_loader):.6f}")
 
     if noise_type.lower()=="gaussian":
