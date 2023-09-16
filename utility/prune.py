@@ -68,7 +68,7 @@ def prune_by_percentile(model, mask, percent):
     return mask
 
 def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,prior_sigma=1.0, 
-                        kl=0.0, lr=1e-3, num_steps=1, p_init=None, num_injection=1):
+                        kl=0.0, lr=1e-3, num_steps=1, p_init=None):
     kl_loss = 0.0
     device = next(model.parameters()).device
     
@@ -80,7 +80,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
     train_loader = torch.utils.data.DataLoader(train_loader_raw.dataset, batch_size=1024, shuffle=True)
     optimizer_p = torch.optim.Adam([p], lr=lr)
 
-    torlence_iter, best_loss = 0, 1000000.0
+    tolerance, best_loss = 0, 1000000.0
     for epoch in range(num_steps):
         # Initialize accumulators
         batch_original_loss_after_noise_accum = 0.0
@@ -92,65 +92,62 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
             data, target = data.to(device), target.to(device)
 
             optimizer_p.zero_grad()
-            
-            total_loss = 0
-            for n_j in range(num_injection):
-                model_copy = copy.deepcopy(model)
-                for param in model_copy.parameters():
-                    param.requires_grad = False
+            model_copy = copy.deepcopy(model)
+            for param in model_copy.parameters():
+                param.requires_grad = False
 
-                ## no noise added at the pruned locations
-                if noise_type.lower()=="gaussian":
-                    k, num_params = 0, 0
-                    for i, param in enumerate(model_copy.parameters()):   
-                        t = len(param.view(-1))
-                        eps = torch.randn_like(param.data, device = device)                
-                        noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]                       
-                        param.add_(noise)    
-                        k += t 
-                    if kl:
-                        kl_loss = 0.5 *(torch.sum( 2*prior - 2*p + (torch.exp(2*p - 2*prior))-1 ) ) #- num_params)
+            ## no noise added at the pruned locations
+            if noise_type.lower()=="gaussian":
+                k, num_params = 0, 0
+                for i, param in enumerate(model_copy.parameters()):   
+                    t = len(param.view(-1))
+                    eps = torch.randn_like(param.data, device = device)                
+                    noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]                       
+                    param.add_(noise)    
+                    k += t 
+                if kl:
+                    kl_loss = 0.5 *(torch.sum( 2*prior - 2*p + (torch.exp(2*p - 2*prior))-1 ) ) #- num_params)
 
-                elif noise_type.lower()=="bernoulli":                     
-                    k, kl_loss = 0, 0
-                    for i, param in enumerate(model_copy.parameters()):   
-                        t = len(param.view(-1))
-                        logits = torch.reshape(p[k:(k+t)], param.data.size())
-                        noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
-                        param.mul_(noise)
-                        k += t
-                    if kl:
-                        kl_loss = (torch.sigmoid(p) * torch.log((torch.sigmoid(p)+1e-6)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p)+1e-6)/(1-prior))).sum()
+            elif noise_type.lower()=="bernoulli":                     
+                k, kl_loss = 0, 0
+                for i, param in enumerate(model_copy.parameters()):   
+                    t = len(param.view(-1))
+                    logits = torch.reshape(p[k:(k+t)], param.data.size())
+                    noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
+                    param.mul_(noise)
+                    k += t
+                if kl:
+                    kl_loss = (torch.sigmoid(p) * torch.log((torch.sigmoid(p)+1e-6)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p)+1e-6)/(1-prior))).sum()
 
-                # Forward pass after adding noise
-                output = model_copy(data)
-                batch_original_loss_after_noise = criterion(output, target)
+            # Forward pass after adding noise
+            output = model_copy(data)
+            batch_original_loss_after_noise = criterion(output, target)
 
-                total_loss = (batch_original_loss_after_noise + kl*kl_loss)
-                total_loss_accum += (total_loss/num_injection).item()
-                if n_j == num_injection - 1:
-                    (total_loss/num_injection).backward()
-                else:
-                    (total_loss/num_injection).backward(retain_graph=True)
+            total_loss = batch_original_loss_after_noise + kl*kl_loss
+            total_loss_accum += total_loss.item()
+            total_loss.backward()
 
 
-                with torch.no_grad():
-                    if batch_idx==0:
-                        print(torch.mean(p),torch.var(p),torch.mean(p.grad))
+            with torch.no_grad():
+                if batch_idx==0:
+                    print(torch.mean(p),torch.var(p),torch.mean(p.grad))
 
             optimizer_p.step()
-
-
             kl_loss_accum += kl_loss.item()
             batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
-            if total_loss_accum / len(train_loader) <= best_loss:
-                torlence_iter = 0
-                best_loss = total_loss_accum / len(train_loader)
-            else:
-                torlence_iter += 1
+        
+        # early stopping
+        # compute the best training accuracy and compare with the best_loss
+        # if a smaller loss achieved, reset the tolerance
+        # otherwise keep increasing tolerance until the threshold
+        if total_loss_accum / len(train_loader) <= best_loss:
+            tolerance = 0
+            best_loss = total_loss_accum / len(train_loader)
+        else:
+            tolerance += 1
 
-            if torlence_iter > 10:
-                break
+        if tolerance > 25:
+            break
 
 
         # Average losses for the mini-batch

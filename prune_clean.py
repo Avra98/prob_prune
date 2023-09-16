@@ -102,7 +102,7 @@ def main(args):
             if args.prune_type=="noise":
 
                 mask, p_new = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
-                	   prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, num_injection=args.num_injection)
+                	   prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old)
                 if args.initial_p == "last":
                     p_old = p_new.detach().clone()
 
@@ -159,7 +159,7 @@ def main(args):
         comp[_ite] = comp1
         pbar = tqdm(range(end_iter))
 
-        torlence_iter = 0
+        tolerance = 0
         for iter_ in pbar:
 
             # Frequency for Testing
@@ -170,13 +170,13 @@ def main(args):
                 # Save Weights
                 if accuracy >= best_accuracy:
                     best_accuracy = accuracy
-                    torlence_iter = 0
+                    tolerance = 0
                     checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
                     torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar")
                 else:
-                    torlence_iter += 1
+                    tolerance += 1
 
-                if torlence_iter > 10:
+                if tolerance > 25:
                     break
 
             # Training
@@ -249,8 +249,7 @@ if __name__=="__main__":
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--threads", default=1, type=int, help="number of threads of data loader")
     parser.add_argument("--prune_type", default="lt", type=str, help="lt |noise|random")
-    parser.add_argument("--num_injection", default=1, type=int, help="number of noise injection for smoothing loss of p")
-    
+ 
     parser.add_argument("--initial", default="last", type=str, help="reinit|original|last|rewind")
     parser.add_argument("--initial_p", default="last", type=str, help="reinit|last")
 
