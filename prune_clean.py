@@ -93,14 +93,21 @@ def main(args):
     prior_sigma = args.prior
     kl=args.kl
     noise_step = args.noise_step
+    p_old = None
+    noise_batch = args.noise_batch
     
     for _ite in range(args.start_iter, ITERATION):
         
         if not _ite == 0:
             ## prune here 
             if args.prune_type=="noise":
-                mask = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
-                	prior_sigma,kl,num_steps=noise_step,lr=args.lr_p)
+                # mask = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
+                # 	prior_sigma,kl,num_steps=noise_step,lr=args.lr_p)
+                mask, p_new = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type, prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old,noise_batch=1024)
+                if args.initial_p == "last":
+                    p_old = p_new.detach().clone()
+
+
             elif args.prune_type=="noise_pac":
                 # reweight weight
                 with torch.no_grad():
@@ -167,7 +174,7 @@ def main(args):
                 else:
                     torlence_iter += 1
 
-                if torlence_iter > 5:
+                if torlence_iter > 30:
                     break
 
             # Training
@@ -245,7 +252,7 @@ if __name__=="__main__":
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121|fcs")
     parser.add_argument("--prune_percent", default=0.8, type=float, help="Pruning percent")
-    parser.add_argument("--prune_iterations", default=6, type=int, help="Pruning iterations count")
+    parser.add_argument("--prune_iterations", default=7, type=int, help="Pruning iterations count")
     parser.add_argument("--noise_type", default="gaussian", type=str , help="chose gaussian or bernoulli noise")
     parser.add_argument("--kl", default=1e-4, type=float, help="if using the kl term")
     parser.add_argument("--augmentation", "-aug", action='store_true', help="if using augmentation.")
@@ -256,10 +263,13 @@ if __name__=="__main__":
     parser.add_argument("--prior", default=0.0, type=float , help="prior centre in kl")
     parser.add_argument("--noise_step", default=10, type=int , help="number of noise iterations")
     parser.add_argument("--rewind_iter", default=3, type=int , help="number of rewind iterations")
+    parser.add_argument("--initial_p", default="reinit", type=str, help="reinit|last")
+    parser.add_argument("--noise_batch", default=1024, type=int, help="batch size for noise injection")
     args = parser.parse_args()
 
 
     os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"   
+
     os.environ["CUDA_VISIBLE_DEVICES"]=args.gpu
     
     main(args)

@@ -63,11 +63,16 @@ def prune_by_percentile(model, mask, percent):
     return mask
 
 def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prior_sigma=1.0, 
-                        kl=0.0, lr=1e-3, num_steps=1):
+                        kl=0.0, lr=1e-3, num_steps=1, p_init=None,noise_batch=1024):
     kl_loss = 0.0
     device = next(model.parameters()).device
     _,p,_ ,prior= initialization(model,prior_sigma,noise_type)
+    
+    if p_init is not None:
+        p = p_init.detach().clone()
+        p.requires_grad_(True)
     optimizer_p = torch.optim.Adam([p], lr=lr)
+    new_train_loader = torch.utils.data.DataLoader(train_loader.dataset, batch_size=noise_batch, shuffle=True)
 
     for epoch in range(num_steps):
         # Initialize accumulators
@@ -76,7 +81,7 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
         kl_loss_accum = 0.0
 
         # Loop over mini-batches
-        for batch_idx, (data, target) in enumerate(train_loader):
+        for batch_idx, (data, target) in enumerate(new_train_loader):
             data, target = data.to(device), target.to(device)
 
             optimizer_p.zero_grad()
@@ -197,7 +202,7 @@ def prune_by_noise(model, mask, percent,train_loader,criterion, noise_type ,prio
                 param.data = param.data * mask[i]
                 k += t
 
-    return mask
+    return mask, p.detach().clone()
 
 
 
