@@ -68,7 +68,7 @@ def prune_by_percentile(model, mask, percent):
     return mask
 
 def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,prior_sigma=1.0, 
-                        kl=0.0, lr=1e-3, num_steps=1, p_init=None):
+                        kl=0.0, lr=1e-3, num_steps=1, p_init=None, num_injection=1):
     kl_loss = 0.0
     device = next(model.parameters()).device
     
@@ -92,46 +92,55 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
             data, target = data.to(device), target.to(device)
 
             optimizer_p.zero_grad()
-            model_copy = copy.deepcopy(model)
-            for param in model_copy.parameters():
-                param.requires_grad = False
-
-            ## no noise added at the pruned locations
-            if noise_type.lower()=="gaussian":
-                k, num_params = 0, 0
-                for i, param in enumerate(model_copy.parameters()):   
-                    t = len(param.view(-1))
-                    eps = torch.randn_like(param.data, device = device)                
-                    noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]                       
-                    param.add_(noise)    
-                    k += t 
-                if kl:
-                    kl_loss = 0.5 *(torch.sum( 2*prior - 2*p + (torch.exp(2*p - 2*prior))-1 ) ) #- num_params)
-
-            elif noise_type.lower()=="bernoulli":                     
-                k, kl_loss = 0, 0
-                for i, param in enumerate(model_copy.parameters()):   
-                    t = len(param.view(-1))
-                    logits = torch.reshape(p[k:(k+t)], param.data.size())
-                    noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
-                    param.mul_(noise)
-                    k += t
-                if kl:
-                    kl_loss = (torch.sigmoid(p) * torch.log((torch.sigmoid(p)+1e-6)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p)+1e-6)/(1-prior))).sum()
-
-            # Forward pass after adding noise
-            output = model_copy(data)
-            batch_original_loss_after_noise = criterion(output, target)
-
-            if kl:
-                total_loss = batch_original_loss_after_noise + kl*kl_loss
-            else:                    
-                total_loss =  batch_original_loss_after_noise
-            total_loss.backward()
             
-            with torch.no_grad():
-                if batch_idx==0:
-                    print(torch.mean(p),torch.var(p),torch.mean(p.grad))
+            total_loss = 0
+            for n_j in range(num_injection):
+                model_copy = copy.deepcopy(model)
+                for param in model_copy.parameters():
+                    param.requires_grad = False
+
+                ## no noise added at the pruned locations
+                if noise_type.lower()=="gaussian":
+                    k, num_params = 0, 0
+                    for i, param in enumerate(model_copy.parameters()):   
+                        t = len(param.view(-1))
+                        eps = torch.randn_like(param.data, device = device)                
+                        noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]                       
+                        param.add_(noise)    
+                        k += t 
+                    if kl:
+                        kl_loss = 0.5 *(torch.sum( 2*prior - 2*p + (torch.exp(2*p - 2*prior))-1 ) ) #- num_params)
+
+                elif noise_type.lower()=="bernoulli":                     
+                    k, kl_loss = 0, 0
+                    for i, param in enumerate(model_copy.parameters()):   
+                        t = len(param.view(-1))
+                        logits = torch.reshape(p[k:(k+t)], param.data.size())
+                        noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
+                        param.mul_(noise)
+                        k += t
+                    if kl:
+                        kl_loss = (torch.sigmoid(p) * torch.log((torch.sigmoid(p)+1e-6)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p)+1e-6)/(1-prior))).sum()
+
+                # Forward pass after adding noise
+                output = model_copy(data)
+                batch_original_loss_after_noise = criterion(output, target)
+
+                if kl:
+                    total_loss += (batch_original_loss_after_noise + kl*kl_loss)
+                else:                    
+                    total_loss += (batch_original_loss_after_noise)
+                
+                if n_j == num_injection - 1:
+                    total_loss.backward()
+                else:
+                    total_loss.backward(retain_graph=True)
+
+
+                with torch.no_grad():
+                    if batch_idx==0:
+                        print(torch.mean(p),torch.var(p),torch.mean(p.grad))
+
             optimizer_p.step()
 
 
