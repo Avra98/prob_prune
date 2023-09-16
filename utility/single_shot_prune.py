@@ -75,3 +75,5 @@ def prune_by_grasp(model, percent, dataloader, device, loss_fn):
     for name, param in model.named_parameters():
         mask = torch.where(scores[name] < threshold, torch.tensor(0., device=device), torch.tensor(1., device=device))
         param.data *= mask
+
+        
