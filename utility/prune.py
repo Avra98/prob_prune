@@ -79,7 +79,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
 
     train_loader = torch.utils.data.DataLoader(train_loader_raw.dataset, batch_size=1024, shuffle=True)
     optimizer_p = torch.optim.Adam([p], lr=lr)
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=10)
+    scheduler = ReduceLROnPlateau(optimizer_p, mode='min', factor=0.1, patience=10)
 
     tolerance, best_loss = 0, 1000000.0
     for epoch in range(num_steps):
