@@ -185,7 +185,7 @@ def main(args):
             all_loss[iter_] = loss
             all_accuracy[iter_] = accuracy
 
-            if train_acc >= 0.999:
+            if train_acc >= 99.9:
                 achieve_target_acc += 1
                 if achieve_target_acc > 20:
                     break
