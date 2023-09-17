@@ -2,7 +2,7 @@ import copy
 import torch
 import torch.nn as nn 
 import numpy as np 
-
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 import math
 
 def sigmoid(x):
@@ -79,6 +79,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
 
     train_loader = torch.utils.data.DataLoader(train_loader_raw.dataset, batch_size=1024, shuffle=True)
     optimizer_p = torch.optim.Adam([p], lr=lr)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=10)
 
     tolerance, best_loss = 0, 1000000.0
     for epoch in range(num_steps):
@@ -98,7 +99,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
 
             ## no noise added at the pruned locations
             if noise_type.lower()=="gaussian":
-                k, num_params = 0, 0
+                k, kl_loss = 0, 0
                 for i, param in enumerate(model_copy.parameters()):   
                     t = len(param.view(-1))
                     eps = torch.randn_like(param.data, device = device)                
@@ -137,19 +138,11 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
             batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
         
         # early stopping
-        # compute the best training accuracy and compare with the best_loss
-        # if a smaller loss achieved, reset the tolerance
-        # otherwise keep increasing tolerance until the threshold
-        if total_loss_accum / len(train_loader) <= best_loss:
-            tolerance = 0
-            best_loss = total_loss_accum / len(train_loader)
-        else:
-            tolerance += 1
-
-        if tolerance > 25:
+        scheduler.step(total_loss_accum)
+        # no need to keep training
+        if optimizer_p.param_groups[0]['lr'] < 1e-5:
             break
-
-
+            
         # Average losses for the mini-batch
         print(f"Epoch {epoch+1}")
         print(f"Average batch original loss after noise: {batch_original_loss_after_noise_accum / len(train_loader):.6f}")

@@ -15,6 +15,7 @@ from utility.log_utils import *
 from utility.func_utils import *
 from utility.prune import *
 from utility.prune_pac import *
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 # Tensorboard initialization
 #writer = SummaryWriter()
@@ -153,13 +154,14 @@ def main(args):
             optimizer = torch.optim.Adam(model.parameters(), lr=args.lr, 
                                          weight_decay = args.weight_decay)           
 
+        scheduler = ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=10)
         print(f"\n--- Pruning Level [{_ite}/{ITERATION}]: ---")
         # Print the table of Nonzeros in each layer
         comp1 = print_nonzeros(model)
         comp[_ite] = comp1
         pbar = tqdm(range(end_iter))
 
-        tolerance = 0
+        achieve_target_acc, tolerance = 0, 0
         for iter_ in pbar:
 
             # Frequency for Testing
@@ -170,14 +172,8 @@ def main(args):
                 # Save Weights
                 if accuracy >= best_accuracy:
                     best_accuracy = accuracy
-                    tolerance = 0
                     checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
                     torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar")
-                else:
-                    tolerance += 1
-
-                if tolerance > 25:
-                    break
 
             # Training
             if args.noise_std == 0:
@@ -188,6 +184,16 @@ def main(args):
 
             all_loss[iter_] = loss
             all_accuracy[iter_] = accuracy
+
+            if train_acc >= 0.999:
+                achieve_target_acc += 1
+                if achieve_target_acc > 20:
+                    break
+
+            # no need to keep training
+            if optimizer.param_groups[0]['lr'] < 1e-5:
+                break
+            scheduler.step(train_acc)
 
             if args.initial=="rewind" and args.rewind_iter==iter_ and _ite==0:
                 ## save the model in a separaate folder named rewind
