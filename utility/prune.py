@@ -29,7 +29,7 @@ def initialization(model,mask,prior_sigma,noise_type ="gaussian"):
     if noise_type=="gaussian":
         p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log( w0.abs().sum()/num_params) ), requires_grad=True)
         prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log( w0.abs().sum()/num_params ))
-    elif noise_type=="bernoulli":
+    else:
         p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
         prior = sigmoid(prior_sigma)
     return w0, p, num_layer,prior
