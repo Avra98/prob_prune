@@ -151,7 +151,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
         # no need to keep training
         if optimizer_p.param_groups[0]['lr'] < 1e-5:
             break
-        if optimizer.param_groups[0]['lr'] < lr - 1e-6 and p_schedule is None:
+        if optimizer_p.param_groups[0]['lr'] < lr - 1e-6 and p_schedule is None:
             p_schedule = copy.deepcopy(p)
 
         # Average losses for the mini-batch
