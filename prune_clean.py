@@ -96,16 +96,19 @@ def main(args):
     noise_step = args.noise_step
     
     p_old = None
+    model_schedule = None
     for _ite in range(args.start_iter, ITERATION):
         
         if not _ite == 0:
             ## prune here 
             if args.prune_type=="noise":
 
-                mask, p_new = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
+                mask, p_new, p_schedule = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
                 	   prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl)
                 if args.initial_p == "last":
                     p_old = p_new.detach().clone()
+                elif args.initial_p == "schedule":
+                    p_old = p_schedule.detach().clone()
 
             elif args.prune_type=="noise_pac":
                 # reweight weight
@@ -136,6 +139,12 @@ def main(args):
                         step += 1
             elif args.initial=="original":
                 original_initialization(model, mask, model_init)
+            elif args.initial=="schedule":
+                if model_schedule is not None:
+                    original_initialization(model, mask, copy.deepcopy(model_schedule))
+                else:
+                    original_initialization(model, mask, copy.deepcopy(model))
+                model_schedule = None
             elif args.initial=="last":
                 original_initialization(model, mask, copy.deepcopy(model)) ## does not alter the model, only masks it 
             elif args.initial=="rewind":
@@ -194,6 +203,9 @@ def main(args):
             if optimizer.param_groups[0]['lr'] < 1e-5:
                 break
             scheduler.step(train_acc)
+            if args.initial == "schedule":
+                if optimizer.param_groups[0]['lr'] < args.lr - 1e-6 and model_schedule is None:
+                    model_schedule = copy.deepcopy(model)
 
             if args.initial=="rewind" and args.rewind_iter==iter_ and _ite==0:
                 ## save the model in a separaate folder named rewind

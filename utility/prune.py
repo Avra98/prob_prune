@@ -76,7 +76,8 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
     if p_init is not None:
         p = p_init.detach().clone()
         p.requires_grad_(True)
-
+    p_schedule = None
+    
     num_params = 0
     for m in mask:
         num_params += m.sum()
@@ -150,7 +151,9 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
         # no need to keep training
         if optimizer_p.param_groups[0]['lr'] < 1e-5:
             break
-            
+        if optimizer.param_groups[0]['lr'] < lr - 1e-6 and p_schedule is None:
+            p_schedule = copy.deepcopy(p)
+
         # Average losses for the mini-batch
         print(f"Epoch {epoch+1}")
         print(f"Average batch original loss after noise: {batch_original_loss_after_noise_accum / len(train_loader):.6f}")
@@ -202,7 +205,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
         param.data *= mask[i] 
         start_idx = end_idx
 
-    return mask, p.detach().clone()
+    return mask, p.detach().clone(), p_schedule.detach().clone()
 
 def prune_by_random(model, mask, percent):
     # Flatten all weights of the model
