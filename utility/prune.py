@@ -165,7 +165,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
         if optimizer_p.param_groups[0]['lr'] < 1e-5:
             break
         if optimizer_p.param_groups[0]['lr'] < lr - 1e-6 and p_schedule is None:
-            p_schedule = copy.deepcopy(p)
+            p_schedule = p.detach().clone()
 
         # Average losses for the mini-batch
         print(f"Epoch {epoch+1}")
@@ -218,7 +218,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
         param.data *= mask[i] 
         start_idx = end_idx
 
-    return mask, p.detach().clone(), p_schedule.detach().clone()
+    return mask, p.detach().clone(), p_schedule
 
 def prune_by_random(model, mask, percent):
     # Flatten all weights of the model
