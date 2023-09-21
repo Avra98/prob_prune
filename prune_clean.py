@@ -60,7 +60,7 @@ def main(args):
         model = vgg.VGG("VGG16").to(device)  
     elif args.arch_type.lower() == "resnet18":
         model = resnet.resnet18().to(device)   
-    elif args.arch_type.lower() == "ResNet50":
+    elif args.arch_type.lower() == "resnet50":
         model = resnet.resnet50().to(device)   
     elif args.arch_type.lower() == "fcs":
         model = fcs.fcs().to(device)    
@@ -261,7 +261,7 @@ if __name__=="__main__":
 
     parser.add_argument("--gpu", default="0", type=str)
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
-    parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | densenet121|fcs")
+    parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | resnet50|densenet121|fcs")
     parser.add_argument("--prune_percent", default=0.8, type=float, help="Pruning percent")
     parser.add_argument("--prune_iterations", default=6, type=int, help="Pruning iterations count")
     parser.add_argument("--noise_type", default="gaussian", type=str , help="chose gaussian or bernoulli noise")
