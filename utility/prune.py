@@ -68,7 +68,7 @@ def prune_by_percentile(model, mask, percent):
     return mask
 
 def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,prior_sigma=1.0, 
-                        kl=0.0, lr=1e-3, num_steps=1, p_init=None):
+                        kl=0.0, lr=1e-3, num_steps=1, p_init=None, reduce_op=False):
     kl_loss = 0.0
     device = next(model.parameters()).device
     
@@ -76,6 +76,10 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
     if p_init is not None:
         p = p_init.detach().clone()
         p.requires_grad_(True)
+
+    num_params = 0
+    for m in mask:
+        num_params += m.sum()
 
     train_loader = torch.utils.data.DataLoader(train_loader_raw.dataset, 
                     batch_size=1024, shuffle=True, num_workers=1)
@@ -120,6 +124,9 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
                     k += t
                 if kl:
                     kl_loss = (torch.sigmoid(p) * torch.log((torch.sigmoid(p)+1e-6)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p)+1e-6)/(1-prior))).sum()
+
+                if reduce_op:
+                    kl_loss /= num_params
 
             # Forward pass after adding noise
             output = model_copy(data)

@@ -103,7 +103,7 @@ def main(args):
             if args.prune_type=="noise":
 
                 mask, p_new = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
-                	   prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old)
+                	   prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl)
                 if args.initial_p == "last":
                     p_old = p_new.detach().clone()
 
@@ -267,6 +267,7 @@ if __name__=="__main__":
     parser.add_argument("--noise_type", default="gaussian", type=str , help="chose gaussian or bernoulli noise")
     parser.add_argument("--kl", default=1e-4, type=float, help="if using the kl term")
     parser.add_argument("--augmentation", "-aug", action='store_true', help="if using augmentation.")
+    parser.add_argument("--reduce_kl", action='store_true', help="if reduce_kl by mean")
     
     parser.add_argument("--noise_std", default=0, type=float, help="if using nosie injection during training.")
     parser.add_argument("--inject_noise", default="iso", type=str, help="noise type for noise injection: isotropic (iso) | anisotropic (ani) ")
