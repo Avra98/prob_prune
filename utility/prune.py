@@ -186,9 +186,8 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
                 k += t
             importance_score = torch.stack(importance_score)
 
-    elif noise_type.lower()=="bernoulli":
+    elif "bernoulli" in noise_type.lower():
         with torch.no_grad():    
-            
             importance_score = []
             k = 0
             for m in mask:
