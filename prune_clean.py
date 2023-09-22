@@ -267,7 +267,7 @@ if __name__=="__main__":
     parser.add_argument("--print_freq", default=1, type=int)
     parser.add_argument("--valid_freq", default=1, type=int)
     parser.add_argument("--resume", action="store_true")
-    parser.add_argument("--threads", default=1, type=int, help="number of threads of data loader")
+    parser.add_argument("--threads", default=4, type=int, help="number of threads of data loader")
     parser.add_argument("--prune_type", default="lt", type=str, help="lt |noise|random")
  
     parser.add_argument("--initial", default="last", type=str, help="reinit|original|last|rewind")

@@ -83,7 +83,7 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
         num_params += m.sum()
 
     train_loader = torch.utils.data.DataLoader(train_loader_raw.dataset, 
-                    batch_size=1024, shuffle=True, num_workers=1)
+                    batch_size=1024, shuffle=True, num_workers=4)
     optimizer_p = torch.optim.Adam([p], lr=lr)
     scheduler = ReduceLROnPlateau(optimizer_p, mode='min', factor=0.1, patience=10)
 
@@ -141,6 +141,19 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
                 if kl:
                     kl_loss = (torch.sigmoid(p) * torch.log((torch.sigmoid(p)+1e-6)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p)+1e-6)/(1-prior))).sum()
                     kl_loss += wdcay
+                if reduce_op:
+                    kl_loss /= num_params
+            elif noise_type.lower()=="bernoulli_nkldecay":                     
+                k, kl_loss, wdcay = 0, 0, 0
+                for i, param in enumerate(model_copy.parameters()):   
+                    t = len(param.view(-1))
+                    logits = torch.reshape(p[k:(k+t)], param.data.size())
+                    noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
+                    wdcay += ((param**2) * mask[i] * torch.sigmoid(logits)).sum()
+                    param.mul_(noise)
+                    k += t
+                if kl:
+                    kl_loss = wdcay
                 if reduce_op:
                     kl_loss /= num_params
             elif noise_type.lower()=="sparse_bernoulli":                     
