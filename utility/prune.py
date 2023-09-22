@@ -217,7 +217,10 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
         param.data *= mask[i] 
         start_idx = end_idx
 
-    return mask, p.detach().clone(), p_schedule
+    if p_schedule is not None:
+        return mask, p.detach().clone(), p_schedule
+    else:
+        return mask, p.detach().clone(), p.detach().clone()
 
 def prune_by_random(model, mask, percent):
     # Flatten all weights of the model
