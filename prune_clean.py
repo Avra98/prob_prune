@@ -118,10 +118,12 @@ def main(args):
                                                     (torch.norm(param2.data * mask[i])+1e-6) * 
                                                     param2.data * mask[i])
 
-                mask, p_new  = prune_by_noise_trainable_prior(model, model_init, mask, args.prune_percent, dataset.train,criterion,
+                mask, p_new, p_schedule  = prune_by_noise_trainable_prior(model, model_init, mask, args.prune_percent, dataset.train,criterion,
                     num_steps=noise_step,lr=args.lr_p, p_init=p_old)   
                 if args.initial_p == "last":
                     p_old = p_new.detach().clone()
+                elif args.initial_p == "schedule":
+                    p_old = p_schedule.detach().clone()
                                  
             elif args.prune_type=="lt":    
                 mask = prune_by_percentile(model, mask, args.prune_percent)

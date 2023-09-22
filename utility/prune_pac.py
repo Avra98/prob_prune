@@ -2,6 +2,7 @@ import copy
 import torch
 import torch.nn as nn 
 import numpy as np
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 ######################################################################
 # Copy from Auto-Tune
 ######################################################################
@@ -127,15 +128,6 @@ def get_kl_term_layer_pb(model, wdecay_mulb, p, b):
     return (KL + wdecay_mulb)/2
 
 ######################################################################
-######################################################################
-
-def generate_noise_soft(logits,temp=0.5):
-    gumbel1 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
-    gumbel2 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)    
-    numerator = torch.exp((logits + gumbel1)/temp)
-    denominator = torch.exp((logits + gumbel1)/temp)  + torch.exp(((1 - logits) + gumbel2)/temp)    
-    noise = numerator / denominator
-    return noise
 
 def initialization_pac(model, mask, w0decay=1.0):
     for param in model.parameters():
@@ -173,8 +165,10 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent, train_loade
     if p_init is not None:
         p = p_init.detach().clone()
         p.requires_grad_(True)
+    p_schedule = None
 
     optimizer_p = torch.optim.Adam([p, prior], lr=lr)
+    scheduler = ReduceLROnPlateau(optimizer_p, mode='min', factor=0.1, patience=10)
 
     torlence_iter, best_loss = 0, 1000000.0
     for epoch in range(num_steps):
@@ -220,19 +214,17 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent, train_loade
             total_loss.backward()
             optimizer_p.step()
 
-            with torch.no_grad():
-                total_loss_accum += total_loss.item()
-                kl_loss_accum += kl_loss.item()
-                batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
+            total_loss_accum += total_loss.item()
+            kl_loss_accum += kl_loss.item()
+            batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
 
-        if total_loss_accum / len(train_loader) <= best_loss:
-            torlence_iter = 0
-            best_loss = total_loss_accum / len(train_loader)
-        else:
-            torlence_iter += 1
-
-        if torlence_iter > 10:
+        # early stopping
+        scheduler.step(total_loss_accum)
+        # no need to keep training
+        if optimizer_p.param_groups[0]['lr'] < 1e-5:
             break
+        if optimizer_p.param_groups[0]['lr'] < lr - 1e-6 and p_schedule is None:
+            p_schedule = p.detach().clone()
 
         # Average losses for the mini-batch
         print(f"Epoch {epoch+1}")
@@ -260,7 +252,7 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent, train_loade
     all_masks[weight_indices[indices_to_prune]] = 0.0
 
     # Get the percentile value from all weights (as opposed to only layerwise)
-    percentile_value = np.quantile(importance_score[all_masks > 0].detach().cpu().numpy(), percent)
+    percentile_value = np.quantile(importance_score[all_masks > 0].cpu().numpy(), percent)
     print(f" Percentile value: {percentile_value}")
 
     # Updating original weights with pruned values
@@ -270,4 +262,8 @@ def prune_by_noise_trainable_prior(model, model_init, mask, percent, train_loade
         mask[i] = all_masks[start_idx:end_idx].view(mask[i].shape)
         param.data *= mask[i] 
         start_idx = end_idx
-    return mask, p.detach().clone()
+
+    if p_schedule is not None:
+        return mask, p.detach().clone(), p_schedule
+    else:
+        return mask, p.detach().clone(), p.detach().clone()
