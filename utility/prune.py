@@ -129,6 +129,20 @@ def prune_by_noise(model, mask, percent,train_loader_raw,criterion, noise_type ,
                     kl_loss = (torch.sigmoid(p) * torch.log((torch.sigmoid(p)+1e-6)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p)+1e-6)/(1-prior))).sum()
                 if reduce_op:
                     kl_loss /= num_params
+            elif noise_type.lower()=="bernoulli_decay":                     
+                k, kl_loss, wdcay = 0, 0, 0
+                for i, param in enumerate(model_copy.parameters()):   
+                    t = len(param.view(-1))
+                    logits = torch.reshape(p[k:(k+t)], param.data.size())
+                    noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
+                    wdcay += ((param**2) * mask[i] * torch.sigmoid(logits)).sum()
+                    param.mul_(noise)
+                    k += t
+                if kl:
+                    kl_loss = (torch.sigmoid(p) * torch.log((torch.sigmoid(p)+1e-6)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p)+1e-6)/(1-prior))).sum()
+                    kl_loss += wdcay
+                if reduce_op:
+                    kl_loss /= num_params
             elif noise_type.lower()=="sparse_bernoulli":                     
                 k, kl_loss = 0, 0
                 for i, param in enumerate(model_copy.parameters()):   
