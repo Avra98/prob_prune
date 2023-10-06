@@ -28,9 +28,18 @@ class Cifar100:
 
         train_set = torchvision.datasets.CIFAR100(root='./data', train=True, download=True, transform=train_transform)
         test_set = torchvision.datasets.CIFAR100(root='./data', train=False, download=True, transform=test_transform)
-
-        self.train = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=threads)
-        self.test = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=threads)
+        subset_train=list(range(0,50000)) 
+        subset_test1 = list(range(0, 1000)) # subsample test data for training the mask
+        subset_test2 = list(range(1000,10000)) # evaluation set
+        testset1 = torch.utils.data.Subset(test_set, subset_test1)
+        testset2 = torch.utils.data.Subset(test_set,subset_test2)
+        trainset=torch.utils.data.Subset(train_set,subset_train)
+        self.train = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=threads)
+       # self.train = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=threads)
+        self.test1 = torch.utils.data.DataLoader(testset1, batch_size=batch_size, shuffle=False, num_workers=threads)
+        self.test2 =  torch.utils.data.DataLoader(testset2, batch_size=batch_size, shuffle=False, num_workers=threads)
+        #self.train = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=threads)
+        #self.test = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=threads)
 
     def _get_statistics(self):
         train_set = torchvision.datasets.CIFAR100(root='./data', train=True, download=True, transform=transforms.ToTensor())
@@ -63,10 +72,16 @@ class Cifar10:
 
         train_set = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=train_transform)
         test_set = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=test_transform)
-
-        self.train = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=threads)
-        self.test = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=threads)
-
+        subset_train=list(range(0,50000))  # subsample training data to shorten running time in the code testing stage
+        subset_test1 = list(range(0, 1000)) # subsample test data for training the mask
+        subset_test2 = list(range(1000,10000)) # evaluation set
+        testset1 = torch.utils.data.Subset(test_set, subset_test1)
+        testset2 = torch.utils.data.Subset(test_set,subset_test2)
+        trainset=torch.utils.data.Subset(train_set,subset_train)
+        self.train = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=threads)
+       # self.train = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=threads)
+        self.test1 = torch.utils.data.DataLoader(testset1, batch_size=batch_size, shuffle=False, num_workers=threads)
+        self.test2 =  torch.utils.data.DataLoader(testset2, batch_size=batch_size, shuffle=False, num_workers=threads)
     def _get_statistics(self):
         train_set = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transforms.ToTensor())
 
@@ -99,10 +114,16 @@ class FashionMNIST:
 
         train_set = torchvision.datasets.FashionMNIST(root='./data', train=True, download=True, transform=train_transform)
         test_set = torchvision.datasets.FashionMNIST(root='./data', train=False, download=True, transform=test_transform)
-
-        self.train = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=threads)
-        self.test = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=threads)
-
+        subset_train=list(range(0,50000)) 
+        subset_test1 = list(range(0, 1000)) # subsample test data for training the mask
+        subset_test2 = list(range(1000,10000)) # evaluation set
+        testset1 = torch.utils.data.Subset(test_set, subset_test1)
+        testset2 = torch.utils.data.Subset(test_set,subset_test2)
+        trainset=torch.utils.data.Subset(train_set,subset_train)
+        self.train = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=threads)
+       # self.train = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=threads)
+        self.test1 = torch.utils.data.DataLoader(testset1, batch_size=batch_size, shuffle=False, num_workers=threads)
+        self.test2 =  torch.utils.data.DataLoader(testset2, batch_size=batch_size, shuffle=False, num_workers=threads)
     def _get_statistics(self):
         train_set = torchvision.datasets.FashionMNIST(root='./data', train=True, download=True, transform=transforms.ToTensor())
         data = torch.cat([d[0] for d in DataLoader(train_set)])
@@ -134,10 +155,16 @@ class MNIST:
 
         train_set = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=train_transform)
         test_set = torchvision.datasets.MNIST(root='./data', train=False, download=True, transform=test_transform)
-
-        self.train = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=threads)
-        self.test = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=threads)
-
+        subset_train=list(range(0,50000)) 
+        subset_test1 = list(range(0, 1000)) # subsample test data for training the mask
+        subset_test2 = list(range(1000,10000)) # evaluation set
+        testset1 = torch.utils.data.Subset(test_set, subset_test1)
+        testset2 = torch.utils.data.Subset(test_set,subset_test2)
+        trainset=torch.utils.data.Subset(train_set,subset_train)
+        self.train = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=threads)
+       # self.train = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=threads)
+        self.test1 = torch.utils.data.DataLoader(testset1, batch_size=100, shuffle=True, num_workers=threads)
+        self.test2 =  torch.utils.data.DataLoader(testset2, batch_size=batch_size, shuffle=False, num_workers=threads)
     def _get_statistics(self):
         train_set = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=transforms.ToTensor())
         data = torch.cat([d[0] for d in DataLoader(train_set)])

@@ -1,7 +1,7 @@
 import copy
 import torch
-import torch.nn as nn
-import numpy as np
+import torch.nn as nn 
+import numpy as np 
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import math
 import ipdb
@@ -11,32 +11,53 @@ def sigmoid(x):
 
 def generate_noise_soft(logits,temp=0.5):
     gumbel1 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
-    gumbel2 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
+    gumbel2 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)    
     numerator = torch.exp((torch.log(logits) + gumbel1)/temp)
-    denominator = torch.exp((torch.log(logits) + gumbel1)/temp)  + torch.exp((torch.log(1 - logits) + gumbel2)/temp)
+    denominator = torch.exp((torch.log(logits) + gumbel1)/temp)  + torch.exp((torch.log(1 - logits) + gumbel2)/temp)    
     noise = numerator / denominator
     return noise
+def ini_importance(model,percent,mask):
+    importance_score = []
+    for name, param in model.named_parameters():
+        # We prune bias term
+        #alive = torch.nonzero(param.data.abs(), as_tuple=True) # flattened array of nonzero values
+        importance_score.extend(param.data.abs().view(-1))
 
-def initialization(model,mask,prior_sigma, noise_type ="gaussian"):
+    importance_score = torch.stack(importance_score)
+    # Identify and shuffle indices of the flattened weights
+    all_masks = torch.cat([m.view(-1) for m in mask])
+    weight_indices = torch.arange(len(all_masks), device=all_masks.device)[all_masks > 0]
+    permuted_indices = torch.argsort(importance_score[all_masks > 0])
+    # Get the percentile value from all weights (as opposed to only layerwise)
+    percentile_value = np.quantile(importance_score[all_masks > 0].cpu().numpy(), percent)
+
+    num_to_prune = int(all_masks.sum() * percent)
+    indices_to_prune = permuted_indices[:num_to_prune]
+    all_masks[weight_indices[indices_to_prune]] = 0.0
+    return all_masks
+def initialization(model,mask,prior_sigma,all_masks, noise_type ="gaussian"):
     device = next(model.parameters()).device
-
+    
     w0, num_params = [], 0
     for layer, param in enumerate(model.parameters()):
         w0.append(param.data.view(-1).detach().clone()*mask[layer].view(-1))
         num_params += mask[layer].sum()
 
     num_layer = layer + 1
-    w0 = torch.cat(w0)
+    w0 = torch.cat(w0) 
     if noise_type=="gaussian":
         all_masks = torch.cat([m.view(-1) for m in mask]).bool()
         #p = nn.Parameter(torch.where(w0 == 0, torch.zeros_like(w0), torch.log( w0.abs().sum()/num_params) ), requires_grad=True)
         p = nn.Parameter(torch.ones_like(w0)*torch.log(w0[all_masks].abs().mean()) ,requires_grad=True)
-        prior = torch.ones_like(w0)*torch.log(w0[all_masks].abs().mean())
+        prior = torch.ones_like(w0)*torch.log(w0[all_masks].abs().mean()) 
     else:
         prior = sigmoid(prior_sigma)
+  #      if all_masks == " ":
         p = nn.Parameter(torch.ones_like(w0)*prior_sigma, requires_grad=True)
- 
-
+  #      else:
+  #        print("here")
+  #        p = nn.Parameter(torch.ones_like(w0)*(all_masks-0.5)*10, requires_grad=True)
+        
     return w0, p, num_layer,prior
 
 # Prune by Percentile module
@@ -67,21 +88,21 @@ def prune_by_percentile(model, mask, percent):
     for i, param in enumerate(model.parameters()):
         end_idx = start_idx + param.numel()
         mask[i] = all_masks[start_idx:end_idx].view(mask[i].shape)
-        param.data *= mask[i]
+        param.data *= mask[i] 
         start_idx = end_idx
 
     return mask
-def prune_by_percentile_fine_tune(model, model_unprune, test_loader, lr, weight_decay,criterion, num_steps, mask, percent):
+def prune_by_percentile_up(model,model_unprune, test_loader, lr, weight_decay,criterion, num_steps, mask, percent):
     # Calculate percentile value
     device = next(model.parameters()).device
     model_1 = copy.deepcopy(model)
-    optimizer = torch.optim.SGD(model.parameters(), lr=lr*1e-2, weight_decay = weight_decay)
+    optimizer = torch.optim.SGD(model.parameters(), lr=lr, weight_decay = weight_decay)
     #scheduler = ReduceLROnPlateau(optimizer_p, mode='min', factor=0.1, patience=10)
 
     best_loss =10000
     for epoch in range(num_steps):
         # Initialize accumulators
-
+    
         total_loss_accum = 0.0
         kl_loss_accum = 0.0
 
@@ -89,17 +110,19 @@ def prune_by_percentile_fine_tune(model, model_unprune, test_loader, lr, weight_
         for batch_idx, (data, target) in enumerate(test_loader):
             data, target = data.to(device), target.to(device)
   #          ipdb.set_trace()
-            target = torch.softmax(model_unprune(data),dim=1) # assume we don't know the test label
+            target = torch.softmax(model_unprune(data),dim=1)
             optimizer.zero_grad()
-
+        
             loss = criterion(model(data),target)
             loss.backward()
             optimizer.step()
             print(f"loss:{loss}")
 
-
+        
     importance_score = []
     for name, param in model.named_parameters():
+        # We prune bias term
+        #alive = torch.nonzero(param.data.abs(), as_tuple=True) # flattened array of nonzero values
         importance_score.extend(param.data.abs().view(-1))
 
     importance_score = torch.stack(importance_score)
@@ -126,20 +149,44 @@ def prune_by_percentile_fine_tune(model, model_unprune, test_loader, lr, weight_
 
     return mask
 
-def prune_by_noise(model,model_unprune, mask, percent,test_loader,criterion, noise_type ,prior_sigma=1.0,
+def prune_by_noise(model,model_unprune, mask, percent,test_loader,criterion, noise_type ,prior_sigma=1.0, 
                         kl=0.0, lr=1e-3, num_steps=1, p_init=None, reduce_op=False):
     device = next(model.parameters()).device
-  
+  #  for param in model.parameters():
+  #              param.requires_grad = True
+  #  optimizer = torch.optim.SGD(model.parameters(), lr=0.1,weight_decay=1e-4)
+    #scheduler = ReduceLROnPlateau(optimizer_p, mode='min', factor=0.1, patience=10)
+
+  #  best_loss =10000
+  #  for epoch in range(20):
+        # Initialize accumulators
+
+   #     total_loss_accum = 0.0
+   #     kl_loss_accum = 0.0
+
+        # Loop over mini-batches
+   #     for batch_idx, (data, target) in enumerate(test_loader):
+  #          data, target = data.to(device), target.to(device)
+  #          ipdb.set_trace()
+  #          target = torch.softmax(model_unprune(data),dim=1)
+  #          optimizer.zero_grad()
+
+   #         loss = criterion(model(data),target)
+   #         loss.backward()
+   #         optimizer.step()
+   #         print(f"loss:{loss}")
+   # criterion= nn.CrossEntropyLoss(reduction='none')
     kl_loss = 0.0
     all_masks = torch.cat([m.view(-1) for m in mask])
-    _,p,_ ,prior= initialization(model,mask, prior_sigma,noise_type)
+    ini_import = ini_importance(model_unprune,percent,mask)
+    _,p,_ ,prior= initialization(model,mask, prior_sigma,ini_import,noise_type)
     print(p)
     print(prior)
     if p_init is not None:
         p = p_init.detach().clone()
         p.requires_grad_(True)
     p_schedule = None
-
+    
     num_params = 0
     for m in mask:
         num_params += m.sum()
@@ -148,7 +195,8 @@ def prune_by_noise(model,model_unprune, mask, percent,test_loader,criterion, noi
         param.requires_grad = False
         w.append(param.view(-1))
     w = torch.cat(w)
-    
+    #train_loader = torch.utils.data.DataLoader(train_loader_raw.dataset, 
+    #                batch_size=1024, shuffle=True, num_workers=4)
     optimizer_p = torch.optim.Adam([p], lr=lr)
     #scheduler = ReduceLROnPlateau(optimizer_p, mode='min', factor=0.1, patience=10)
 
@@ -171,44 +219,49 @@ def prune_by_noise(model,model_unprune, mask, percent,test_loader,criterion, noi
 
                 param.requires_grad = False
 
-            target = torch.softmax(model_unprune(data),dim=1) # discard the true test label, assuming it is unknown is more pratical
-           # target = model_unprune(data) 
+          #  target = torch.argmax(model_unprune(data),dim=1)
+            target = torch.softmax(model_unprune(data),dim=1)
+          #  target = model_unprune(data)
+            ## no noise added at the pruned locations
             if noise_type.lower()=="gaussian":
                 k, kl_loss = 0, 0
-                for i, param in enumerate(model_copy.parameters()):
+                for i, param in enumerate(model_copy.parameters()):   
                     t = len(param.view(-1))
-                    eps = torch.randn_like(param.data, device = device)
-                    noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]
-
-                    param.add_(noise)
-                    k += t
+                    eps = torch.randn_like(param.data, device = device)                
+                    noise = torch.reshape(torch.exp(p[k:(k+t)]),param.data.size()) * eps  * mask[i]                       
+                    
+                    param.add_(noise)    
+                    k += t 
                 if kl:
                     kl_loss = kl*0.5 *(torch.sum( 2*prior - 2*p + (torch.exp(2*p - 2*prior))-1 ) ) #- num_params)
                 if reduce_op:
                     kl_loss /= num_params
 
-            elif noise_type.lower()=="bernoulli":
+            elif noise_type.lower()=="bernoulli":                     
                 k, kl_loss = 0, 0
-                for i, param in enumerate(model_copy.parameters()):
+                for i, param in enumerate(model_copy.parameters()):   
                     t = len(param.view(-1))
                     logits = torch.reshape(p[k:(k+t)], param.data.size())
-                    noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
+                    noise = generate_noise_soft(torch.sigmoid(logits),temp=0.9) * mask[i]
                    # print(noise)
-
+                    
                     param.mul_(noise)
                     k += t
                 if kl:
                     all_masks = torch.cat([m.view(-1) for m in mask]).bool()
-                    kl_loss =  1e0*(torch.sigmoid(p[all_masks]).mean() * torch.log((torch.sigmoid(p[all_masks]).mean())/prior) + (1-torch.sigmoid(p[all_masks])).mean() * torch.log((1-torch.sigmoid(p[all_masks])).mean()/(1-prior)))
-
+                    kl_loss =  (torch.sigmoid(p[all_masks]).mean() * torch.log((torch.sigmoid(p[all_masks]).mean())/prior) + (1-torch.sigmoid(p[all_masks])).mean() * torch.log((1-torch.sigmoid(p[all_masks])).mean()/(1-prior)))
+                    
+                                    
+        # We prune bias term
+        #alive = torch.nonzero(param.data.abs(), as_tuple=True) # flattened array of nonzero values
+                            
                     kl_loss += 1e3*(w*((torch.sigmoid(p)-1))).abs().mean()
-               #     kl_loss += (1/(w.abs()+1e-2)*torch.sigmoid(p)).abs().mean()
                    # kl_loss = (torch.sigmoid(p) * torch.log((torch.sigmoid(p)+1e-6)/prior) + (1-torch.sigmoid(p)) * torch.log((1-torch.sigmoid(p)+1e-6)/(1-prior))).sum()
                 if reduce_op:
                     kl_loss /= num_params
-            elif noise_type.lower()=="bernoulli_decay":
+            elif noise_type.lower()=="bernoulli_decay":                     
                 k, kl_loss, wdcay = 0, 0, 0
-                for i, param in enumerate(model_copy.parameters()):
+                for i, param in enumerate(model_copy.parameters()):   
                     t = len(param.view(-1))
                     logits = torch.reshape(p[k:(k+t)], param.data.size())
                     noise = generate_noise_soft(torch.sigmoid(logits),temp=0.5) * mask[i]
@@ -221,9 +274,9 @@ def prune_by_noise(model,model_unprune, mask, percent,test_loader,criterion, noi
                     #kl_loss += wdcay
                 if reduce_op:
                     kl_loss /= num_params
-            elif noise_type.lower()=="bernoulli_nkldecay":
+            elif noise_type.lower()=="bernoulli_nkldecay":                     
                 k, kl_loss, wdcay = 0, 0, 0
-                for i, param in enumerate(model_copy.parameters()):
+                for i, param in enumerate(model_copy.parameters()):   
                     t = len(param.view(-1))
                     logits = torch.reshape(p[k:(k+t)], param.data.size())
                     noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
@@ -234,9 +287,9 @@ def prune_by_noise(model,model_unprune, mask, percent,test_loader,criterion, noi
                     kl_loss = wdcay
                 if reduce_op:
                     kl_loss /= num_params
-            elif noise_type.lower()=="sparse_bernoulli":
+            elif noise_type.lower()=="sparse_bernoulli":                     
                 k, kl_loss = 0, 0
-                for i, param in enumerate(model_copy.parameters()):
+                for i, param in enumerate(model_copy.parameters()):   
                     t = len(param.view(-1))
                     logits = torch.reshape(p[k:(k+t)], param.data.size())
                     noise = generate_noise_soft(torch.sigmoid(logits),temp=0.2) * mask[i]
@@ -253,9 +306,8 @@ def prune_by_noise(model,model_unprune, mask, percent,test_loader,criterion, noi
             # Forward pass after adding noise
             output = model_copy(data)
             batch_original_loss_after_noise = criterion(output, target)
-
-           # batch_original_loss_after_noise = torch.norm(output-target)
-            
+         
+         #   batch_original_loss_after_noise = torch.linalg.norm(output-target,dim=1).max()*100                      
             total_loss = batch_original_loss_after_noise + kl*kl_loss
             total_loss_accum += total_loss.item()
             total_loss.backward()
@@ -270,7 +322,7 @@ def prune_by_noise(model,model_unprune, mask, percent,test_loader,criterion, noi
             p.data[p<-10] = -10
             kl_loss_accum += kl_loss.item()
             batch_original_loss_after_noise_accum += batch_original_loss_after_noise.item()
-
+        
         # early stopping
        # scheduler.step(total_loss_accum)
         # no need to keep training
@@ -287,11 +339,11 @@ def prune_by_noise(model,model_unprune, mask, percent,test_loader,criterion, noi
         print(f"Average total loss: {total_loss_accum / len(test_loader):.6f}")
 
     if noise_type.lower()=="gaussian":
-        with torch.no_grad():
+        with torch.no_grad():    
             k=0
             # Flatten all weights into a single list
             importance_score = []
-            for i, param in enumerate(model_copy.parameters()):
+            for i, param in enumerate(model_copy.parameters()):   
                 t = param.numel()
                 normalized_tensor = param.data.abs() / torch.reshape(torch.exp(p[k:(k+t)]), param.data.shape)
                 importance_score.extend(normalized_tensor.flatten())
@@ -299,20 +351,20 @@ def prune_by_noise(model,model_unprune, mask, percent,test_loader,criterion, noi
             importance_score = torch.stack(importance_score)
 
     elif "bernoulli" in noise_type.lower():
-        with torch.no_grad():
+        with torch.no_grad():    
             importance_score = []
             k = 0
             for m in mask:
                 t = m.numel()  # total elements in current layer
                 importance_score.extend(p[k:(k+t)])
-                k += t
+                k += t           
             importance_score = torch.stack(importance_score)
 
     # Identify and shuffle indices of the flattened weights
     all_masks = torch.cat([m.view(-1) for m in mask])
     weight_indices = torch.arange(len(all_masks), device=all_masks.device)[all_masks > 0]
     permuted_indices = torch.argsort(importance_score[all_masks > 0])
-
+    
     num_to_prune = int(all_masks.sum() * percent)
     indices_to_prune = permuted_indices[:num_to_prune]
     all_masks[weight_indices[indices_to_prune]] = 0.0
@@ -326,7 +378,7 @@ def prune_by_noise(model,model_unprune, mask, percent,test_loader,criterion, noi
     for i, param in enumerate(model.parameters()):
         end_idx = start_idx + param.numel()
         mask[i] = all_masks[start_idx:end_idx].view(mask[i].shape)
-        param.data *= mask[i]
+        param.data *= mask[i] 
         start_idx = end_idx
 
     if p_schedule is not None:
@@ -341,19 +393,19 @@ def prune_by_random(model, mask, percent):
     # Identify and shuffle indices of the flattened weights
     weight_indices = torch.arange(len(all_masks), device=all_masks.device)[all_masks > 0]
     permuted_indices = torch.randperm(weight_indices.size(0))
-
+    
     # Calculate the number of weights to set to zero
     num_to_prune = int(all_masks.sum() * percent)
     indices_to_prune = permuted_indices[:num_to_prune]
-
+    
     # Set those weights to zero
     all_masks[weight_indices[indices_to_prune]] = 0.0
-
+    
     # Updating original weights with pruned values
     start_idx = 0
     for i, param in enumerate(model.parameters()):
         end_idx = start_idx + param.numel()
         mask[i] = all_masks[start_idx:end_idx].view(mask[i].shape)
-        param.data *= mask[i]
+        param.data *= mask[i] 
         start_idx = end_idx
     return mask

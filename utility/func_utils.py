@@ -68,6 +68,9 @@ def train(model, mask, train_loader, optimizer, criterion):
         imgs, targets = imgs.to(device), targets.to(device)
         output = model(imgs)
         train_loss = criterion(output, targets)
+        
+       # for param in model.parameters():
+       #     train_loss += l1*torch.norm(param,1) 
         train_loss.backward()                
                     
         step=0

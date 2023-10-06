@@ -8,7 +8,7 @@ import numpy as np
 import torch.nn as nn
 import torch.nn.init as init
 #from tensorboardX import SummaryWriter
-
+import ipdb
 # Custom Libraries
 from utility.data import *
 from utility.log_utils import *
@@ -71,7 +71,7 @@ def main(args):
 
     # Making Initial Mask
     mask = make_mask(model)
-
+#    ipdb.set_trace()
     # Initial Model
     model_init = copy.deepcopy(model)
     # Copying and Saving Initial State
@@ -100,13 +100,18 @@ def main(args):
     model_schedule = None
     for _ite in range(args.start_iter, ITERATION):
         
+        #for batch_idx, (data, target) in enumerate(dataset.test1):
+        #    data, target = data.to(device), target.to(device) 
+        #    print(np.histogram(target.detach().cpu().int().numpy(),bins=10))
         if not _ite == 0:
+            if _ite ==1:
+                model_unprune = copy.deepcopy(model)
             ## prune here 
             if args.prune_type=="noise":
                # numb_w =0
                # for i in range(len(mask)):
-                
-                mask, p_new, p_schedule = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
+               # ipdb.set_trace()
+                mask, p_new, p_schedule = prune_by_noise(model,model_unprune, mask, args.prune_percent, dataset.test1,criterion,noise_type,
                         prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl)
                 all_masks = torch.cat([m.view(-1) for m in mask])
                 print(torch.norm(all_masks*p_new,1)/torch.norm(all_masks*p_new,2))
@@ -135,6 +140,8 @@ def main(args):
                                  
             elif args.prune_type=="lt":    
                 mask = prune_by_percentile(model, mask, args.prune_percent)
+            elif args.prune_type=="lt_it":
+                mask = prune_by_percentile_up(model,model_unprune,dataset.test1, args.lr, args.weight_decay,criterion, args.enditer, mask, args.prune_percent)
             elif args.prune_type=="random":
                 mask = prune_by_random(model, mask, args.prune_percent)
 
@@ -179,60 +186,66 @@ def main(args):
         comp1 = print_nonzeros(model)
         comp[_ite] = comp1
         if _ite == 0:
-
+        
+          if os.path.isfile(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar"):
+            model = torch.load(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar")
+          else:
             pbar = tqdm(range(end_iter))
-        else:
-            pbar = tqdm(range(args.enditer))
 
-        achieve_target_acc, tolerance = 0, 0
-        for iter_ in pbar:
+            achieve_target_acc, tolerance = 0, 0
+        
+            for iter_ in pbar:
 
             # Frequency for Testing
-            if iter_ % args.valid_freq == 0:
-                accuracy = test(model, dataset.test, criterion)
-                train_acc = test(model, dataset.train, criterion)
+              if iter_ % args.valid_freq == 0:
+                  accuracy = test(model, dataset.test2, criterion)
+                  train_acc = test(model, dataset.train, criterion)
 
                 # Save Weights
-                if accuracy >= best_accuracy:
-                    best_accuracy = accuracy
-                    checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
-                    torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar")
+                  if accuracy >= best_accuracy:
+                      best_accuracy = accuracy
+                      checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/")
+                      torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{_ite}_model_{args.prune_type}.pth.tar")
 
             # Training
-            if args.noise_std == 0:
-                loss = train(model, mask, dataset.train, optimizer, criterion,args.l1)
-            else:
-                loss = train_with_noise(model, mask, dataset.train, optimizer, criterion, 
+              if args.noise_std == 0:
+                   loss = train(model, mask, dataset.train, optimizer, criterion)
+              else:
+                  loss = train_with_noise(model, mask, dataset.train, optimizer, criterion, 
                                             noise_std=args.noise_std, noise_type=args.inject_noise)
 
-            all_loss[iter_] = loss
-            all_accuracy[iter_] = accuracy
+              all_loss[iter_] = loss
+              all_accuracy[iter_] = accuracy
 
-            if train_acc >= 99.9:
-                achieve_target_acc += 1
-                if achieve_target_acc > 20:
-                    break
+              if train_acc >= 99.9:
+                  achieve_target_acc += 1
+                  if achieve_target_acc > 20:
+                      break
 
             # no need to keep training
-            if optimizer.param_groups[0]['lr'] < 1e-5:
-                break
-            scheduler.step(train_acc)
-            if args.initial == "schedule":
-                if optimizer.param_groups[0]['lr'] < args.lr - 1e-6 and model_schedule is None:
-                    model_schedule = copy.deepcopy(model)
+              if optimizer.param_groups[0]['lr'] < 1e-5:
+                   break
+              scheduler.step(train_acc)
+              if args.initial == "schedule":
+                  if optimizer.param_groups[0]['lr'] < args.lr - 1e-6 and model_schedule is None:
+                      model_schedule = copy.deepcopy(model)
 
-            if args.initial=="rewind" and args.rewind_iter==iter_ and _ite==0:
+              if args.initial=="rewind" and args.rewind_iter==iter_ and _ite==0:
                 ## save the model in a separaate folder named rewind
                 checkdir(f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/rewind/{args.kl}+{args.prior}")
                 torch.save(model,f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/rewind/{args.kl}+{args.prior}/{args.rewind_iter}_model_{args.prune_type}_{args.noise_type}.pth.tar")
                 print("here at",iter_)
             
             # Frequency for Printing Accuracy and Loss
-            if iter_ % args.print_freq == 0:
-                pbar.set_description(
+              if iter_ % args.print_freq == 0:
+                 pbar.set_description(
                     f'Train Epoch: {iter_}/{end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f} {train_acc:.2f} % Best test Accuracy: {best_accuracy:.2f}%')       
+        if 1:
+                  iter_ = 1
+                  accuracy = test(model, dataset.test2, criterion)
+                  train_acc = test(model, dataset.train, criterion)
 
-        print(f'Train Epoch: {iter_}/{end_iter} Loss: {loss:.6f} Accuracy: {accuracy:.2f} {train_acc:.2f} % Best test Accuracy: {best_accuracy:.2f}%') 
+        print(f'Train Epoch: {iter_}/{end_iter}  Accuracy: {accuracy:.2f} {train_acc:.2f} % Best test Accuracy: {best_accuracy:.2f}%') 
         #writer.add_scalar('Accuracy/test', best_accuracy, comp1)
         bestacc[_ite]=best_accuracy
 
@@ -247,7 +260,8 @@ def main(args):
     # Dumping Values for Plotting
     comp.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{args.prune_type}_compression.dat")
     bestacc.dump(f"{os.getcwd()}/dumps/{args.prune_type}/{args.noise_type}/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{args.prune_type}_bestaccuracy.dat")
-    
+    #ipdb.set_trace()
+    torch.save(mask, f"{os.getcwd()}/saves/{args.arch_type}/{args.dataset}/{args.kl}+{args.prior}/{args.prune_type}/mask.pth.tar")   
 
     # Plotting
     a = np.arange(args.prune_iterations)
