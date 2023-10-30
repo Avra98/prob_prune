@@ -1,0 +1,83 @@
+Non-zero model percentage: 100.0%, Non-zero mask percentage: 100.0%
+
+--- Pruning Level [0/7]: ---
+classifier.0.weight  | nonzeros =  235200 /  235200             (100.00%) | total_pruned =       0 | shape = torch.Size([300, 784])
+classifier.0.bias    | nonzeros =     300 /     300             (100.00%) | total_pruned =       0 | shape = torch.Size([300])
+classifier.2.weight  | nonzeros =   30000 /   30000             (100.00%) | total_pruned =       0 | shape = torch.Size([100, 300])
+classifier.2.bias    | nonzeros =     100 /     100             (100.00%) | total_pruned =       0 | shape = torch.Size([100])
+classifier.4.weight  | nonzeros =    1000 /    1000             (100.00%) | total_pruned =       0 | shape = torch.Size([10, 100])
+classifier.4.bias    | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 266610, pruned : 0, total: 266610, Compression rate :       1.00x  (  0.00% pruned)
+Train Epoch: 99/100 Loss: 0.023426 Accuracy: 98.06 99.92 % Best test Accuracy: 98.13%
+Pruning with threshold : 0.029289812967181205
+Non-zero model percentage: 20.0%, Non-zero mask percentage: 20.0%
+
+--- Pruning Level [1/7]: ---
+classifier.0.weight  | nonzeros =   36332 /  235200             ( 15.45%) | total_pruned =  198868 | shape = torch.Size([300, 784])
+classifier.0.bias    | nonzeros =      27 /     300             (  9.00%) | total_pruned =     273 | shape = torch.Size([300])
+classifier.2.weight  | nonzeros =   16053 /   30000             ( 53.51%) | total_pruned =   13947 | shape = torch.Size([100, 300])
+classifier.2.bias    | nonzeros =      38 /     100             ( 38.00%) | total_pruned =      62 | shape = torch.Size([100])
+classifier.4.weight  | nonzeros =     865 /    1000             ( 86.50%) | total_pruned =     135 | shape = torch.Size([10, 100])
+classifier.4.bias    | nonzeros =       7 /      10             ( 70.00%) | total_pruned =       3 | shape = torch.Size([10])
+alive: 53322, pruned : 213288, total: 266610, Compression rate :       5.00x  ( 80.00% pruned)
+Train Epoch: 66/100 Loss: 0.005679 Accuracy: 98.14 99.94 % Best test Accuracy: 98.18%
+Pruning with threshold : 0.05764012783765793
+Non-zero model percentage: 4.000225067138672%, Non-zero mask percentage: 4.000225067138672%
+
+--- Pruning Level [2/7]: ---
+classifier.0.weight  | nonzeros =    3785 /  235200             (  1.61%) | total_pruned =  231415 | shape = torch.Size([300, 784])
+classifier.0.bias    | nonzeros =       0 /     300             (  0.00%) | total_pruned =     300 | shape = torch.Size([300])
+classifier.2.weight  | nonzeros =    6120 /   30000             ( 20.40%) | total_pruned =   23880 | shape = torch.Size([100, 300])
+classifier.2.bias    | nonzeros =       4 /     100             (  4.00%) | total_pruned =      96 | shape = torch.Size([100])
+classifier.4.weight  | nonzeros =     753 /    1000             ( 75.30%) | total_pruned =     247 | shape = torch.Size([10, 100])
+classifier.4.bias    | nonzeros =       3 /      10             ( 30.00%) | total_pruned =       7 | shape = torch.Size([10])
+alive: 10665, pruned : 255945, total: 266610, Compression rate :      25.00x  ( 96.00% pruned)
+Train Epoch: 99/100 Loss: 0.019980 Accuracy: 97.93 99.19 % Best test Accuracy: 97.98%
+Pruning with threshold : 0.1466543227434159
+Non-zero model percentage: 0.8000450134277344%, Non-zero mask percentage: 0.8000450134277344%
+
+--- Pruning Level [3/7]: ---
+classifier.0.weight  | nonzeros =     759 /  235200             (  0.32%) | total_pruned =  234441 | shape = torch.Size([300, 784])
+classifier.0.bias    | nonzeros =       0 /     300             (  0.00%) | total_pruned =     300 | shape = torch.Size([300])
+classifier.2.weight  | nonzeros =     832 /   30000             (  2.77%) | total_pruned =   29168 | shape = torch.Size([100, 300])
+classifier.2.bias    | nonzeros =       1 /     100             (  1.00%) | total_pruned =      99 | shape = torch.Size([100])
+classifier.4.weight  | nonzeros =     541 /    1000             ( 54.10%) | total_pruned =     459 | shape = torch.Size([10, 100])
+classifier.4.bias    | nonzeros =       0 /      10             (  0.00%) | total_pruned =      10 | shape = torch.Size([10])
+alive: 2133, pruned : 264477, total: 266610, Compression rate :     124.99x  ( 99.20% pruned)
+Train Epoch: 99/100 Loss: 0.057858 Accuracy: 95.73 96.20 % Best test Accuracy: 95.80%
+Pruning with threshold : 0.4117938339710237
+Non-zero model percentage: 0.16015903651714325%, Non-zero mask percentage: 0.16015903651714325%
+
+--- Pruning Level [4/7]: ---
+classifier.0.weight  | nonzeros =     120 /  235200             (  0.05%) | total_pruned =  235080 | shape = torch.Size([300, 784])
+classifier.0.bias    | nonzeros =       0 /     300             (  0.00%) | total_pruned =     300 | shape = torch.Size([300])
+classifier.2.weight  | nonzeros =     115 /   30000             (  0.38%) | total_pruned =   29885 | shape = torch.Size([100, 300])
+classifier.2.bias    | nonzeros =       0 /     100             (  0.00%) | total_pruned =     100 | shape = torch.Size([100])
+classifier.4.weight  | nonzeros =     192 /    1000             ( 19.20%) | total_pruned =     808 | shape = torch.Size([10, 100])
+classifier.4.bias    | nonzeros =       0 /      10             (  0.00%) | total_pruned =      10 | shape = torch.Size([10])
+alive: 427, pruned : 266183, total: 266610, Compression rate :     624.38x  ( 99.84% pruned)
+Train Epoch: 99/100 Loss: 0.321826 Accuracy: 85.08 84.08 % Best test Accuracy: 85.08%
+Pruning with threshold : 1.0107210636138917
+Non-zero model percentage: 0.03225685656070709%, Non-zero mask percentage: 0.03225685656070709%
+
+--- Pruning Level [5/7]: ---
+classifier.0.weight  | nonzeros =      27 /  235200             (  0.01%) | total_pruned =  235173 | shape = torch.Size([300, 784])
+classifier.0.bias    | nonzeros =       0 /     300             (  0.00%) | total_pruned =     300 | shape = torch.Size([300])
+classifier.2.weight  | nonzeros =      24 /   30000             (  0.08%) | total_pruned =   29976 | shape = torch.Size([100, 300])
+classifier.2.bias    | nonzeros =       0 /     100             (  0.00%) | total_pruned =     100 | shape = torch.Size([100])
+classifier.4.weight  | nonzeros =      35 /    1000             (  3.50%) | total_pruned =     965 | shape = torch.Size([10, 100])
+classifier.4.bias    | nonzeros =       0 /      10             (  0.00%) | total_pruned =      10 | shape = torch.Size([10])
+alive: 86, pruned : 266524, total: 266610, Compression rate :    3100.12x  ( 99.97% pruned)
+Train Epoch: 53/100 Loss: 1.314494 Accuracy: 46.54 45.45 % Best test Accuracy: 49.88%
+Pruning with threshold : 1.5652326345443726
+Non-zero model percentage: 0.006751434411853552%, Non-zero mask percentage: 0.006751434411853552%
+
+--- Pruning Level [6/7]: ---
+classifier.0.weight  | nonzeros =       5 /  235200             (  0.00%) | total_pruned =  235195 | shape = torch.Size([300, 784])
+classifier.0.bias    | nonzeros =       0 /     300             (  0.00%) | total_pruned =     300 | shape = torch.Size([300])
+classifier.2.weight  | nonzeros =       5 /   30000             (  0.02%) | total_pruned =   29995 | shape = torch.Size([100, 300])
+classifier.2.bias    | nonzeros =       0 /     100             (  0.00%) | total_pruned =     100 | shape = torch.Size([100])
+classifier.4.weight  | nonzeros =       8 /    1000             (  0.80%) | total_pruned =     992 | shape = torch.Size([10, 100])
+classifier.4.bias    | nonzeros =       0 /      10             (  0.00%) | total_pruned =      10 | shape = torch.Size([10])
+alive: 18, pruned : 266592, total: 266610, Compression rate :   14811.67x  ( 99.99% pruned)
+Train Epoch: 46/100 Loss: 2.073162 Accuracy: 11.59 11.23 % Best test Accuracy: 17.08%

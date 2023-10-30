@@ -4,17 +4,20 @@ import torch.nn as nn
 import numpy as np 
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import math
+import torch.nn.functional as F
+
 
 def sigmoid(x):
   return 1 / (1 + math.exp(-x))
 
-def generate_noise_soft(logits,temp=0.5):
+def generate_noise_soft(logits,temp=0.2):
     gumbel1 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
-    gumbel2 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)    
-    numerator = torch.exp((logits + gumbel1)/temp)
-    denominator = torch.exp((logits + gumbel1)/temp)  + torch.exp(((1 - logits) + gumbel2)/temp)    
+    gumbel2 = -torch.log(-torch.log(torch.rand_like(logits))).requires_grad_(False)
+    numerator = torch.exp((torch.log(logits) + gumbel1)/temp)
+    denominator = torch.exp((torch.log(logits) + gumbel1)/temp)  + torch.exp((torch.log(1 - logits) + gumbel2)/temp)
     noise = numerator / denominator
     return noise
+
 
 def initialization(model,mask,prior_sigma,noise_type ="gaussian"):
     device = next(model.parameters()).device
@@ -31,6 +34,7 @@ def initialization(model,mask,prior_sigma,noise_type ="gaussian"):
         prior = torch.where(w0 == 0, torch.zeros_like(w0), torch.log( w0.abs().sum()/num_params ))
     else:
         p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
+        #p = nn.Parameter(5*torch.ones_like(w0), requires_grad=True)
         prior = sigmoid(prior_sigma)
     return w0, p, num_layer,prior
 

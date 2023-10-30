@@ -15,6 +15,7 @@ from utility.log_utils import *
 from utility.func_utils import *
 from utility.prune import *
 from utility.prune_pac import *
+from utility.quant import *
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 # Tensorboard initialization
@@ -98,6 +99,22 @@ def main(args):
     p_old = None
     model_schedule = None
     for _ite in range(args.start_iter, ITERATION):
+        if _ite==0:
+            # optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, 
+            #                                 momentum = args.momentum,
+            # 								weight_decay = args.weight_decay)
+            #loss = train(model, mask, dataset.train, optimizer, criterion)
+            accuracy = test(model, dataset.test, criterion)
+            print(_ite,accuracy)
+        # mask, p_new, p_schedule = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
+        #     prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl)
+        model, p= quant_by_noise(model, mask, args.prune_percent, dataset.train,criterion,
+            prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl,q=4)        
+        accuracy = test(model, dataset.test, criterion)
+        print(_ite,accuracy)
+        #continue
+        break
+                
         
         if not _ite == 0:
             ## prune here 
@@ -277,8 +294,10 @@ if __name__=="__main__":
     parser.add_argument("--dataset", default="mnist", type=str, help="mnist | cifar10 | fashionmnist | cifar100")
     parser.add_argument("--arch_type", default="fc1", type=str, help="fc1 | lenet5 | alexnet | vgg16 | resnet18 | resnet50|densenet121|fcs")
     parser.add_argument("--prune_percent", default=0.8, type=float, help="Pruning percent")
+    
+    
     parser.add_argument("--prune_iterations", default=6, type=int, help="Pruning iterations count")
-    parser.add_argument("--noise_type", default="gaussian", type=str , help="chose gaussian or bernoulli noise")
+    parser.add_argument("--noise_type", default="bernoulli", type=str , help="chose gaussian or bernoulli noise")
     parser.add_argument("--kl", default=1e-4, type=float, help="if using the kl term")
     parser.add_argument("--augmentation", "-aug", action='store_true', help="if using augmentation.")
     parser.add_argument("--reduce_kl", action='store_true', help="if reduce_kl by mean")

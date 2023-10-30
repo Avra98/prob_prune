@@ -1,0 +1,2556 @@
+Non-zero model percentage: 99.99999237060547%, Non-zero mask percentage: 99.99999237060547%
+
+--- Pruning Level [0/7]: ---
+features.0.weight    | nonzeros =     576 /     576             (100.00%) | total_pruned =       0 | shape = torch.Size([64, 1, 3, 3])
+features.0.bias      | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+features.2.weight    | nonzeros =   36864 /   36864             (100.00%) | total_pruned =       0 | shape = torch.Size([64, 64, 3, 3])
+features.2.bias      | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+classifier.0.weight  | nonzeros = 3211264 / 3211264             (100.00%) | total_pruned =       0 | shape = torch.Size([256, 12544])
+classifier.0.bias    | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+classifier.2.weight  | nonzeros =   65536 /   65536             (100.00%) | total_pruned =       0 | shape = torch.Size([256, 256])
+classifier.2.bias    | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+classifier.4.weight  | nonzeros =    2560 /    2560             (100.00%) | total_pruned =       0 | shape = torch.Size([10, 256])
+classifier.4.bias    | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 3317450, pruned : 0, total: 3317450, Compression rate :       1.00x  (  0.00% pruned)
+Train Epoch: 39/100 Loss: 0.000001 Accuracy: 99.19 100.00 % Best test Accuracy: 99.23%
+tensor(0., device='cuda:0') tensor(0., device='cuda:0') tensor(0.0002, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: 2.205898
+Average KL loss: 446.683910
+Average total loss: 448.889834
+tensor(-3.8277, device='cuda:0') tensor(0.0046, device='cuda:0') tensor(2.0892e-05, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: 2.301591
+Average KL loss: 44.174894
+Average total loss: 46.476487
+tensor(-4.7534, device='cuda:0') tensor(0.0033, device='cuda:0') tensor(8.5003e-06, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: 2.302520
+Average KL loss: 21.784763
+Average total loss: 24.087283
+tensor(-5.2943, device='cuda:0') tensor(0.0027, device='cuda:0') tensor(4.9849e-06, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: 2.302540
+Average KL loss: 13.658516
+Average total loss: 15.961057
+tensor(-5.6931, device='cuda:0') tensor(0.0024, device='cuda:0') tensor(3.3566e-06, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: 2.302618
+Average KL loss: 9.556091
+Average total loss: 11.858710
+tensor(-6.0107, device='cuda:0') tensor(0.0023, device='cuda:0') tensor(2.4472e-06, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: 2.302584
+Average KL loss: 7.145302
+Average total loss: 9.447887
+tensor(-6.2754, device='cuda:0') tensor(0.0022, device='cuda:0') tensor(1.8801e-06, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: 2.302574
+Average KL loss: 5.587968
+Average total loss: 7.890543
+tensor(-6.5027, device='cuda:0') tensor(0.0021, device='cuda:0') tensor(1.4988e-06, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: 2.302610
+Average KL loss: 4.513978
+Average total loss: 6.816587
+tensor(-6.7024, device='cuda:0') tensor(0.0021, device='cuda:0') tensor(1.2281e-06, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: 2.302617
+Average KL loss: 3.736884
+Average total loss: 6.039502
+tensor(-6.8806, device='cuda:0') tensor(0.0020, device='cuda:0') tensor(1.0280e-06, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: 2.302573
+Average KL loss: 3.153546
+Average total loss: 5.456120
+tensor(-7.0418, device='cuda:0') tensor(0.0020, device='cuda:0') tensor(8.7515e-07, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: 2.302585
+Average KL loss: 2.702706
+Average total loss: 5.005291
+tensor(-7.1891, device='cuda:0') tensor(0.0020, device='cuda:0') tensor(7.5541e-07, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: 2.302587
+Average KL loss: 2.345911
+Average total loss: 4.648498
+tensor(-7.3249, device='cuda:0') tensor(0.0020, device='cuda:0') tensor(6.5958e-07, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: 2.302590
+Average KL loss: 2.057948
+Average total loss: 4.360538
+tensor(-7.4510, device='cuda:0') tensor(0.0020, device='cuda:0') tensor(5.8150e-07, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: 2.302579
+Average KL loss: 1.821663
+Average total loss: 4.124242
+tensor(-7.5688, device='cuda:0') tensor(0.0020, device='cuda:0') tensor(5.1695e-07, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: 2.302619
+Average KL loss: 1.625023
+Average total loss: 3.927642
+tensor(-7.6794, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(4.6285e-07, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: 2.302585
+Average KL loss: 1.459371
+Average total loss: 3.761956
+tensor(-7.7838, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(4.1701e-07, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: 2.302571
+Average KL loss: 1.318332
+Average total loss: 3.620903
+tensor(-7.8827, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(3.7777e-07, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: 2.302578
+Average KL loss: 1.197120
+Average total loss: 3.499698
+tensor(-7.9767, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(3.4390e-07, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: 2.302584
+Average KL loss: 1.092079
+Average total loss: 3.394663
+tensor(-8.0663, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(3.1442e-07, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: 2.302573
+Average KL loss: 1.000376
+Average total loss: 3.302949
+tensor(-8.1521, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.8860e-07, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: 2.302582
+Average KL loss: 0.919784
+Average total loss: 3.222366
+tensor(-8.2343, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.6583e-07, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.848529
+Average total loss: 3.151113
+tensor(-8.3133, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.4564e-07, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.785179
+Average total loss: 3.087764
+tensor(-8.3895, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.2764e-07, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.728582
+Average total loss: 3.031167
+tensor(-8.4629, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.1152e-07, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.677786
+Average total loss: 2.980371
+tensor(-8.5340, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.9702e-07, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: 2.302557
+Average KL loss: 0.632008
+Average total loss: 2.934565
+tensor(-8.6028, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.8392e-07, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.590591
+Average total loss: 2.893176
+tensor(-8.6695, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.7205e-07, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: 2.302592
+Average KL loss: 0.552986
+Average total loss: 2.855578
+tensor(-8.7343, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.6126e-07, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.518731
+Average total loss: 2.821316
+tensor(-8.7974, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.5140e-07, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.487433
+Average total loss: 2.790018
+tensor(-8.8588, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.4239e-07, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.458751
+Average total loss: 2.761336
+tensor(-8.9187, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.3412e-07, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: 2.302584
+Average KL loss: 0.432399
+Average total loss: 2.734984
+tensor(-8.9771, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.2651e-07, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: 2.302572
+Average KL loss: 0.408127
+Average total loss: 2.710699
+tensor(-9.0342, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.1949e-07, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: 2.302567
+Average KL loss: 0.385727
+Average total loss: 2.688294
+tensor(-9.0900, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.1300e-07, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: 2.302584
+Average KL loss: 0.364993
+Average total loss: 2.667577
+tensor(-9.1447, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.0699e-07, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: 2.302584
+Average KL loss: 0.345765
+Average total loss: 2.648350
+tensor(-9.1982, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.0141e-07, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: 2.302579
+Average KL loss: 0.327905
+Average total loss: 2.630484
+tensor(-9.2507, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(9.6226e-08, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: 2.302579
+Average KL loss: 0.311287
+Average total loss: 2.613866
+tensor(-9.3022, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(9.1396e-08, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.295793
+Average total loss: 2.598378
+tensor(-9.3528, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(8.6888e-08, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.281321
+Average total loss: 2.583906
+tensor(-9.4025, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(8.2674e-08, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.267788
+Average total loss: 2.570373
+tensor(-9.4514, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(7.8730e-08, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: 2.302565
+Average KL loss: 0.255115
+Average total loss: 2.557680
+tensor(-9.4995, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(7.5035e-08, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.243225
+Average total loss: 2.545810
+tensor(-9.5469, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(7.1565e-08, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.232059
+Average total loss: 2.534644
+tensor(-9.5935, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(6.8305e-08, device='cuda:0')
+Epoch 45
+Average batch original loss after noise: 2.302583
+Average KL loss: 0.221559
+Average total loss: 2.524142
+tensor(-9.6395, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(6.5237e-08, device='cuda:0')
+Epoch 46
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.211672
+Average total loss: 2.514257
+tensor(-9.6848, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(6.2346e-08, device='cuda:0')
+Epoch 47
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.202354
+Average total loss: 2.504940
+tensor(-9.7295, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(5.9620e-08, device='cuda:0')
+Epoch 48
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.193561
+Average total loss: 2.496146
+tensor(-9.7736, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(5.7046e-08, device='cuda:0')
+Epoch 49
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.185255
+Average total loss: 2.487840
+tensor(-9.8172, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(5.4614e-08, device='cuda:0')
+Epoch 50
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.177402
+Average total loss: 2.479987
+tensor(-9.8602, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(5.2313e-08, device='cuda:0')
+Epoch 51
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.169969
+Average total loss: 2.472554
+tensor(-9.9028, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(5.0134e-08, device='cuda:0')
+Epoch 52
+Average batch original loss after noise: 2.302580
+Average KL loss: 0.162929
+Average total loss: 2.465509
+tensor(-9.9449, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(4.8069e-08, device='cuda:0')
+Epoch 53
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.156253
+Average total loss: 2.458838
+tensor(-9.9865, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(4.6111e-08, device='cuda:0')
+Epoch 54
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.149918
+Average total loss: 2.452503
+tensor(-10.0276, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(4.4251e-08, device='cuda:0')
+Epoch 55
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.143902
+Average total loss: 2.446487
+tensor(-10.0684, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(4.2485e-08, device='cuda:0')
+Epoch 56
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.138185
+Average total loss: 2.440770
+tensor(-10.1087, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(4.0805e-08, device='cuda:0')
+Epoch 57
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.132747
+Average total loss: 2.435331
+tensor(-10.1487, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(3.9207e-08, device='cuda:0')
+Epoch 58
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.127571
+Average total loss: 2.430156
+tensor(-10.1882, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(3.7685e-08, device='cuda:0')
+Epoch 59
+Average batch original loss after noise: 2.302588
+Average KL loss: 0.122641
+Average total loss: 2.425229
+tensor(-10.2275, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(3.6236e-08, device='cuda:0')
+Epoch 60
+Average batch original loss after noise: 2.302581
+Average KL loss: 0.117943
+Average total loss: 2.420524
+tensor(-10.2664, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(3.4854e-08, device='cuda:0')
+Epoch 61
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.113463
+Average total loss: 2.416048
+tensor(-10.3049, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(3.3535e-08, device='cuda:0')
+Epoch 62
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.109188
+Average total loss: 2.411773
+tensor(-10.3432, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(3.2277e-08, device='cuda:0')
+Epoch 63
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.105106
+Average total loss: 2.407691
+tensor(-10.3811, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(3.1075e-08, device='cuda:0')
+Epoch 64
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.101207
+Average total loss: 2.403792
+tensor(-10.4188, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.9927e-08, device='cuda:0')
+Epoch 65
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.097480
+Average total loss: 2.400065
+tensor(-10.4561, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.8829e-08, device='cuda:0')
+Epoch 66
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.093916
+Average total loss: 2.396501
+tensor(-10.4933, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.7779e-08, device='cuda:0')
+Epoch 67
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.090506
+Average total loss: 2.393091
+tensor(-10.5301, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.6774e-08, device='cuda:0')
+Epoch 68
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.087242
+Average total loss: 2.389827
+tensor(-10.5667, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.5811e-08, device='cuda:0')
+Epoch 69
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.084116
+Average total loss: 2.386701
+tensor(-10.6031, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.4890e-08, device='cuda:0')
+Epoch 70
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.081121
+Average total loss: 2.383706
+tensor(-10.6392, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.4006e-08, device='cuda:0')
+Epoch 71
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.078251
+Average total loss: 2.380836
+tensor(-10.6751, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.3159e-08, device='cuda:0')
+Epoch 72
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.075498
+Average total loss: 2.378083
+tensor(-10.7108, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.2347e-08, device='cuda:0')
+Epoch 73
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.072858
+Average total loss: 2.375442
+tensor(-10.7463, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.1568e-08, device='cuda:0')
+Epoch 74
+Average batch original loss after noise: 2.302619
+Average KL loss: 0.070324
+Average total loss: 2.372943
+tensor(-10.7816, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.0820e-08, device='cuda:0')
+Epoch 75
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.067891
+Average total loss: 2.370476
+tensor(-10.8167, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(2.0102e-08, device='cuda:0')
+Epoch 76
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.065555
+Average total loss: 2.368140
+tensor(-10.8517, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.9412e-08, device='cuda:0')
+Epoch 77
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.063310
+Average total loss: 2.365895
+tensor(-10.8864, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.8749e-08, device='cuda:0')
+Epoch 78
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.061154
+Average total loss: 2.363739
+tensor(-10.9210, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.8112e-08, device='cuda:0')
+Epoch 79
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.059080
+Average total loss: 2.361665
+tensor(-10.9554, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.7499e-08, device='cuda:0')
+Epoch 80
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.057086
+Average total loss: 2.359671
+tensor(-10.9896, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.6910e-08, device='cuda:0')
+Epoch 81
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.055169
+Average total loss: 2.357753
+tensor(-11.0237, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.6343e-08, device='cuda:0')
+Epoch 82
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.053323
+Average total loss: 2.355908
+tensor(-11.0577, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.5798e-08, device='cuda:0')
+Epoch 83
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.051547
+Average total loss: 2.354132
+tensor(-11.0915, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.5273e-08, device='cuda:0')
+Epoch 84
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.049837
+Average total loss: 2.352422
+tensor(-11.1251, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.4767e-08, device='cuda:0')
+Epoch 85
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.048191
+Average total loss: 2.350776
+tensor(-11.1587, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.4280e-08, device='cuda:0')
+Epoch 86
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.046605
+Average total loss: 2.349190
+tensor(-11.1921, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.3811e-08, device='cuda:0')
+Epoch 87
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.045077
+Average total loss: 2.347662
+tensor(-11.2253, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.3359e-08, device='cuda:0')
+Epoch 88
+Average batch original loss after noise: 2.302577
+Average KL loss: 0.043604
+Average total loss: 2.346182
+tensor(-11.2585, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.2924e-08, device='cuda:0')
+Epoch 89
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.042185
+Average total loss: 2.344770
+tensor(-11.2915, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.2504e-08, device='cuda:0')
+Epoch 90
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.040817
+Average total loss: 2.343402
+tensor(-11.3244, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.2099e-08, device='cuda:0')
+Epoch 91
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.039497
+Average total loss: 2.342082
+tensor(-11.3572, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.1708e-08, device='cuda:0')
+Epoch 92
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.038224
+Average total loss: 2.340809
+tensor(-11.3899, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.1332e-08, device='cuda:0')
+Epoch 93
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.036996
+Average total loss: 2.339581
+tensor(-11.4225, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.0968e-08, device='cuda:0')
+Epoch 94
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.035812
+Average total loss: 2.338397
+tensor(-11.4550, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.0618e-08, device='cuda:0')
+Epoch 95
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.034668
+Average total loss: 2.337253
+tensor(-11.4874, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(1.0279e-08, device='cuda:0')
+Epoch 96
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.033564
+Average total loss: 2.336149
+tensor(-11.5198, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(9.9522e-09, device='cuda:0')
+Epoch 97
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.032499
+Average total loss: 2.335084
+tensor(-11.5520, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(9.6367e-09, device='cuda:0')
+Epoch 98
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.031470
+Average total loss: 2.334055
+tensor(-11.5841, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(9.3321e-09, device='cuda:0')
+Epoch 99
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.030476
+Average total loss: 2.333061
+tensor(-11.6161, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(9.0378e-09, device='cuda:0')
+Epoch 100
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.029516
+Average total loss: 2.332101
+tensor(-11.6481, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(8.7535e-09, device='cuda:0')
+Epoch 101
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.028589
+Average total loss: 2.331174
+tensor(-11.6800, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(8.4789e-09, device='cuda:0')
+Epoch 102
+Average batch original loss after noise: 2.302580
+Average KL loss: 0.027693
+Average total loss: 2.330274
+tensor(-11.7118, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(8.2134e-09, device='cuda:0')
+Epoch 103
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.026827
+Average total loss: 2.329412
+tensor(-11.7435, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(7.9570e-09, device='cuda:0')
+Epoch 104
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.025991
+Average total loss: 2.328575
+tensor(-11.7751, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(7.7091e-09, device='cuda:0')
+Epoch 105
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.025182
+Average total loss: 2.327767
+tensor(-11.8067, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(7.4694e-09, device='cuda:0')
+Epoch 106
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.024400
+Average total loss: 2.326985
+tensor(-11.8382, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(7.2377e-09, device='cuda:0')
+Epoch 107
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.023644
+Average total loss: 2.326228
+tensor(-11.8697, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(7.0137e-09, device='cuda:0')
+Epoch 108
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.022912
+Average total loss: 2.325497
+tensor(-11.9011, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(6.7970e-09, device='cuda:0')
+Epoch 109
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.022205
+Average total loss: 2.324790
+tensor(-11.9324, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(6.5875e-09, device='cuda:0')
+Epoch 110
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.021521
+Average total loss: 2.324106
+tensor(-11.9636, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(6.3848e-09, device='cuda:0')
+Epoch 111
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.020860
+Average total loss: 2.323445
+tensor(-11.9948, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(6.1887e-09, device='cuda:0')
+Epoch 112
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.020220
+Average total loss: 2.322805
+tensor(-12.0260, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(5.9990e-09, device='cuda:0')
+Epoch 113
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.019600
+Average total loss: 2.322185
+tensor(-12.0570, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(5.8154e-09, device='cuda:0')
+Epoch 114
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.019001
+Average total loss: 2.321586
+tensor(-12.0881, device='cuda:0') tensor(0.0019, device='cuda:0') tensor(5.6377e-09, device='cuda:0')
+Epoch 115
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.018421
+Average total loss: 2.321006
+tensor(-12.1190, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(5.4658e-09, device='cuda:0')
+Epoch 116
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.017860
+Average total loss: 2.320445
+tensor(-12.1500, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(5.2994e-09, device='cuda:0')
+Epoch 117
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.017316
+Average total loss: 2.319901
+tensor(-12.1808, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(5.1383e-09, device='cuda:0')
+Epoch 118
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.016791
+Average total loss: 2.319375
+tensor(-12.2116, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.9824e-09, device='cuda:0')
+Epoch 119
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.016281
+Average total loss: 2.318866
+tensor(-12.2424, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.8314e-09, device='cuda:0')
+Epoch 120
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.015788
+Average total loss: 2.318373
+tensor(-12.2731, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.6852e-09, device='cuda:0')
+Epoch 121
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.015311
+Average total loss: 2.317896
+tensor(-12.3038, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.5437e-09, device='cuda:0')
+Epoch 122
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.014849
+Average total loss: 2.317434
+tensor(-12.3344, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.4066e-09, device='cuda:0')
+Epoch 123
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.014401
+Average total loss: 2.316986
+tensor(-12.3650, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.2739e-09, device='cuda:0')
+Epoch 124
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.013968
+Average total loss: 2.316553
+tensor(-12.3956, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.1453e-09, device='cuda:0')
+Epoch 125
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.013548
+Average total loss: 2.316133
+tensor(-12.4261, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.0208e-09, device='cuda:0')
+Epoch 126
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.013141
+Average total loss: 2.315726
+tensor(-12.4565, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(3.9001e-09, device='cuda:0')
+Epoch 127
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.012747
+Average total loss: 2.315332
+tensor(-12.4870, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(3.7832e-09, device='cuda:0')
+Epoch 128
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.012365
+Average total loss: 2.314950
+tensor(-12.5173, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(3.6700e-09, device='cuda:0')
+Epoch 129
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.011995
+Average total loss: 2.314580
+tensor(-12.5477, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(3.5603e-09, device='cuda:0')
+Epoch 130
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.011637
+Average total loss: 2.314222
+tensor(-12.5780, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(3.4540e-09, device='cuda:0')
+Epoch 131
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.011290
+Average total loss: 2.313875
+tensor(-12.6083, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(3.3510e-09, device='cuda:0')
+Epoch 132
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.010953
+Average total loss: 2.313538
+tensor(-12.6385, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(3.2512e-09, device='cuda:0')
+Epoch 133
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.010627
+Average total loss: 2.313212
+tensor(-12.6687, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(3.1545e-09, device='cuda:0')
+Epoch 134
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.010311
+Average total loss: 2.312896
+tensor(-12.6989, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(3.0608e-09, device='cuda:0')
+Epoch 135
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.010005
+Average total loss: 2.312590
+tensor(-12.7290, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.9699e-09, device='cuda:0')
+Epoch 136
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.009708
+Average total loss: 2.312293
+tensor(-12.7591, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.8818e-09, device='cuda:0')
+Epoch 137
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.009420
+Average total loss: 2.312005
+tensor(-12.7892, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.7965e-09, device='cuda:0')
+Epoch 138
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.009142
+Average total loss: 2.311726
+tensor(-12.8192, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.7137e-09, device='cuda:0')
+Epoch 139
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.008871
+Average total loss: 2.311456
+tensor(-12.8492, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.6335e-09, device='cuda:0')
+Epoch 140
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.008609
+Average total loss: 2.311194
+tensor(-12.8792, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.5557e-09, device='cuda:0')
+Epoch 141
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.008355
+Average total loss: 2.310940
+tensor(-12.9091, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.4804e-09, device='cuda:0')
+Epoch 142
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.008109
+Average total loss: 2.310694
+tensor(-12.9390, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.4073e-09, device='cuda:0')
+Epoch 143
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.007870
+Average total loss: 2.310455
+tensor(-12.9689, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.3364e-09, device='cuda:0')
+Epoch 144
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.007638
+Average total loss: 2.310223
+tensor(-12.9988, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.2677e-09, device='cuda:0')
+Epoch 145
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.007414
+Average total loss: 2.309999
+tensor(-13.0286, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.2011e-09, device='cuda:0')
+Epoch 146
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.007196
+Average total loss: 2.309781
+tensor(-13.0584, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.1364e-09, device='cuda:0')
+Epoch 147
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006985
+Average total loss: 2.309570
+tensor(-13.0882, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.0738e-09, device='cuda:0')
+Epoch 148
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006780
+Average total loss: 2.309365
+tensor(-13.1179, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(2.0130e-09, device='cuda:0')
+Epoch 149
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006582
+Average total loss: 2.309166
+tensor(-13.1476, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.9541e-09, device='cuda:0')
+Epoch 150
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006389
+Average total loss: 2.308974
+tensor(-13.1773, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.8970e-09, device='cuda:0')
+Epoch 151
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006202
+Average total loss: 2.308787
+tensor(-13.2069, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.8415e-09, device='cuda:0')
+Epoch 152
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006021
+Average total loss: 2.308606
+tensor(-13.2366, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.7878e-09, device='cuda:0')
+Epoch 153
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005845
+Average total loss: 2.308430
+tensor(-13.2662, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.7356e-09, device='cuda:0')
+Epoch 154
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005675
+Average total loss: 2.308260
+tensor(-13.2957, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.6851e-09, device='cuda:0')
+Epoch 155
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005510
+Average total loss: 2.308095
+tensor(-13.3253, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.6360e-09, device='cuda:0')
+Epoch 156
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005349
+Average total loss: 2.307934
+tensor(-13.3548, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.5884e-09, device='cuda:0')
+Epoch 157
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005194
+Average total loss: 2.307779
+tensor(-13.3843, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.5423e-09, device='cuda:0')
+Epoch 158
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005043
+Average total loss: 2.307628
+tensor(-13.4137, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.4975e-09, device='cuda:0')
+Epoch 159
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004897
+Average total loss: 2.307482
+tensor(-13.4432, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.4540e-09, device='cuda:0')
+Epoch 160
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004755
+Average total loss: 2.307340
+tensor(-13.4726, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.4119e-09, device='cuda:0')
+Epoch 161
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004617
+Average total loss: 2.307202
+tensor(-13.5020, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.3710e-09, device='cuda:0')
+Epoch 162
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004483
+Average total loss: 2.307068
+tensor(-13.5313, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.3313e-09, device='cuda:0')
+Epoch 163
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004354
+Average total loss: 2.306939
+tensor(-13.5606, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.2929e-09, device='cuda:0')
+Epoch 164
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004228
+Average total loss: 2.306813
+tensor(-13.5900, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.2555e-09, device='cuda:0')
+Epoch 165
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004106
+Average total loss: 2.306691
+tensor(-13.6192, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.2193e-09, device='cuda:0')
+Epoch 166
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003987
+Average total loss: 2.306572
+tensor(-13.6485, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.1842e-09, device='cuda:0')
+Epoch 167
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003873
+Average total loss: 2.306457
+tensor(-13.6777, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.1501e-09, device='cuda:0')
+Epoch 168
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003761
+Average total loss: 2.306346
+tensor(-13.7069, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.1170e-09, device='cuda:0')
+Epoch 169
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003653
+Average total loss: 2.306238
+tensor(-13.7360, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.0849e-09, device='cuda:0')
+Epoch 170
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003548
+Average total loss: 2.306133
+tensor(-13.7652, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.0537e-09, device='cuda:0')
+Epoch 171
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003446
+Average total loss: 2.306031
+tensor(-13.7943, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(1.0235e-09, device='cuda:0')
+Epoch 172
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003347
+Average total loss: 2.305932
+tensor(-13.8233, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(9.9417e-10, device='cuda:0')
+Epoch 173
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003251
+Average total loss: 2.305836
+tensor(-13.8524, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(9.6572e-10, device='cuda:0')
+Epoch 174
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003158
+Average total loss: 2.305743
+tensor(-13.8814, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(9.3809e-10, device='cuda:0')
+Epoch 175
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003068
+Average total loss: 2.305653
+tensor(-13.9104, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(9.1130e-10, device='cuda:0')
+Epoch 176
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002981
+Average total loss: 2.305565
+tensor(-13.9393, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(8.8528e-10, device='cuda:0')
+Epoch 177
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002896
+Average total loss: 2.305480
+tensor(-13.9683, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(8.6004e-10, device='cuda:0')
+Epoch 178
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002813
+Average total loss: 2.305398
+tensor(-13.9972, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(8.3555e-10, device='cuda:0')
+Epoch 179
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002733
+Average total loss: 2.305318
+tensor(-14.0260, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(8.1177e-10, device='cuda:0')
+Epoch 180
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002655
+Average total loss: 2.305240
+tensor(-14.0548, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(7.8871e-10, device='cuda:0')
+Epoch 181
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002580
+Average total loss: 2.305165
+tensor(-14.0837, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(7.6631e-10, device='cuda:0')
+Epoch 182
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002507
+Average total loss: 2.305092
+tensor(-14.1124, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(7.4458e-10, device='cuda:0')
+Epoch 183
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002436
+Average total loss: 2.305020
+tensor(-14.1411, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(7.2349e-10, device='cuda:0')
+Epoch 184
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002367
+Average total loss: 2.304952
+tensor(-14.1698, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(7.0302e-10, device='cuda:0')
+Epoch 185
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002300
+Average total loss: 2.304885
+tensor(-14.1985, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(6.8316e-10, device='cuda:0')
+Epoch 186
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002235
+Average total loss: 2.304820
+tensor(-14.2271, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(6.6387e-10, device='cuda:0')
+Epoch 187
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002172
+Average total loss: 2.304757
+tensor(-14.2557, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(6.4516e-10, device='cuda:0')
+Epoch 188
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002111
+Average total loss: 2.304695
+tensor(-14.2843, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(6.2700e-10, device='cuda:0')
+Epoch 189
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002051
+Average total loss: 2.304636
+tensor(-14.3128, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(6.0937e-10, device='cuda:0')
+Epoch 190
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001994
+Average total loss: 2.304578
+tensor(-14.3413, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(5.9226e-10, device='cuda:0')
+Epoch 191
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001938
+Average total loss: 2.304522
+tensor(-14.3697, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(5.7565e-10, device='cuda:0')
+Epoch 192
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001883
+Average total loss: 2.304468
+tensor(-14.3981, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(5.5953e-10, device='cuda:0')
+Epoch 193
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001831
+Average total loss: 2.304415
+tensor(-14.4265, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(5.4388e-10, device='cuda:0')
+Epoch 194
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001779
+Average total loss: 2.304364
+tensor(-14.4548, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(5.2869e-10, device='cuda:0')
+Epoch 195
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001730
+Average total loss: 2.304315
+tensor(-14.4831, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(5.1395e-10, device='cuda:0')
+Epoch 196
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001682
+Average total loss: 2.304266
+tensor(-14.5113, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.9963e-10, device='cuda:0')
+Epoch 197
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001635
+Average total loss: 2.304220
+tensor(-14.5395, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.8574e-10, device='cuda:0')
+Epoch 198
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001589
+Average total loss: 2.304174
+tensor(-14.5677, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.7226e-10, device='cuda:0')
+Epoch 199
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001545
+Average total loss: 2.304130
+tensor(-14.5958, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.5917e-10, device='cuda:0')
+Epoch 200
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001502
+Average total loss: 2.304087
+ Percentile value: -14.625297546386719
+Non-zero model percentage: 29.999998092651367%, Non-zero mask percentage: 29.999998092651367%
+
+--- Pruning Level [1/7]: ---
+features.0.weight    | nonzeros =     554 /     576             ( 96.18%) | total_pruned =      22 | shape = torch.Size([64, 1, 3, 3])
+features.0.bias      | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+features.2.weight    | nonzeros =   24607 /   36864             ( 66.75%) | total_pruned =   12257 | shape = torch.Size([64, 64, 3, 3])
+features.2.bias      | nonzeros =      53 /      64             ( 82.81%) | total_pruned =      11 | shape = torch.Size([64])
+classifier.0.weight  | nonzeros =  921933 / 3211264             ( 28.71%) | total_pruned = 2289331 | shape = torch.Size([256, 12544])
+classifier.0.bias    | nonzeros =     214 /     256             ( 83.59%) | total_pruned =      42 | shape = torch.Size([256])
+classifier.2.weight  | nonzeros =   46244 /   65536             ( 70.56%) | total_pruned =   19292 | shape = torch.Size([256, 256])
+classifier.2.bias    | nonzeros =     216 /     256             ( 84.38%) | total_pruned =      40 | shape = torch.Size([256])
+classifier.4.weight  | nonzeros =    1340 /    2560             ( 52.34%) | total_pruned =    1220 | shape = torch.Size([10, 256])
+classifier.4.bias    | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 995235, pruned : 2322215, total: 3317450, Compression rate :       3.33x  ( 70.00% pruned)
+Train Epoch: 22/100 Loss: 0.000000 Accuracy: 99.21 100.00 % Best test Accuracy: 99.21%
+tensor(-14.6238, device='cuda:0') tensor(0.0018, device='cuda:0') tensor(4.4646e-10, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001319
+Average total loss: 2.303904
+tensor(-14.8547, device='cuda:0') tensor(0.0007, device='cuda:0') tensor(3.5391e-10, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001068
+Average total loss: 2.303653
+tensor(-15.0434, device='cuda:0') tensor(0.0004, device='cuda:0') tensor(2.9298e-10, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000898
+Average total loss: 2.303483
+tensor(-15.2018, device='cuda:0') tensor(0.0003, device='cuda:0') tensor(2.5005e-10, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000775
+Average total loss: 2.303360
+tensor(-15.3383, device='cuda:0') tensor(0.0002, device='cuda:0') tensor(2.1814e-10, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000682
+Average total loss: 2.303267
+tensor(-15.4582, device='cuda:0') tensor(0.0002, device='cuda:0') tensor(1.9347e-10, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000609
+Average total loss: 2.303194
+tensor(-15.5653, device='cuda:0') tensor(0.0001, device='cuda:0') tensor(1.7382e-10, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000550
+Average total loss: 2.303135
+tensor(-15.6620, device='cuda:0') tensor(0.0001, device='cuda:0') tensor(1.5780e-10, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000501
+Average total loss: 2.303086
+tensor(-15.7502, device='cuda:0') tensor(8.7944e-05, device='cuda:0') tensor(1.4448e-10, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000460
+Average total loss: 2.303045
+tensor(-15.8312, device='cuda:0') tensor(7.4536e-05, device='cuda:0') tensor(1.3324e-10, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000426
+Average total loss: 2.303011
+tensor(-15.9061, device='cuda:0') tensor(6.4079e-05, device='cuda:0') tensor(1.2362e-10, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000396
+Average total loss: 2.302981
+tensor(-15.9758, device='cuda:0') tensor(5.5747e-05, device='cuda:0') tensor(1.1529e-10, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000370
+Average total loss: 2.302955
+tensor(-16.0410, device='cuda:0') tensor(4.8996e-05, device='cuda:0') tensor(1.0802e-10, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000348
+Average total loss: 2.302933
+tensor(-16.1022, device='cuda:0') tensor(4.3442e-05, device='cuda:0') tensor(1.0160e-10, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000328
+Average total loss: 2.302912
+tensor(-16.1599, device='cuda:0') tensor(3.8809e-05, device='cuda:0') tensor(9.5907e-11, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000310
+Average total loss: 2.302895
+tensor(-16.2145, device='cuda:0') tensor(3.4906e-05, device='cuda:0') tensor(9.0816e-11, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000294
+Average total loss: 2.302879
+tensor(-16.2662, device='cuda:0') tensor(3.1582e-05, device='cuda:0') tensor(8.6237e-11, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000279
+Average total loss: 2.302864
+tensor(-16.3154, device='cuda:0') tensor(2.8726e-05, device='cuda:0') tensor(8.2096e-11, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.000266
+Average total loss: 2.302851
+tensor(-16.3623, device='cuda:0') tensor(2.6254e-05, device='cuda:0') tensor(7.8335e-11, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 45
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 46
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 47
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 48
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 49
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 50
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 51
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 52
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 53
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 54
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 55
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 56
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 57
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 58
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 59
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 60
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 61
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 62
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 63
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 64
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 65
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 66
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 67
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 68
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 69
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 70
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 71
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 72
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+ Percentile value: nan
+Non-zero model percentage: 9.000014305114746%, Non-zero mask percentage: 9.000014305114746%
+
+--- Pruning Level [2/7]: ---
+features.0.weight    | nonzeros =       0 /     576             (  0.00%) | total_pruned =     576 | shape = torch.Size([64, 1, 3, 3])
+features.0.bias      | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+features.2.weight    | nonzeros =       0 /   36864             (  0.00%) | total_pruned =   36864 | shape = torch.Size([64, 64, 3, 3])
+features.2.bias      | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+classifier.0.weight  | nonzeros =  250547 / 3211264             (  7.80%) | total_pruned = 2960717 | shape = torch.Size([256, 12544])
+classifier.0.bias    | nonzeros =     214 /     256             ( 83.59%) | total_pruned =      42 | shape = torch.Size([256])
+classifier.2.weight  | nonzeros =   46244 /   65536             ( 70.56%) | total_pruned =   19292 | shape = torch.Size([256, 256])
+classifier.2.bias    | nonzeros =     216 /     256             ( 84.38%) | total_pruned =      40 | shape = torch.Size([256])
+classifier.4.weight  | nonzeros =    1340 /    2560             ( 52.34%) | total_pruned =    1220 | shape = torch.Size([10, 256])
+classifier.4.bias    | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 298571, pruned : 3018879, total: 3317450, Compression rate :      11.11x  ( 91.00% pruned)
+Train Epoch: 35/100 Loss: 2.305932 Accuracy: 11.35 11.24 % Best test Accuracy: 11.35%
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 45
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 46
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 47
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 48
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 49
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 50
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 51
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 52
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 53
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 54
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+ Percentile value: nan
+Non-zero model percentage: 2.7000255584716797%, Non-zero mask percentage: 2.7000255584716797%
+
+--- Pruning Level [3/7]: ---
+features.0.weight    | nonzeros =       0 /     576             (  0.00%) | total_pruned =     576 | shape = torch.Size([64, 1, 3, 3])
+features.0.bias      | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+features.2.weight    | nonzeros =       0 /   36864             (  0.00%) | total_pruned =   36864 | shape = torch.Size([64, 64, 3, 3])
+features.2.bias      | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+classifier.0.weight  | nonzeros =   41548 / 3211264             (  1.29%) | total_pruned = 3169716 | shape = torch.Size([256, 12544])
+classifier.0.bias    | nonzeros =     214 /     256             ( 83.59%) | total_pruned =      42 | shape = torch.Size([256])
+classifier.2.weight  | nonzeros =   46244 /   65536             ( 70.56%) | total_pruned =   19292 | shape = torch.Size([256, 256])
+classifier.2.bias    | nonzeros =     216 /     256             ( 84.38%) | total_pruned =      40 | shape = torch.Size([256])
+classifier.4.weight  | nonzeros =    1340 /    2560             ( 52.34%) | total_pruned =    1220 | shape = torch.Size([10, 256])
+classifier.4.bias    | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 89572, pruned : 3227878, total: 3317450, Compression rate :      37.04x  ( 97.30% pruned)
+Train Epoch: 34/100 Loss: 2.295696 Accuracy: 11.35 11.24 % Best test Accuracy: 11.35%
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 45
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 46
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 47
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 48
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 49
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 50
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 51
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 52
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 53
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 54
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+ Percentile value: nan
+Non-zero model percentage: 0.8100196719169617%, Non-zero mask percentage: 0.8100196719169617%
+
+--- Pruning Level [4/7]: ---
+features.0.weight    | nonzeros =       0 /     576             (  0.00%) | total_pruned =     576 | shape = torch.Size([64, 1, 3, 3])
+features.0.bias      | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+features.2.weight    | nonzeros =       0 /   36864             (  0.00%) | total_pruned =   36864 | shape = torch.Size([64, 64, 3, 3])
+features.2.bias      | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+classifier.0.weight  | nonzeros =       0 / 3211264             (  0.00%) | total_pruned = 3211264 | shape = torch.Size([256, 12544])
+classifier.0.bias    | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+classifier.2.weight  | nonzeros =   25306 /   65536             ( 38.61%) | total_pruned =   40230 | shape = torch.Size([256, 256])
+classifier.2.bias    | nonzeros =     216 /     256             ( 84.38%) | total_pruned =      40 | shape = torch.Size([256])
+classifier.4.weight  | nonzeros =    1340 /    2560             ( 52.34%) | total_pruned =    1220 | shape = torch.Size([10, 256])
+classifier.4.bias    | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 26872, pruned : 3290578, total: 3317450, Compression rate :     123.45x  ( 99.19% pruned)
+Train Epoch: 35/100 Loss: 2.303264 Accuracy: 11.35 11.24 % Best test Accuracy: 11.35%
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 45
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 46
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 47
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 48
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 49
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 50
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 51
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 52
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 53
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 54
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+ Percentile value: nan
+Non-zero model percentage: 0.24301795661449432%, Non-zero mask percentage: 0.24301795661449432%
+
+--- Pruning Level [5/7]: ---
+features.0.weight    | nonzeros =       0 /     576             (  0.00%) | total_pruned =     576 | shape = torch.Size([64, 1, 3, 3])
+features.0.bias      | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+features.2.weight    | nonzeros =       0 /   36864             (  0.00%) | total_pruned =   36864 | shape = torch.Size([64, 64, 3, 3])
+features.2.bias      | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+classifier.0.weight  | nonzeros =       0 / 3211264             (  0.00%) | total_pruned = 3211264 | shape = torch.Size([256, 12544])
+classifier.0.bias    | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+classifier.2.weight  | nonzeros =    6496 /   65536             (  9.91%) | total_pruned =   59040 | shape = torch.Size([256, 256])
+classifier.2.bias    | nonzeros =     216 /     256             ( 84.38%) | total_pruned =      40 | shape = torch.Size([256])
+classifier.4.weight  | nonzeros =    1340 /    2560             ( 52.34%) | total_pruned =    1220 | shape = torch.Size([10, 256])
+classifier.4.bias    | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 8062, pruned : 3309388, total: 3317450, Compression rate :     411.49x  ( 99.76% pruned)
+Train Epoch: 34/100 Loss: 2.301478 Accuracy: 11.35 11.24 % Best test Accuracy: 11.35%
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 45
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 46
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 47
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 48
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 49
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 50
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 51
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 52
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 53
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+Epoch 54
+Average batch original loss after noise: nan
+Average KL loss: nan
+Average total loss: nan
+tensor(nan, device='cuda:0') tensor(nan, device='cuda:0') tensor(nan, device='cuda:0')
+ Percentile value: nan
+Non-zero model percentage: 0.07291744649410248%, Non-zero mask percentage: 0.07291744649410248%
+
+--- Pruning Level [6/7]: ---
+features.0.weight    | nonzeros =       0 /     576             (  0.00%) | total_pruned =     576 | shape = torch.Size([64, 1, 3, 3])
+features.0.bias      | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+features.2.weight    | nonzeros =       0 /   36864             (  0.00%) | total_pruned =   36864 | shape = torch.Size([64, 64, 3, 3])
+features.2.bias      | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+classifier.0.weight  | nonzeros =       0 / 3211264             (  0.00%) | total_pruned = 3211264 | shape = torch.Size([256, 12544])
+classifier.0.bias    | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+classifier.2.weight  | nonzeros =     853 /   65536             (  1.30%) | total_pruned =   64683 | shape = torch.Size([256, 256])
+classifier.2.bias    | nonzeros =     216 /     256             ( 84.38%) | total_pruned =      40 | shape = torch.Size([256])
+classifier.4.weight  | nonzeros =    1340 /    2560             ( 52.34%) | total_pruned =    1220 | shape = torch.Size([10, 256])
+classifier.4.bias    | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 2419, pruned : 3315031, total: 3317450, Compression rate :    1371.41x  ( 99.93% pruned)
+Train Epoch: 34/100 Loss: 2.303424 Accuracy: 11.35 11.24 % Best test Accuracy: 11.35%

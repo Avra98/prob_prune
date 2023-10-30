@@ -1,0 +1,3253 @@
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+Non-zero model percentage: 99.95706176757812%, Non-zero mask percentage: 99.99999237060547%
+
+--- Pruning Level [0/7]: ---
+conv1.weight         | nonzeros =    1728 /    1728             (100.00%) | total_pruned =       0 | shape = torch.Size([64, 3, 3, 3])
+conv1.bias           | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+bn1.weight           | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+bn1.bias             | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.conv1.weight | nonzeros =   36864 /   36864             (100.00%) | total_pruned =       0 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv1.bias  | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+layer1.0.bn1.weight  | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+layer1.0.bn1.bias    | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.conv2.weight | nonzeros =   36864 /   36864             (100.00%) | total_pruned =       0 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv2.bias  | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+layer1.0.bn2.weight  | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+layer1.0.bn2.bias    | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.conv1.weight | nonzeros =   36864 /   36864             (100.00%) | total_pruned =       0 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv1.bias  | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+layer1.1.bn1.weight  | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+layer1.1.bn1.bias    | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.conv2.weight | nonzeros =   36864 /   36864             (100.00%) | total_pruned =       0 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv2.bias  | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+layer1.1.bn2.weight  | nonzeros =      64 /      64             (100.00%) | total_pruned =       0 | shape = torch.Size([64])
+layer1.1.bn2.bias    | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer2.0.conv1.weight | nonzeros =   73728 /   73728             (100.00%) | total_pruned =       0 | shape = torch.Size([128, 64, 3, 3])
+layer2.0.conv1.bias  | nonzeros =     128 /     128             (100.00%) | total_pruned =       0 | shape = torch.Size([128])
+layer2.0.bn1.weight  | nonzeros =     128 /     128             (100.00%) | total_pruned =       0 | shape = torch.Size([128])
+layer2.0.bn1.bias    | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.conv2.weight | nonzeros =  147456 /  147456             (100.00%) | total_pruned =       0 | shape = torch.Size([128, 128, 3, 3])
+layer2.0.conv2.bias  | nonzeros =     128 /     128             (100.00%) | total_pruned =       0 | shape = torch.Size([128])
+layer2.0.bn2.weight  | nonzeros =     128 /     128             (100.00%) | total_pruned =       0 | shape = torch.Size([128])
+layer2.0.bn2.bias    | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.shortcut.0.weight | nonzeros =    8192 /    8192             (100.00%) | total_pruned =       0 | shape = torch.Size([128, 64, 1, 1])
+layer2.0.shortcut.0.bias | nonzeros =     128 /     128             (100.00%) | total_pruned =       0 | shape = torch.Size([128])
+layer2.0.shortcut.1.weight | nonzeros =     128 /     128             (100.00%) | total_pruned =       0 | shape = torch.Size([128])
+layer2.0.shortcut.1.bias | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.conv1.weight | nonzeros =  147456 /  147456             (100.00%) | total_pruned =       0 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv1.bias  | nonzeros =     128 /     128             (100.00%) | total_pruned =       0 | shape = torch.Size([128])
+layer2.1.bn1.weight  | nonzeros =     128 /     128             (100.00%) | total_pruned =       0 | shape = torch.Size([128])
+layer2.1.bn1.bias    | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.conv2.weight | nonzeros =  147456 /  147456             (100.00%) | total_pruned =       0 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv2.bias  | nonzeros =     128 /     128             (100.00%) | total_pruned =       0 | shape = torch.Size([128])
+layer2.1.bn2.weight  | nonzeros =     128 /     128             (100.00%) | total_pruned =       0 | shape = torch.Size([128])
+layer2.1.bn2.bias    | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer3.0.conv1.weight | nonzeros =  294912 /  294912             (100.00%) | total_pruned =       0 | shape = torch.Size([256, 128, 3, 3])
+layer3.0.conv1.bias  | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+layer3.0.bn1.weight  | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+layer3.0.bn1.bias    | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.conv2.weight | nonzeros =  589824 /  589824             (100.00%) | total_pruned =       0 | shape = torch.Size([256, 256, 3, 3])
+layer3.0.conv2.bias  | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+layer3.0.bn2.weight  | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+layer3.0.bn2.bias    | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.shortcut.0.weight | nonzeros =   32768 /   32768             (100.00%) | total_pruned =       0 | shape = torch.Size([256, 128, 1, 1])
+layer3.0.shortcut.0.bias | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+layer3.0.shortcut.1.weight | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+layer3.0.shortcut.1.bias | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.conv1.weight | nonzeros =  589824 /  589824             (100.00%) | total_pruned =       0 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv1.bias  | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+layer3.1.bn1.weight  | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+layer3.1.bn1.bias    | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.conv2.weight | nonzeros =  589824 /  589824             (100.00%) | total_pruned =       0 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv2.bias  | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+layer3.1.bn2.weight  | nonzeros =     256 /     256             (100.00%) | total_pruned =       0 | shape = torch.Size([256])
+layer3.1.bn2.bias    | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer4.0.conv1.weight | nonzeros = 1179648 / 1179648             (100.00%) | total_pruned =       0 | shape = torch.Size([512, 256, 3, 3])
+layer4.0.conv1.bias  | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.0.bn1.weight  | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.0.bn1.bias    | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.conv2.weight | nonzeros = 2359296 / 2359296             (100.00%) | total_pruned =       0 | shape = torch.Size([512, 512, 3, 3])
+layer4.0.conv2.bias  | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.0.bn2.weight  | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.0.bn2.bias    | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.shortcut.0.weight | nonzeros =  131072 /  131072             (100.00%) | total_pruned =       0 | shape = torch.Size([512, 256, 1, 1])
+layer4.0.shortcut.0.bias | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.0.shortcut.1.weight | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.0.shortcut.1.bias | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.conv1.weight | nonzeros = 2359296 / 2359296             (100.00%) | total_pruned =       0 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv1.bias  | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.1.bn1.weight  | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.1.bn1.bias    | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.conv2.weight | nonzeros = 2359296 / 2359296             (100.00%) | total_pruned =       0 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv2.bias  | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.1.bn2.weight  | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.1.bn2.bias    | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+linear.weight        | nonzeros =    5120 /    5120             (100.00%) | total_pruned =       0 | shape = torch.Size([10, 512])
+linear.bias          | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 11173962, pruned : 4800, total: 11178762, Compression rate :       1.00x  (  0.04% pruned)
+Train Epoch: 57/200 Loss: 0.015782 Accuracy: 90.13 100.00 % Best test Accuracy: 90.50%
+tensor(0., device='cuda:0') tensor(0., device='cuda:0') tensor(2.5000e-05, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: 2.302934
+Average KL loss: 492.690900
+Average total loss: 494.993824
+tensor(-0.4870, device='cuda:0') tensor(2.1692e-06, device='cuda:0') tensor(2.3574e-05, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: 2.303026
+Average KL loss: 367.618488
+Average total loss: 369.921507
+tensor(-0.9485, device='cuda:0') tensor(7.8711e-06, device='cuda:0') tensor(2.0124e-05, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: 2.302907
+Average KL loss: 268.550750
+Average total loss: 270.853651
+tensor(-1.3609, device='cuda:0') tensor(1.4644e-05, device='cuda:0') tensor(1.6244e-05, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: 2.302838
+Average KL loss: 197.831934
+Average total loss: 200.134767
+tensor(-1.7183, device='cuda:0') tensor(2.0772e-05, device='cuda:0') tensor(1.2896e-05, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: 2.302705
+Average KL loss: 149.297097
+Average total loss: 151.599799
+tensor(-2.0259, device='cuda:0') tensor(2.5592e-05, device='cuda:0') tensor(1.0293e-05, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: 2.302702
+Average KL loss: 115.890175
+Average total loss: 118.192874
+tensor(-2.2923, device='cuda:0') tensor(2.9074e-05, device='cuda:0') tensor(8.3346e-06, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: 2.302675
+Average KL loss: 92.381409
+Average total loss: 94.684081
+tensor(-2.5254, device='cuda:0') tensor(3.1570e-05, device='cuda:0') tensor(6.8608e-06, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: 2.302616
+Average KL loss: 75.370196
+Average total loss: 77.672810
+tensor(-2.7319, device='cuda:0') tensor(3.3255e-05, device='cuda:0') tensor(5.7381e-06, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: 2.302670
+Average KL loss: 62.715472
+Average total loss: 65.018139
+tensor(-2.9169, device='cuda:0') tensor(3.4457e-05, device='cuda:0') tensor(4.8691e-06, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: 2.302561
+Average KL loss: 53.060589
+Average total loss: 55.363149
+tensor(-3.0843, device='cuda:0') tensor(3.5234e-05, device='cuda:0') tensor(4.1847e-06, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: 2.302572
+Average KL loss: 45.527766
+Average total loss: 47.830337
+tensor(-3.2370, device='cuda:0') tensor(3.5765e-05, device='cuda:0') tensor(3.6367e-06, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: 2.302598
+Average KL loss: 39.534439
+Average total loss: 41.837037
+tensor(-3.3775, device='cuda:0') tensor(3.6200e-05, device='cuda:0') tensor(3.1915e-06, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: 2.302585
+Average KL loss: 34.683880
+Average total loss: 36.986464
+tensor(-3.5077, device='cuda:0') tensor(3.6554e-05, device='cuda:0') tensor(2.8249e-06, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: 2.302571
+Average KL loss: 30.699102
+Average total loss: 33.001673
+tensor(-3.6288, device='cuda:0') tensor(3.6809e-05, device='cuda:0') tensor(2.5192e-06, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: 2.302608
+Average KL loss: 27.382391
+Average total loss: 29.684999
+tensor(-3.7423, device='cuda:0') tensor(3.6852e-05, device='cuda:0') tensor(2.2615e-06, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: 2.302578
+Average KL loss: 24.589666
+Average total loss: 26.892244
+tensor(-3.8490, device='cuda:0') tensor(3.6897e-05, device='cuda:0') tensor(2.0422e-06, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: 2.302573
+Average KL loss: 22.213913
+Average total loss: 24.516486
+tensor(-3.9498, device='cuda:0') tensor(3.6892e-05, device='cuda:0') tensor(1.8539e-06, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: 2.302588
+Average KL loss: 20.174330
+Average total loss: 22.476918
+tensor(-4.0453, device='cuda:0') tensor(3.6869e-05, device='cuda:0') tensor(1.6908e-06, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: 2.302605
+Average KL loss: 18.408964
+Average total loss: 20.711568
+tensor(-4.1361, device='cuda:0') tensor(3.6788e-05, device='cuda:0') tensor(1.5487e-06, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: 2.302596
+Average KL loss: 16.869638
+Average total loss: 19.172233
+tensor(-4.2226, device='cuda:0') tensor(3.6688e-05, device='cuda:0') tensor(1.4240e-06, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: 2.302578
+Average KL loss: 15.518442
+Average total loss: 17.821020
+tensor(-4.3054, device='cuda:0') tensor(3.6662e-05, device='cuda:0') tensor(1.3139e-06, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: 2.302600
+Average KL loss: 14.325186
+Average total loss: 16.627786
+tensor(-4.3848, device='cuda:0') tensor(3.6636e-05, device='cuda:0') tensor(1.2161e-06, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: 2.302582
+Average KL loss: 13.265612
+Average total loss: 15.568194
+tensor(-4.4610, device='cuda:0') tensor(3.6646e-05, device='cuda:0') tensor(1.1289e-06, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: 2.302588
+Average KL loss: 12.319979
+Average total loss: 14.622567
+tensor(-4.5343, device='cuda:0') tensor(3.6673e-05, device='cuda:0') tensor(1.0508e-06, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: 2.302573
+Average KL loss: 11.472133
+Average total loss: 13.774706
+tensor(-4.6051, device='cuda:0') tensor(3.6701e-05, device='cuda:0') tensor(9.8040e-07, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: 2.302584
+Average KL loss: 10.708710
+Average total loss: 13.011293
+tensor(-4.6734, device='cuda:0') tensor(3.6701e-05, device='cuda:0') tensor(9.1687e-07, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: 2.302569
+Average KL loss: 10.018598
+Average total loss: 12.321167
+tensor(-4.7395, device='cuda:0') tensor(3.6667e-05, device='cuda:0') tensor(8.5923e-07, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: 2.302607
+Average KL loss: 9.392473
+Average total loss: 11.695080
+tensor(-4.8035, device='cuda:0') tensor(3.6637e-05, device='cuda:0') tensor(8.0679e-07, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: 2.302588
+Average KL loss: 8.822473
+Average total loss: 11.125061
+tensor(-4.8657, device='cuda:0') tensor(3.6571e-05, device='cuda:0') tensor(7.5891e-07, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: 2.302582
+Average KL loss: 8.301939
+Average total loss: 10.604521
+tensor(-4.9261, device='cuda:0') tensor(3.6497e-05, device='cuda:0') tensor(7.1509e-07, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: 2.302588
+Average KL loss: 7.825184
+Average total loss: 10.127772
+tensor(-4.9848, device='cuda:0') tensor(3.6472e-05, device='cuda:0') tensor(6.7486e-07, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: 2.302574
+Average KL loss: 7.387327
+Average total loss: 9.689900
+tensor(-5.0420, device='cuda:0') tensor(3.6468e-05, device='cuda:0') tensor(6.3783e-07, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: 2.302586
+Average KL loss: 6.984160
+Average total loss: 9.286746
+tensor(-5.0978, device='cuda:0') tensor(3.6398e-05, device='cuda:0') tensor(6.0366e-07, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: 2.302587
+Average KL loss: 6.612037
+Average total loss: 8.914624
+tensor(-5.1522, device='cuda:0') tensor(3.6288e-05, device='cuda:0') tensor(5.7207e-07, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: 2.302583
+Average KL loss: 6.267786
+Average total loss: 8.570369
+tensor(-5.2053, device='cuda:0') tensor(3.6266e-05, device='cuda:0') tensor(5.4279e-07, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: 2.302587
+Average KL loss: 5.948642
+Average total loss: 8.251228
+tensor(-5.2572, device='cuda:0') tensor(3.6190e-05, device='cuda:0') tensor(5.1560e-07, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: 2.302577
+Average KL loss: 5.652172
+Average total loss: 7.954749
+tensor(-5.3080, device='cuda:0') tensor(3.6155e-05, device='cuda:0') tensor(4.9030e-07, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: 2.302590
+Average KL loss: 5.376250
+Average total loss: 7.678841
+tensor(-5.3578, device='cuda:0') tensor(3.6117e-05, device='cuda:0') tensor(4.6672e-07, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: 2.302581
+Average KL loss: 5.118985
+Average total loss: 7.421566
+tensor(-5.4066, device='cuda:0') tensor(3.6098e-05, device='cuda:0') tensor(4.4472e-07, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: 2.302579
+Average KL loss: 4.878704
+Average total loss: 7.181283
+tensor(-5.4544, device='cuda:0') tensor(3.6057e-05, device='cuda:0') tensor(4.2413e-07, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: 2.302582
+Average KL loss: 4.653924
+Average total loss: 6.956506
+tensor(-5.5013, device='cuda:0') tensor(3.6030e-05, device='cuda:0') tensor(4.0485e-07, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: 2.302584
+Average KL loss: 4.443329
+Average total loss: 6.745912
+tensor(-5.5473, device='cuda:0') tensor(3.6012e-05, device='cuda:0') tensor(3.8677e-07, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: 2.302585
+Average KL loss: 4.245729
+Average total loss: 6.548314
+tensor(-5.5926, device='cuda:0') tensor(3.6007e-05, device='cuda:0') tensor(3.6978e-07, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: 2.302595
+Average KL loss: 4.060065
+Average total loss: 6.362660
+tensor(-5.6371, device='cuda:0') tensor(3.5919e-05, device='cuda:0') tensor(3.5380e-07, device='cuda:0')
+Epoch 45
+Average batch original loss after noise: 2.302587
+Average KL loss: 3.885390
+Average total loss: 6.187977
+tensor(-5.6809, device='cuda:0') tensor(3.5867e-05, device='cuda:0') tensor(3.3876e-07, device='cuda:0')
+Epoch 46
+Average batch original loss after noise: 2.302584
+Average KL loss: 3.720842
+Average total loss: 6.023425
+tensor(-5.7239, device='cuda:0') tensor(3.5855e-05, device='cuda:0') tensor(3.2457e-07, device='cuda:0')
+Epoch 47
+Average batch original loss after noise: 2.302581
+Average KL loss: 3.565649
+Average total loss: 5.868230
+tensor(-5.7663, device='cuda:0') tensor(3.5826e-05, device='cuda:0') tensor(3.1118e-07, device='cuda:0')
+Epoch 48
+Average batch original loss after noise: 2.302584
+Average KL loss: 3.419115
+Average total loss: 5.721699
+tensor(-5.8081, device='cuda:0') tensor(3.5879e-05, device='cuda:0') tensor(2.9853e-07, device='cuda:0')
+Epoch 49
+Average batch original loss after noise: 2.302581
+Average KL loss: 3.280602
+Average total loss: 5.583182
+tensor(-5.8493, device='cuda:0') tensor(3.5831e-05, device='cuda:0') tensor(2.8655e-07, device='cuda:0')
+Epoch 50
+Average batch original loss after noise: 2.302590
+Average KL loss: 3.149539
+Average total loss: 5.452129
+tensor(-5.8899, device='cuda:0') tensor(3.5791e-05, device='cuda:0') tensor(2.7522e-07, device='cuda:0')
+Epoch 51
+Average batch original loss after noise: 2.302584
+Average KL loss: 3.025391
+Average total loss: 5.327975
+tensor(-5.9299, device='cuda:0') tensor(3.5759e-05, device='cuda:0') tensor(2.6447e-07, device='cuda:0')
+Epoch 52
+Average batch original loss after noise: 2.302585
+Average KL loss: 2.907684
+Average total loss: 5.210269
+tensor(-5.9694, device='cuda:0') tensor(3.5744e-05, device='cuda:0') tensor(2.5427e-07, device='cuda:0')
+Epoch 53
+Average batch original loss after noise: 2.302583
+Average KL loss: 2.795982
+Average total loss: 5.098565
+tensor(-6.0085, device='cuda:0') tensor(3.5733e-05, device='cuda:0') tensor(2.4459e-07, device='cuda:0')
+Epoch 54
+Average batch original loss after noise: 2.302585
+Average KL loss: 2.689883
+Average total loss: 4.992469
+tensor(-6.0470, device='cuda:0') tensor(3.5714e-05, device='cuda:0') tensor(2.3539e-07, device='cuda:0')
+Epoch 55
+Average batch original loss after noise: 2.302587
+Average KL loss: 2.589022
+Average total loss: 4.891609
+tensor(-6.0851, device='cuda:0') tensor(3.5652e-05, device='cuda:0') tensor(2.2664e-07, device='cuda:0')
+Epoch 56
+Average batch original loss after noise: 2.302590
+Average KL loss: 2.493062
+Average total loss: 4.795652
+tensor(-6.1227, device='cuda:0') tensor(3.5642e-05, device='cuda:0') tensor(2.1830e-07, device='cuda:0')
+Epoch 57
+Average batch original loss after noise: 2.302591
+Average KL loss: 2.401693
+Average total loss: 4.704284
+tensor(-6.1599, device='cuda:0') tensor(3.5643e-05, device='cuda:0') tensor(2.1036e-07, device='cuda:0')
+Epoch 58
+Average batch original loss after noise: 2.302589
+Average KL loss: 2.314630
+Average total loss: 4.617219
+tensor(-6.1967, device='cuda:0') tensor(3.5650e-05, device='cuda:0') tensor(2.0280e-07, device='cuda:0')
+Epoch 59
+Average batch original loss after noise: 2.302586
+Average KL loss: 2.231609
+Average total loss: 4.534195
+tensor(-6.2331, device='cuda:0') tensor(3.5648e-05, device='cuda:0') tensor(1.9557e-07, device='cuda:0')
+Epoch 60
+Average batch original loss after noise: 2.302586
+Average KL loss: 2.152385
+Average total loss: 4.454971
+tensor(-6.2691, device='cuda:0') tensor(3.5655e-05, device='cuda:0') tensor(1.8866e-07, device='cuda:0')
+Epoch 61
+Average batch original loss after noise: 2.302584
+Average KL loss: 2.076741
+Average total loss: 4.379325
+tensor(-6.3048, device='cuda:0') tensor(3.5671e-05, device='cuda:0') tensor(1.8210e-07, device='cuda:0')
+Epoch 62
+Average batch original loss after noise: 2.302586
+Average KL loss: 2.004462
+Average total loss: 4.307048
+tensor(-6.3401, device='cuda:0') tensor(3.5658e-05, device='cuda:0') tensor(1.7580e-07, device='cuda:0')
+Epoch 63
+Average batch original loss after noise: 2.302588
+Average KL loss: 1.935357
+Average total loss: 4.237946
+tensor(-6.3751, device='cuda:0') tensor(3.5642e-05, device='cuda:0') tensor(1.6978e-07, device='cuda:0')
+Epoch 64
+Average batch original loss after noise: 2.302585
+Average KL loss: 1.869247
+Average total loss: 4.171832
+tensor(-6.4097, device='cuda:0') tensor(3.5635e-05, device='cuda:0') tensor(1.6402e-07, device='cuda:0')
+Epoch 65
+Average batch original loss after noise: 2.302585
+Average KL loss: 1.805966
+Average total loss: 4.108551
+tensor(-6.4440, device='cuda:0') tensor(3.5664e-05, device='cuda:0') tensor(1.5850e-07, device='cuda:0')
+Epoch 66
+Average batch original loss after noise: 2.302593
+Average KL loss: 1.745359
+Average total loss: 4.047951
+tensor(-6.4781, device='cuda:0') tensor(3.5624e-05, device='cuda:0') tensor(1.5321e-07, device='cuda:0')
+Epoch 67
+Average batch original loss after noise: 2.302590
+Average KL loss: 1.687278
+Average total loss: 3.989869
+tensor(-6.5118, device='cuda:0') tensor(3.5583e-05, device='cuda:0') tensor(1.4814e-07, device='cuda:0')
+Epoch 68
+Average batch original loss after noise: 2.302585
+Average KL loss: 1.631593
+Average total loss: 3.934179
+tensor(-6.5453, device='cuda:0') tensor(3.5548e-05, device='cuda:0') tensor(1.4328e-07, device='cuda:0')
+Epoch 69
+Average batch original loss after noise: 2.302580
+Average KL loss: 1.578178
+Average total loss: 3.880758
+tensor(-6.5785, device='cuda:0') tensor(3.5553e-05, device='cuda:0') tensor(1.3861e-07, device='cuda:0')
+Epoch 70
+Average batch original loss after noise: 2.302578
+Average KL loss: 1.526913
+Average total loss: 3.829492
+tensor(-6.6114, device='cuda:0') tensor(3.5537e-05, device='cuda:0') tensor(1.3413e-07, device='cuda:0')
+Epoch 71
+Average batch original loss after noise: 2.302584
+Average KL loss: 1.477691
+Average total loss: 3.780275
+tensor(-6.6441, device='cuda:0') tensor(3.5508e-05, device='cuda:0') tensor(1.2983e-07, device='cuda:0')
+Epoch 72
+Average batch original loss after noise: 2.302586
+Average KL loss: 1.430406
+Average total loss: 3.732992
+tensor(-6.6765, device='cuda:0') tensor(3.5435e-05, device='cuda:0') tensor(1.2570e-07, device='cuda:0')
+Epoch 73
+Average batch original loss after noise: 2.302584
+Average KL loss: 1.384963
+Average total loss: 3.687548
+tensor(-6.7088, device='cuda:0') tensor(3.5436e-05, device='cuda:0') tensor(1.2172e-07, device='cuda:0')
+Epoch 74
+Average batch original loss after noise: 2.302588
+Average KL loss: 1.341271
+Average total loss: 3.643859
+tensor(-6.7407, device='cuda:0') tensor(3.5428e-05, device='cuda:0') tensor(1.1790e-07, device='cuda:0')
+Epoch 75
+Average batch original loss after noise: 2.302585
+Average KL loss: 1.299248
+Average total loss: 3.601833
+tensor(-6.7725, device='cuda:0') tensor(3.5439e-05, device='cuda:0') tensor(1.1423e-07, device='cuda:0')
+Epoch 76
+Average batch original loss after noise: 2.302582
+Average KL loss: 1.258812
+Average total loss: 3.561394
+tensor(-6.8040, device='cuda:0') tensor(3.5496e-05, device='cuda:0') tensor(1.1071e-07, device='cuda:0')
+Epoch 77
+Average batch original loss after noise: 2.302586
+Average KL loss: 1.219888
+Average total loss: 3.522474
+tensor(-6.8354, device='cuda:0') tensor(3.5435e-05, device='cuda:0') tensor(1.0728e-07, device='cuda:0')
+Epoch 78
+Average batch original loss after noise: 2.302584
+Average KL loss: 1.182405
+Average total loss: 3.484989
+tensor(-6.8665, device='cuda:0') tensor(3.5489e-05, device='cuda:0') tensor(1.0400e-07, device='cuda:0')
+Epoch 79
+Average batch original loss after noise: 2.302584
+Average KL loss: 1.146296
+Average total loss: 3.448880
+tensor(-6.8975, device='cuda:0') tensor(3.5466e-05, device='cuda:0') tensor(1.0083e-07, device='cuda:0')
+Epoch 80
+Average batch original loss after noise: 2.302584
+Average KL loss: 1.111500
+Average total loss: 3.414084
+tensor(-6.9282, device='cuda:0') tensor(3.5478e-05, device='cuda:0') tensor(9.7785e-08, device='cuda:0')
+Epoch 81
+Average batch original loss after noise: 2.302585
+Average KL loss: 1.077958
+Average total loss: 3.380544
+tensor(-6.9588, device='cuda:0') tensor(3.5450e-05, device='cuda:0') tensor(9.4845e-08, device='cuda:0')
+Epoch 82
+Average batch original loss after noise: 2.302585
+Average KL loss: 1.045613
+Average total loss: 3.348198
+tensor(-6.9892, device='cuda:0') tensor(3.5450e-05, device='cuda:0') tensor(9.2010e-08, device='cuda:0')
+Epoch 83
+Average batch original loss after noise: 2.302589
+Average KL loss: 1.014412
+Average total loss: 3.317002
+tensor(-7.0194, device='cuda:0') tensor(3.5399e-05, device='cuda:0') tensor(8.9275e-08, device='cuda:0')
+Epoch 84
+Average batch original loss after noise: 2.302583
+Average KL loss: 0.984306
+Average total loss: 3.286889
+tensor(-7.0495, device='cuda:0') tensor(3.5396e-05, device='cuda:0') tensor(8.6635e-08, device='cuda:0')
+Epoch 85
+Average batch original loss after noise: 2.302584
+Average KL loss: 0.955247
+Average total loss: 3.257831
+tensor(-7.0794, device='cuda:0') tensor(3.5403e-05, device='cuda:0') tensor(8.4086e-08, device='cuda:0')
+Epoch 86
+Average batch original loss after noise: 2.302589
+Average KL loss: 0.927192
+Average total loss: 3.229780
+tensor(-7.1092, device='cuda:0') tensor(3.5376e-05, device='cuda:0') tensor(8.1625e-08, device='cuda:0')
+Epoch 87
+Average batch original loss after noise: 2.302581
+Average KL loss: 0.900097
+Average total loss: 3.202677
+tensor(-7.1388, device='cuda:0') tensor(3.5444e-05, device='cuda:0') tensor(7.9247e-08, device='cuda:0')
+Epoch 88
+Average batch original loss after noise: 2.302584
+Average KL loss: 0.873921
+Average total loss: 3.176505
+tensor(-7.1682, device='cuda:0') tensor(3.5474e-05, device='cuda:0') tensor(7.6950e-08, device='cuda:0')
+Epoch 89
+Average batch original loss after noise: 2.302590
+Average KL loss: 0.848628
+Average total loss: 3.151218
+tensor(-7.1976, device='cuda:0') tensor(3.5476e-05, device='cuda:0') tensor(7.4730e-08, device='cuda:0')
+Epoch 90
+Average batch original loss after noise: 2.302590
+Average KL loss: 0.824182
+Average total loss: 3.126771
+tensor(-7.2267, device='cuda:0') tensor(3.5415e-05, device='cuda:0') tensor(7.2584e-08, device='cuda:0')
+Epoch 91
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.800547
+Average total loss: 3.103133
+tensor(-7.2558, device='cuda:0') tensor(3.5388e-05, device='cuda:0') tensor(7.0509e-08, device='cuda:0')
+Epoch 92
+Average batch original loss after noise: 2.302588
+Average KL loss: 0.777692
+Average total loss: 3.080280
+tensor(-7.2847, device='cuda:0') tensor(3.5374e-05, device='cuda:0') tensor(6.8502e-08, device='cuda:0')
+Epoch 93
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.755585
+Average total loss: 3.058170
+tensor(-7.3135, device='cuda:0') tensor(3.5381e-05, device='cuda:0') tensor(6.6560e-08, device='cuda:0')
+Epoch 94
+Average batch original loss after noise: 2.302584
+Average KL loss: 0.734197
+Average total loss: 3.036780
+tensor(-7.3422, device='cuda:0') tensor(3.5411e-05, device='cuda:0') tensor(6.4681e-08, device='cuda:0')
+Epoch 95
+Average batch original loss after noise: 2.302588
+Average KL loss: 0.713500
+Average total loss: 3.016087
+tensor(-7.3707, device='cuda:0') tensor(3.5365e-05, device='cuda:0') tensor(6.2863e-08, device='cuda:0')
+Epoch 96
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.693466
+Average total loss: 2.996051
+tensor(-7.3992, device='cuda:0') tensor(3.5356e-05, device='cuda:0') tensor(6.1102e-08, device='cuda:0')
+Epoch 97
+Average batch original loss after noise: 2.302588
+Average KL loss: 0.674072
+Average total loss: 2.976660
+tensor(-7.4275, device='cuda:0') tensor(3.5359e-05, device='cuda:0') tensor(5.9398e-08, device='cuda:0')
+Epoch 98
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.655292
+Average total loss: 2.957877
+tensor(-7.4557, device='cuda:0') tensor(3.5290e-05, device='cuda:0') tensor(5.7747e-08, device='cuda:0')
+Epoch 99
+Average batch original loss after noise: 2.302590
+Average KL loss: 0.637104
+Average total loss: 2.939694
+tensor(-7.4838, device='cuda:0') tensor(3.5209e-05, device='cuda:0') tensor(5.6148e-08, device='cuda:0')
+Epoch 100
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.619485
+Average total loss: 2.922070
+tensor(-7.5118, device='cuda:0') tensor(3.5208e-05, device='cuda:0') tensor(5.4599e-08, device='cuda:0')
+Epoch 101
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.602414
+Average total loss: 2.905000
+tensor(-7.5397, device='cuda:0') tensor(3.5207e-05, device='cuda:0') tensor(5.3098e-08, device='cuda:0')
+Epoch 102
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.585872
+Average total loss: 2.888457
+tensor(-7.5676, device='cuda:0') tensor(3.5197e-05, device='cuda:0') tensor(5.1643e-08, device='cuda:0')
+Epoch 103
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.569838
+Average total loss: 2.872424
+tensor(-7.5953, device='cuda:0') tensor(3.5179e-05, device='cuda:0') tensor(5.0233e-08, device='cuda:0')
+Epoch 104
+Average batch original loss after noise: 2.302588
+Average KL loss: 0.554295
+Average total loss: 2.856882
+tensor(-7.6229, device='cuda:0') tensor(3.5179e-05, device='cuda:0') tensor(4.8866e-08, device='cuda:0')
+Epoch 105
+Average batch original loss after noise: 2.302593
+Average KL loss: 0.539224
+Average total loss: 2.841818
+tensor(-7.6504, device='cuda:0') tensor(3.5130e-05, device='cuda:0') tensor(4.7540e-08, device='cuda:0')
+Epoch 106
+Average batch original loss after noise: 2.302582
+Average KL loss: 0.524610
+Average total loss: 2.827192
+tensor(-7.6779, device='cuda:0') tensor(3.5127e-05, device='cuda:0') tensor(4.6254e-08, device='cuda:0')
+Epoch 107
+Average batch original loss after noise: 2.302581
+Average KL loss: 0.510436
+Average total loss: 2.813018
+tensor(-7.7052, device='cuda:0') tensor(3.5127e-05, device='cuda:0') tensor(4.5007e-08, device='cuda:0')
+Epoch 108
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.496687
+Average total loss: 2.799273
+tensor(-7.7325, device='cuda:0') tensor(3.5119e-05, device='cuda:0') tensor(4.3797e-08, device='cuda:0')
+Epoch 109
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.483347
+Average total loss: 2.785932
+tensor(-7.7597, device='cuda:0') tensor(3.5125e-05, device='cuda:0') tensor(4.2623e-08, device='cuda:0')
+Epoch 110
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.470404
+Average total loss: 2.772988
+tensor(-7.7868, device='cuda:0') tensor(3.5127e-05, device='cuda:0') tensor(4.1484e-08, device='cuda:0')
+Epoch 111
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.457842
+Average total loss: 2.760427
+tensor(-7.8139, device='cuda:0') tensor(3.5128e-05, device='cuda:0') tensor(4.0378e-08, device='cuda:0')
+Epoch 112
+Average batch original loss after noise: 2.302584
+Average KL loss: 0.445650
+Average total loss: 2.748234
+tensor(-7.8408, device='cuda:0') tensor(3.5155e-05, device='cuda:0') tensor(3.9305e-08, device='cuda:0')
+Epoch 113
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.433815
+Average total loss: 2.736399
+tensor(-7.8677, device='cuda:0') tensor(3.5163e-05, device='cuda:0') tensor(3.8263e-08, device='cuda:0')
+Epoch 114
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.422324
+Average total loss: 2.724909
+tensor(-7.8945, device='cuda:0') tensor(3.5165e-05, device='cuda:0') tensor(3.7251e-08, device='cuda:0')
+Epoch 115
+Average batch original loss after noise: 2.302580
+Average KL loss: 0.411167
+Average total loss: 2.713746
+tensor(-7.9213, device='cuda:0') tensor(3.5221e-05, device='cuda:0') tensor(3.6269e-08, device='cuda:0')
+Epoch 116
+Average batch original loss after noise: 2.302582
+Average KL loss: 0.400332
+Average total loss: 2.702913
+tensor(-7.9480, device='cuda:0') tensor(3.5254e-05, device='cuda:0') tensor(3.5314e-08, device='cuda:0')
+Epoch 117
+Average batch original loss after noise: 2.302582
+Average KL loss: 0.389808
+Average total loss: 2.692391
+tensor(-7.9746, device='cuda:0') tensor(3.5283e-05, device='cuda:0') tensor(3.4388e-08, device='cuda:0')
+Epoch 118
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.379586
+Average total loss: 2.682172
+tensor(-8.0011, device='cuda:0') tensor(3.5233e-05, device='cuda:0') tensor(3.3487e-08, device='cuda:0')
+Epoch 119
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.369657
+Average total loss: 2.672242
+tensor(-8.0276, device='cuda:0') tensor(3.5234e-05, device='cuda:0') tensor(3.2613e-08, device='cuda:0')
+Epoch 120
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.360009
+Average total loss: 2.662595
+tensor(-8.0540, device='cuda:0') tensor(3.5176e-05, device='cuda:0') tensor(3.1763e-08, device='cuda:0')
+Epoch 121
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.350634
+Average total loss: 2.653220
+tensor(-8.0804, device='cuda:0') tensor(3.5141e-05, device='cuda:0') tensor(3.0937e-08, device='cuda:0')
+Epoch 122
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.341524
+Average total loss: 2.644108
+tensor(-8.1067, device='cuda:0') tensor(3.5143e-05, device='cuda:0') tensor(3.0134e-08, device='cuda:0')
+Epoch 123
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.332669
+Average total loss: 2.635254
+tensor(-8.1329, device='cuda:0') tensor(3.5150e-05, device='cuda:0') tensor(2.9354e-08, device='cuda:0')
+Epoch 124
+Average batch original loss after noise: 2.302588
+Average KL loss: 0.324063
+Average total loss: 2.626651
+tensor(-8.1591, device='cuda:0') tensor(3.5157e-05, device='cuda:0') tensor(2.8596e-08, device='cuda:0')
+Epoch 125
+Average batch original loss after noise: 2.302583
+Average KL loss: 0.315697
+Average total loss: 2.618280
+tensor(-8.1853, device='cuda:0') tensor(3.5160e-05, device='cuda:0') tensor(2.7858e-08, device='cuda:0')
+Epoch 126
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.307564
+Average total loss: 2.610149
+tensor(-8.2113, device='cuda:0') tensor(3.5171e-05, device='cuda:0') tensor(2.7142e-08, device='cuda:0')
+Epoch 127
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.299656
+Average total loss: 2.602241
+tensor(-8.2374, device='cuda:0') tensor(3.5173e-05, device='cuda:0') tensor(2.6445e-08, device='cuda:0')
+Epoch 128
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.291967
+Average total loss: 2.594552
+tensor(-8.2633, device='cuda:0') tensor(3.5166e-05, device='cuda:0') tensor(2.5767e-08, device='cuda:0')
+Epoch 129
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.284490
+Average total loss: 2.587075
+tensor(-8.2893, device='cuda:0') tensor(3.5167e-05, device='cuda:0') tensor(2.5108e-08, device='cuda:0')
+Epoch 130
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.277218
+Average total loss: 2.579803
+tensor(-8.3151, device='cuda:0') tensor(3.5168e-05, device='cuda:0') tensor(2.4467e-08, device='cuda:0')
+Epoch 131
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.270146
+Average total loss: 2.572730
+tensor(-8.3410, device='cuda:0') tensor(3.5156e-05, device='cuda:0') tensor(2.3843e-08, device='cuda:0')
+Epoch 132
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.263266
+Average total loss: 2.565851
+tensor(-8.3667, device='cuda:0') tensor(3.5155e-05, device='cuda:0') tensor(2.3237e-08, device='cuda:0')
+Epoch 133
+Average batch original loss after noise: 2.302580
+Average KL loss: 0.256574
+Average total loss: 2.559154
+tensor(-8.3925, device='cuda:0') tensor(3.5186e-05, device='cuda:0') tensor(2.2647e-08, device='cuda:0')
+Epoch 134
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.250063
+Average total loss: 2.552648
+tensor(-8.4182, device='cuda:0') tensor(3.5177e-05, device='cuda:0') tensor(2.2073e-08, device='cuda:0')
+Epoch 135
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.243729
+Average total loss: 2.546314
+tensor(-8.4438, device='cuda:0') tensor(3.5179e-05, device='cuda:0') tensor(2.1514e-08, device='cuda:0')
+Epoch 136
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.237566
+Average total loss: 2.540151
+tensor(-8.4694, device='cuda:0') tensor(3.5175e-05, device='cuda:0') tensor(2.0971e-08, device='cuda:0')
+Epoch 137
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.231569
+Average total loss: 2.534154
+tensor(-8.4949, device='cuda:0') tensor(3.5146e-05, device='cuda:0') tensor(2.0442e-08, device='cuda:0')
+Epoch 138
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.225733
+Average total loss: 2.528317
+tensor(-8.5205, device='cuda:0') tensor(3.5145e-05, device='cuda:0') tensor(1.9927e-08, device='cuda:0')
+Epoch 139
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.220053
+Average total loss: 2.522637
+tensor(-8.5459, device='cuda:0') tensor(3.5191e-05, device='cuda:0') tensor(1.9427e-08, device='cuda:0')
+Epoch 140
+Average batch original loss after noise: 2.302582
+Average KL loss: 0.214525
+Average total loss: 2.517107
+tensor(-8.5713, device='cuda:0') tensor(3.5222e-05, device='cuda:0') tensor(1.8939e-08, device='cuda:0')
+Epoch 141
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.209144
+Average total loss: 2.511729
+tensor(-8.5967, device='cuda:0') tensor(3.5223e-05, device='cuda:0') tensor(1.8465e-08, device='cuda:0')
+Epoch 142
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.203907
+Average total loss: 2.506493
+tensor(-8.6221, device='cuda:0') tensor(3.5194e-05, device='cuda:0') tensor(1.8003e-08, device='cuda:0')
+Epoch 143
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.198809
+Average total loss: 2.501394
+tensor(-8.6474, device='cuda:0') tensor(3.5189e-05, device='cuda:0') tensor(1.7553e-08, device='cuda:0')
+Epoch 144
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.193846
+Average total loss: 2.496430
+tensor(-8.6726, device='cuda:0') tensor(3.5178e-05, device='cuda:0') tensor(1.7115e-08, device='cuda:0')
+Epoch 145
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.189014
+Average total loss: 2.491598
+tensor(-8.6979, device='cuda:0') tensor(3.5176e-05, device='cuda:0') tensor(1.6689e-08, device='cuda:0')
+Epoch 146
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.184309
+Average total loss: 2.486894
+tensor(-8.7231, device='cuda:0') tensor(3.5173e-05, device='cuda:0') tensor(1.6274e-08, device='cuda:0')
+Epoch 147
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.179728
+Average total loss: 2.482313
+tensor(-8.7482, device='cuda:0') tensor(3.5221e-05, device='cuda:0') tensor(1.5870e-08, device='cuda:0')
+Epoch 148
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.175267
+Average total loss: 2.477854
+tensor(-8.7733, device='cuda:0') tensor(3.5209e-05, device='cuda:0') tensor(1.5476e-08, device='cuda:0')
+Epoch 149
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.170924
+Average total loss: 2.473509
+tensor(-8.7984, device='cuda:0') tensor(3.5206e-05, device='cuda:0') tensor(1.5093e-08, device='cuda:0')
+Epoch 150
+Average batch original loss after noise: 2.302584
+Average KL loss: 0.166694
+Average total loss: 2.469278
+tensor(-8.8235, device='cuda:0') tensor(3.5304e-05, device='cuda:0') tensor(1.4720e-08, device='cuda:0')
+Epoch 151
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.162574
+Average total loss: 2.465159
+tensor(-8.8485, device='cuda:0') tensor(3.5304e-05, device='cuda:0') tensor(1.4356e-08, device='cuda:0')
+Epoch 152
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.158562
+Average total loss: 2.461147
+tensor(-8.8734, device='cuda:0') tensor(3.5305e-05, device='cuda:0') tensor(1.4002e-08, device='cuda:0')
+Epoch 153
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.154654
+Average total loss: 2.457239
+tensor(-8.8984, device='cuda:0') tensor(3.5303e-05, device='cuda:0') tensor(1.3658e-08, device='cuda:0')
+Epoch 154
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.150848
+Average total loss: 2.453434
+tensor(-8.9233, device='cuda:0') tensor(3.5283e-05, device='cuda:0') tensor(1.3322e-08, device='cuda:0')
+Epoch 155
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.147141
+Average total loss: 2.449725
+tensor(-8.9482, device='cuda:0') tensor(3.5263e-05, device='cuda:0') tensor(1.2995e-08, device='cuda:0')
+Epoch 156
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.143529
+Average total loss: 2.446114
+tensor(-8.9730, device='cuda:0') tensor(3.5257e-05, device='cuda:0') tensor(1.2676e-08, device='cuda:0')
+Epoch 157
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.140011
+Average total loss: 2.442595
+tensor(-8.9978, device='cuda:0') tensor(3.5252e-05, device='cuda:0') tensor(1.2365e-08, device='cuda:0')
+Epoch 158
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.136583
+Average total loss: 2.439169
+tensor(-9.0226, device='cuda:0') tensor(3.5239e-05, device='cuda:0') tensor(1.2063e-08, device='cuda:0')
+Epoch 159
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.133243
+Average total loss: 2.435828
+tensor(-9.0473, device='cuda:0') tensor(3.5165e-05, device='cuda:0') tensor(1.1768e-08, device='cuda:0')
+Epoch 160
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.129990
+Average total loss: 2.432575
+tensor(-9.0720, device='cuda:0') tensor(3.5158e-05, device='cuda:0') tensor(1.1481e-08, device='cuda:0')
+Epoch 161
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.126820
+Average total loss: 2.429405
+tensor(-9.0967, device='cuda:0') tensor(3.5153e-05, device='cuda:0') tensor(1.1201e-08, device='cuda:0')
+Epoch 162
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.123731
+Average total loss: 2.426316
+tensor(-9.1213, device='cuda:0') tensor(3.5144e-05, device='cuda:0') tensor(1.0929e-08, device='cuda:0')
+Epoch 163
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.120722
+Average total loss: 2.423307
+tensor(-9.1460, device='cuda:0') tensor(3.5134e-05, device='cuda:0') tensor(1.0663e-08, device='cuda:0')
+Epoch 164
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.117789
+Average total loss: 2.420374
+tensor(-9.1705, device='cuda:0') tensor(3.5127e-05, device='cuda:0') tensor(1.0404e-08, device='cuda:0')
+Epoch 165
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.114931
+Average total loss: 2.417516
+tensor(-9.1951, device='cuda:0') tensor(3.5117e-05, device='cuda:0') tensor(1.0152e-08, device='cuda:0')
+Epoch 166
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.112146
+Average total loss: 2.414731
+tensor(-9.2196, device='cuda:0') tensor(3.5105e-05, device='cuda:0') tensor(9.9062e-09, device='cuda:0')
+Epoch 167
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.109433
+Average total loss: 2.412018
+tensor(-9.2441, device='cuda:0') tensor(3.5008e-05, device='cuda:0') tensor(9.6666e-09, device='cuda:0')
+Epoch 168
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.106787
+Average total loss: 2.409373
+tensor(-9.2685, device='cuda:0') tensor(3.4995e-05, device='cuda:0') tensor(9.4332e-09, device='cuda:0')
+Epoch 169
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.104209
+Average total loss: 2.406794
+tensor(-9.2930, device='cuda:0') tensor(3.4984e-05, device='cuda:0') tensor(9.2056e-09, device='cuda:0')
+Epoch 170
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.101697
+Average total loss: 2.404282
+tensor(-9.3173, device='cuda:0') tensor(3.4965e-05, device='cuda:0') tensor(8.9838e-09, device='cuda:0')
+Epoch 171
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.099248
+Average total loss: 2.401833
+tensor(-9.3417, device='cuda:0') tensor(3.5002e-05, device='cuda:0') tensor(8.7677e-09, device='cuda:0')
+Epoch 172
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.096861
+Average total loss: 2.399446
+tensor(-9.3660, device='cuda:0') tensor(3.5000e-05, device='cuda:0') tensor(8.5570e-09, device='cuda:0')
+Epoch 173
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.094535
+Average total loss: 2.397120
+tensor(-9.3903, device='cuda:0') tensor(3.4985e-05, device='cuda:0') tensor(8.3516e-09, device='cuda:0')
+Epoch 174
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.092267
+Average total loss: 2.394852
+tensor(-9.4146, device='cuda:0') tensor(3.4952e-05, device='cuda:0') tensor(8.1514e-09, device='cuda:0')
+Epoch 175
+Average batch original loss after noise: 2.302582
+Average KL loss: 0.090057
+Average total loss: 2.392638
+tensor(-9.4388, device='cuda:0') tensor(3.4934e-05, device='cuda:0') tensor(7.9562e-09, device='cuda:0')
+Epoch 176
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.087902
+Average total loss: 2.390487
+tensor(-9.4630, device='cuda:0') tensor(3.4922e-05, device='cuda:0') tensor(7.7660e-09, device='cuda:0')
+Epoch 177
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.085801
+Average total loss: 2.388386
+tensor(-9.4872, device='cuda:0') tensor(3.4921e-05, device='cuda:0') tensor(7.5806e-09, device='cuda:0')
+Epoch 178
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.083753
+Average total loss: 2.386338
+tensor(-9.5114, device='cuda:0') tensor(3.4902e-05, device='cuda:0') tensor(7.3998e-09, device='cuda:0')
+Epoch 179
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.081757
+Average total loss: 2.384342
+tensor(-9.5355, device='cuda:0') tensor(3.4882e-05, device='cuda:0') tensor(7.2235e-09, device='cuda:0')
+Epoch 180
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.079811
+Average total loss: 2.382395
+tensor(-9.5595, device='cuda:0') tensor(3.4860e-05, device='cuda:0') tensor(7.0517e-09, device='cuda:0')
+Epoch 181
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.077913
+Average total loss: 2.380498
+tensor(-9.5836, device='cuda:0') tensor(3.4815e-05, device='cuda:0') tensor(6.8841e-09, device='cuda:0')
+Epoch 182
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.076063
+Average total loss: 2.378648
+tensor(-9.6076, device='cuda:0') tensor(3.4791e-05, device='cuda:0') tensor(6.7208e-09, device='cuda:0')
+Epoch 183
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.074259
+Average total loss: 2.376844
+tensor(-9.6316, device='cuda:0') tensor(3.4762e-05, device='cuda:0') tensor(6.5616e-09, device='cuda:0')
+Epoch 184
+Average batch original loss after noise: 2.302587
+Average KL loss: 0.072501
+Average total loss: 2.375088
+tensor(-9.6555, device='cuda:0') tensor(3.4648e-05, device='cuda:0') tensor(6.4063e-09, device='cuda:0')
+Epoch 185
+Average batch original loss after noise: 2.302587
+Average KL loss: 0.070786
+Average total loss: 2.373373
+tensor(-9.6795, device='cuda:0') tensor(3.4422e-05, device='cuda:0') tensor(6.2548e-09, device='cuda:0')
+Epoch 186
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.069114
+Average total loss: 2.371699
+tensor(-9.7034, device='cuda:0') tensor(3.4402e-05, device='cuda:0') tensor(6.1072e-09, device='cuda:0')
+Epoch 187
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.067484
+Average total loss: 2.370068
+tensor(-9.7272, device='cuda:0') tensor(3.4434e-05, device='cuda:0') tensor(5.9633e-09, device='cuda:0')
+Epoch 188
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.065894
+Average total loss: 2.368479
+tensor(-9.7510, device='cuda:0') tensor(3.4449e-05, device='cuda:0') tensor(5.8229e-09, device='cuda:0')
+Epoch 189
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.064344
+Average total loss: 2.366929
+tensor(-9.7748, device='cuda:0') tensor(3.4432e-05, device='cuda:0') tensor(5.6861e-09, device='cuda:0')
+Epoch 190
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.062833
+Average total loss: 2.365417
+tensor(-9.7986, device='cuda:0') tensor(3.4414e-05, device='cuda:0') tensor(5.5526e-09, device='cuda:0')
+Epoch 191
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.061359
+Average total loss: 2.363944
+tensor(-9.8223, device='cuda:0') tensor(3.4396e-05, device='cuda:0') tensor(5.4224e-09, device='cuda:0')
+Epoch 192
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.059922
+Average total loss: 2.362506
+tensor(-9.8460, device='cuda:0') tensor(3.4377e-05, device='cuda:0') tensor(5.2955e-09, device='cuda:0')
+Epoch 193
+Average batch original loss after noise: 2.302586
+Average KL loss: 0.058520
+Average total loss: 2.361106
+tensor(-9.8696, device='cuda:0') tensor(3.4356e-05, device='cuda:0') tensor(5.1717e-09, device='cuda:0')
+Epoch 194
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.057153
+Average total loss: 2.359738
+tensor(-9.8933, device='cuda:0') tensor(3.4334e-05, device='cuda:0') tensor(5.0510e-09, device='cuda:0')
+Epoch 195
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.055820
+Average total loss: 2.358405
+tensor(-9.9168, device='cuda:0') tensor(3.4311e-05, device='cuda:0') tensor(4.9333e-09, device='cuda:0')
+Epoch 196
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.054520
+Average total loss: 2.357105
+tensor(-9.9404, device='cuda:0') tensor(3.4297e-05, device='cuda:0') tensor(4.8185e-09, device='cuda:0')
+Epoch 197
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.053252
+Average total loss: 2.355837
+tensor(-9.9639, device='cuda:0') tensor(3.4273e-05, device='cuda:0') tensor(4.7066e-09, device='cuda:0')
+Epoch 198
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.052015
+Average total loss: 2.354600
+tensor(-9.9874, device='cuda:0') tensor(3.4247e-05, device='cuda:0') tensor(4.5974e-09, device='cuda:0')
+Epoch 199
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.050809
+Average total loss: 2.353394
+tensor(-10.0108, device='cuda:0') tensor(3.4220e-05, device='cuda:0') tensor(4.4909e-09, device='cuda:0')
+Epoch 200
+Average batch original loss after noise: 2.302582
+Average KL loss: 0.049633
+Average total loss: 2.352216
+ Percentile value: -10.03427791595459
+Non-zero model percentage: 30.000001907348633%, Non-zero mask percentage: 30.000001907348633%
+
+--- Pruning Level [1/7]: ---
+conv1.weight         | nonzeros =     337 /    1728             ( 19.50%) | total_pruned =    1391 | shape = torch.Size([64, 3, 3, 3])
+conv1.bias           | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+bn1.weight           | nonzeros =      16 /      64             ( 25.00%) | total_pruned =      48 | shape = torch.Size([64])
+bn1.bias             | nonzeros =      14 /      64             ( 21.88%) | total_pruned =      50 | shape = torch.Size([64])
+layer1.0.conv1.weight | nonzeros =    4636 /   36864             ( 12.58%) | total_pruned =   32228 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn1.weight  | nonzeros =      22 /      64             ( 34.38%) | total_pruned =      42 | shape = torch.Size([64])
+layer1.0.bn1.bias    | nonzeros =      30 /      64             ( 46.88%) | total_pruned =      34 | shape = torch.Size([64])
+layer1.0.conv2.weight | nonzeros =   10078 /   36864             ( 27.34%) | total_pruned =   26786 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn2.weight  | nonzeros =      29 /      64             ( 45.31%) | total_pruned =      35 | shape = torch.Size([64])
+layer1.0.bn2.bias    | nonzeros =      35 /      64             ( 54.69%) | total_pruned =      29 | shape = torch.Size([64])
+layer1.1.conv1.weight | nonzeros =   10735 /   36864             ( 29.12%) | total_pruned =   26129 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn1.weight  | nonzeros =      24 /      64             ( 37.50%) | total_pruned =      40 | shape = torch.Size([64])
+layer1.1.bn1.bias    | nonzeros =      28 /      64             ( 43.75%) | total_pruned =      36 | shape = torch.Size([64])
+layer1.1.conv2.weight | nonzeros =   11505 /   36864             ( 31.21%) | total_pruned =   25359 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn2.weight  | nonzeros =      38 /      64             ( 59.38%) | total_pruned =      26 | shape = torch.Size([64])
+layer1.1.bn2.bias    | nonzeros =      45 /      64             ( 70.31%) | total_pruned =      19 | shape = torch.Size([64])
+layer2.0.conv1.weight | nonzeros =   29187 /   73728             ( 39.59%) | total_pruned =   44541 | shape = torch.Size([128, 64, 3, 3])
+layer2.0.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn1.weight  | nonzeros =      33 /     128             ( 25.78%) | total_pruned =      95 | shape = torch.Size([128])
+layer2.0.bn1.bias    | nonzeros =      78 /     128             ( 60.94%) | total_pruned =      50 | shape = torch.Size([128])
+layer2.0.conv2.weight | nonzeros =   56729 /  147456             ( 38.47%) | total_pruned =   90727 | shape = torch.Size([128, 128, 3, 3])
+layer2.0.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn2.weight  | nonzeros =      51 /     128             ( 39.84%) | total_pruned =      77 | shape = torch.Size([128])
+layer2.0.bn2.bias    | nonzeros =      89 /     128             ( 69.53%) | total_pruned =      39 | shape = torch.Size([128])
+layer2.0.shortcut.0.weight | nonzeros =    3248 /    8192             ( 39.65%) | total_pruned =    4944 | shape = torch.Size([128, 64, 1, 1])
+layer2.0.shortcut.0.bias | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.shortcut.1.weight | nonzeros =      54 /     128             ( 42.19%) | total_pruned =      74 | shape = torch.Size([128])
+layer2.0.shortcut.1.bias | nonzeros =      86 /     128             ( 67.19%) | total_pruned =      42 | shape = torch.Size([128])
+layer2.1.conv1.weight | nonzeros =   33352 /  147456             ( 22.62%) | total_pruned =  114104 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn1.weight  | nonzeros =      71 /     128             ( 55.47%) | total_pruned =      57 | shape = torch.Size([128])
+layer2.1.bn1.bias    | nonzeros =      62 /     128             ( 48.44%) | total_pruned =      66 | shape = torch.Size([128])
+layer2.1.conv2.weight | nonzeros =   27549 /  147456             ( 18.68%) | total_pruned =  119907 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn2.weight  | nonzeros =      59 /     128             ( 46.09%) | total_pruned =      69 | shape = torch.Size([128])
+layer2.1.bn2.bias    | nonzeros =      94 /     128             ( 73.44%) | total_pruned =      34 | shape = torch.Size([128])
+layer3.0.conv1.weight | nonzeros =  118732 /  294912             ( 40.26%) | total_pruned =  176180 | shape = torch.Size([256, 128, 3, 3])
+layer3.0.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn1.weight  | nonzeros =     116 /     256             ( 45.31%) | total_pruned =     140 | shape = torch.Size([256])
+layer3.0.bn1.bias    | nonzeros =     191 /     256             ( 74.61%) | total_pruned =      65 | shape = torch.Size([256])
+layer3.0.conv2.weight | nonzeros =  170732 /  589824             ( 28.95%) | total_pruned =  419092 | shape = torch.Size([256, 256, 3, 3])
+layer3.0.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn2.weight  | nonzeros =     144 /     256             ( 56.25%) | total_pruned =     112 | shape = torch.Size([256])
+layer3.0.bn2.bias    | nonzeros =     178 /     256             ( 69.53%) | total_pruned =      78 | shape = torch.Size([256])
+layer3.0.shortcut.0.weight | nonzeros =    9727 /   32768             ( 29.68%) | total_pruned =   23041 | shape = torch.Size([256, 128, 1, 1])
+layer3.0.shortcut.0.bias | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.shortcut.1.weight | nonzeros =     127 /     256             ( 49.61%) | total_pruned =     129 | shape = torch.Size([256])
+layer3.0.shortcut.1.bias | nonzeros =     172 /     256             ( 67.19%) | total_pruned =      84 | shape = torch.Size([256])
+layer3.1.conv1.weight | nonzeros =   73144 /  589824             ( 12.40%) | total_pruned =  516680 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn1.weight  | nonzeros =     114 /     256             ( 44.53%) | total_pruned =     142 | shape = torch.Size([256])
+layer3.1.bn1.bias    | nonzeros =     127 /     256             ( 49.61%) | total_pruned =     129 | shape = torch.Size([256])
+layer3.1.conv2.weight | nonzeros =   53343 /  589824             (  9.04%) | total_pruned =  536481 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn2.weight  | nonzeros =     139 /     256             ( 54.30%) | total_pruned =     117 | shape = torch.Size([256])
+layer3.1.bn2.bias    | nonzeros =     174 /     256             ( 67.97%) | total_pruned =      82 | shape = torch.Size([256])
+layer4.0.conv1.weight | nonzeros =  240407 / 1179648             ( 20.38%) | total_pruned =  939241 | shape = torch.Size([512, 256, 3, 3])
+layer4.0.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn1.weight  | nonzeros =     254 /     512             ( 49.61%) | total_pruned =     258 | shape = torch.Size([512])
+layer4.0.bn1.bias    | nonzeros =     328 /     512             ( 64.06%) | total_pruned =     184 | shape = torch.Size([512])
+layer4.0.conv2.weight | nonzeros =  409168 / 2359296             ( 17.34%) | total_pruned = 1950128 | shape = torch.Size([512, 512, 3, 3])
+layer4.0.conv2.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn2.weight  | nonzeros =     236 /     512             ( 46.09%) | total_pruned =     276 | shape = torch.Size([512])
+layer4.0.bn2.bias    | nonzeros =     412 /     512             ( 80.47%) | total_pruned =     100 | shape = torch.Size([512])
+layer4.0.shortcut.0.weight | nonzeros =   24368 /  131072             ( 18.59%) | total_pruned =  106704 | shape = torch.Size([512, 256, 1, 1])
+layer4.0.shortcut.0.bias | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.shortcut.1.weight | nonzeros =     202 /     512             ( 39.45%) | total_pruned =     310 | shape = torch.Size([512])
+layer4.0.shortcut.1.bias | nonzeros =     402 /     512             ( 78.52%) | total_pruned =     110 | shape = torch.Size([512])
+layer4.1.conv1.weight | nonzeros =  423017 / 2359296             ( 17.93%) | total_pruned = 1936279 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.bn1.weight  | nonzeros =     254 /     512             ( 49.61%) | total_pruned =     258 | shape = torch.Size([512])
+layer4.1.bn1.bias    | nonzeros =     279 /     512             ( 54.49%) | total_pruned =     233 | shape = torch.Size([512])
+layer4.1.conv2.weight | nonzeros = 1633129 / 2359296             ( 69.22%) | total_pruned =  726167 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv2.bias  | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.1.bn2.weight  | nonzeros =     308 /     512             ( 60.16%) | total_pruned =     204 | shape = torch.Size([512])
+layer4.1.bn2.bias    | nonzeros =     507 /     512             ( 99.02%) | total_pruned =       5 | shape = torch.Size([512])
+linear.weight        | nonzeros =    4362 /    5120             ( 85.20%) | total_pruned =     758 | shape = torch.Size([10, 512])
+linear.bias          | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 3353629, pruned : 7825133, total: 11178762, Compression rate :       3.33x  ( 70.00% pruned)
+Train Epoch: 61/200 Loss: 0.020164 Accuracy: 84.76 100.00 % Best test Accuracy: 84.86%
+tensor(-10.0342, device='cuda:0') tensor(3.4199e-05, device='cuda:0') tensor(4.3870e-09, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.045705
+Average total loss: 2.348290
+tensor(-10.1775, device='cuda:0') tensor(2.7393e-05, device='cuda:0') tensor(3.8015e-09, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.039888
+Average total loss: 2.342473
+tensor(-10.3058, device='cuda:0') tensor(2.2599e-05, device='cuda:0') tensor(3.3436e-09, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.035311
+Average total loss: 2.337896
+tensor(-10.4212, device='cuda:0') tensor(1.9136e-05, device='cuda:0') tensor(2.9794e-09, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.031632
+Average total loss: 2.334217
+tensor(-10.5258, device='cuda:0') tensor(1.6537e-05, device='cuda:0') tensor(2.6833e-09, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.028614
+Average total loss: 2.331199
+tensor(-10.6216, device='cuda:0') tensor(1.4503e-05, device='cuda:0') tensor(2.4382e-09, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.026097
+Average total loss: 2.328681
+tensor(-10.7099, device='cuda:0') tensor(1.2921e-05, device='cuda:0') tensor(2.2321e-09, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.023967
+Average total loss: 2.326552
+tensor(-10.7918, device='cuda:0') tensor(1.1639e-05, device='cuda:0') tensor(2.0566e-09, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.022143
+Average total loss: 2.324728
+tensor(-10.8681, device='cuda:0') tensor(1.0580e-05, device='cuda:0') tensor(1.9055e-09, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.020565
+Average total loss: 2.323150
+tensor(-10.9396, device='cuda:0') tensor(9.6910e-06, device='cuda:0') tensor(1.7741e-09, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.019187
+Average total loss: 2.321772
+tensor(-11.0068, device='cuda:0') tensor(8.9388e-06, device='cuda:0') tensor(1.6588e-09, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.017974
+Average total loss: 2.320559
+tensor(-11.0702, device='cuda:0') tensor(8.2939e-06, device='cuda:0') tensor(1.5569e-09, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.016898
+Average total loss: 2.319483
+tensor(-11.1302, device='cuda:0') tensor(7.7360e-06, device='cuda:0') tensor(1.4662e-09, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.015938
+Average total loss: 2.318522
+tensor(-11.1872, device='cuda:0') tensor(7.2492e-06, device='cuda:0') tensor(1.3850e-09, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.015076
+Average total loss: 2.317661
+tensor(-11.2414, device='cuda:0') tensor(6.8213e-06, device='cuda:0') tensor(1.3119e-09, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.014298
+Average total loss: 2.316883
+tensor(-11.2931, device='cuda:0') tensor(6.4428e-06, device='cuda:0') tensor(1.2458e-09, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.013593
+Average total loss: 2.316178
+tensor(-11.3425, device='cuda:0') tensor(6.1061e-06, device='cuda:0') tensor(1.1858e-09, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.012951
+Average total loss: 2.315536
+tensor(-11.3898, device='cuda:0') tensor(5.8044e-06, device='cuda:0') tensor(1.1310e-09, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.012364
+Average total loss: 2.314949
+tensor(-11.4352, device='cuda:0') tensor(5.5329e-06, device='cuda:0') tensor(1.0808e-09, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.011826
+Average total loss: 2.314411
+tensor(-11.4789, device='cuda:0') tensor(5.2878e-06, device='cuda:0') tensor(1.0346e-09, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.011330
+Average total loss: 2.313915
+tensor(-11.5208, device='cuda:0') tensor(5.0653e-06, device='cuda:0') tensor(9.9210e-10, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.010872
+Average total loss: 2.313457
+tensor(-11.5613, device='cuda:0') tensor(4.8627e-06, device='cuda:0') tensor(9.5277e-10, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.010449
+Average total loss: 2.313034
+tensor(-11.6003, device='cuda:0') tensor(4.6774e-06, device='cuda:0') tensor(9.1630e-10, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.010055
+Average total loss: 2.312640
+tensor(-11.6380, device='cuda:0') tensor(4.5074e-06, device='cuda:0') tensor(8.8238e-10, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.009689
+Average total loss: 2.312274
+tensor(-11.6745, device='cuda:0') tensor(4.3511e-06, device='cuda:0') tensor(8.5078e-10, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.009347
+Average total loss: 2.311932
+tensor(-11.7098, device='cuda:0') tensor(4.2068e-06, device='cuda:0') tensor(8.2125e-10, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.009028
+Average total loss: 2.311613
+tensor(-11.7441, device='cuda:0') tensor(4.0733e-06, device='cuda:0') tensor(7.9362e-10, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.008728
+Average total loss: 2.311313
+tensor(-11.7773, device='cuda:0') tensor(3.9495e-06, device='cuda:0') tensor(7.6769e-10, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.008447
+Average total loss: 2.311032
+tensor(-11.8095, device='cuda:0') tensor(3.8342e-06, device='cuda:0') tensor(7.4334e-10, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.008183
+Average total loss: 2.310768
+tensor(-11.8409, device='cuda:0') tensor(3.7269e-06, device='cuda:0') tensor(7.2041e-10, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.007934
+Average total loss: 2.310519
+tensor(-11.8713, device='cuda:0') tensor(3.6266e-06, device='cuda:0') tensor(6.9878e-10, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.007699
+Average total loss: 2.310284
+tensor(-11.9010, device='cuda:0') tensor(3.5327e-06, device='cuda:0') tensor(6.7836e-10, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.007477
+Average total loss: 2.310061
+tensor(-11.9299, device='cuda:0') tensor(3.4447e-06, device='cuda:0') tensor(6.5905e-10, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.007266
+Average total loss: 2.309851
+tensor(-11.9580, device='cuda:0') tensor(3.3620e-06, device='cuda:0') tensor(6.4076e-10, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.007067
+Average total loss: 2.309652
+tensor(-11.9855, device='cuda:0') tensor(3.2841e-06, device='cuda:0') tensor(6.2340e-10, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006878
+Average total loss: 2.309463
+tensor(-12.0123, device='cuda:0') tensor(3.2108e-06, device='cuda:0') tensor(6.0692e-10, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006698
+Average total loss: 2.309283
+tensor(-12.0384, device='cuda:0') tensor(3.1415e-06, device='cuda:0') tensor(5.9126e-10, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006527
+Average total loss: 2.309112
+tensor(-12.0640, device='cuda:0') tensor(3.0760e-06, device='cuda:0') tensor(5.7634e-10, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006364
+Average total loss: 2.308949
+tensor(-12.0889, device='cuda:0') tensor(3.0139e-06, device='cuda:0') tensor(5.6212e-10, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006209
+Average total loss: 2.308794
+tensor(-12.1134, device='cuda:0') tensor(2.9550e-06, device='cuda:0') tensor(5.4856e-10, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.006061
+Average total loss: 2.308646
+tensor(-12.1373, device='cuda:0') tensor(2.8991e-06, device='cuda:0') tensor(5.3561e-10, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005919
+Average total loss: 2.308504
+tensor(-12.1607, device='cuda:0') tensor(2.8460e-06, device='cuda:0') tensor(5.2323e-10, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005784
+Average total loss: 2.308369
+tensor(-12.1836, device='cuda:0') tensor(2.7953e-06, device='cuda:0') tensor(5.1138e-10, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005654
+Average total loss: 2.308239
+tensor(-12.2060, device='cuda:0') tensor(2.7471e-06, device='cuda:0') tensor(5.0004e-10, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005530
+Average total loss: 2.308115
+tensor(-12.2280, device='cuda:0') tensor(2.7010e-06, device='cuda:0') tensor(4.8916e-10, device='cuda:0')
+Epoch 45
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005411
+Average total loss: 2.307996
+tensor(-12.2495, device='cuda:0') tensor(2.6570e-06, device='cuda:0') tensor(4.7873e-10, device='cuda:0')
+Epoch 46
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005296
+Average total loss: 2.307881
+tensor(-12.2707, device='cuda:0') tensor(2.6149e-06, device='cuda:0') tensor(4.6871e-10, device='cuda:0')
+Epoch 47
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005187
+Average total loss: 2.307772
+tensor(-12.2914, device='cuda:0') tensor(2.5746e-06, device='cuda:0') tensor(4.5909e-10, device='cuda:0')
+Epoch 48
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.005081
+Average total loss: 2.307666
+tensor(-12.3118, device='cuda:0') tensor(2.5360e-06, device='cuda:0') tensor(4.4984e-10, device='cuda:0')
+Epoch 49
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004980
+Average total loss: 2.307564
+tensor(-12.3318, device='cuda:0') tensor(2.4989e-06, device='cuda:0') tensor(4.4093e-10, device='cuda:0')
+Epoch 50
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004882
+Average total loss: 2.307467
+tensor(-12.3514, device='cuda:0') tensor(2.4584e-06, device='cuda:0') tensor(4.3236e-10, device='cuda:0')
+Epoch 51
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004788
+Average total loss: 2.307373
+tensor(-12.3707, device='cuda:0') tensor(2.4242e-06, device='cuda:0') tensor(4.2410e-10, device='cuda:0')
+Epoch 52
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004697
+Average total loss: 2.307282
+tensor(-12.3896, device='cuda:0') tensor(2.3914e-06, device='cuda:0') tensor(4.1614e-10, device='cuda:0')
+Epoch 53
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004610
+Average total loss: 2.307195
+tensor(-12.4083, device='cuda:0') tensor(2.3598e-06, device='cuda:0') tensor(4.0846e-10, device='cuda:0')
+Epoch 54
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004525
+Average total loss: 2.307110
+tensor(-12.4266, device='cuda:0') tensor(2.3293e-06, device='cuda:0') tensor(4.0105e-10, device='cuda:0')
+Epoch 55
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004444
+Average total loss: 2.307029
+tensor(-12.4446, device='cuda:0') tensor(2.2999e-06, device='cuda:0') tensor(3.9388e-10, device='cuda:0')
+Epoch 56
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004365
+Average total loss: 2.306950
+tensor(-12.4623, device='cuda:0') tensor(2.2715e-06, device='cuda:0') tensor(3.8696e-10, device='cuda:0')
+Epoch 57
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004289
+Average total loss: 2.306874
+tensor(-12.4798, device='cuda:0') tensor(2.2441e-06, device='cuda:0') tensor(3.8027e-10, device='cuda:0')
+Epoch 58
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004215
+Average total loss: 2.306800
+tensor(-12.4970, device='cuda:0') tensor(2.2176e-06, device='cuda:0') tensor(3.7380e-10, device='cuda:0')
+Epoch 59
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004144
+Average total loss: 2.306729
+tensor(-12.5139, device='cuda:0') tensor(2.1920e-06, device='cuda:0') tensor(3.6753e-10, device='cuda:0')
+Epoch 60
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004075
+Average total loss: 2.306660
+tensor(-12.5305, device='cuda:0') tensor(2.1672e-06, device='cuda:0') tensor(3.6147e-10, device='cuda:0')
+Epoch 61
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.004008
+Average total loss: 2.306593
+tensor(-12.5469, device='cuda:0') tensor(2.1431e-06, device='cuda:0') tensor(3.5559e-10, device='cuda:0')
+Epoch 62
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003944
+Average total loss: 2.306529
+tensor(-12.5630, device='cuda:0') tensor(2.1198e-06, device='cuda:0') tensor(3.4989e-10, device='cuda:0')
+Epoch 63
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003881
+Average total loss: 2.306466
+tensor(-12.5790, device='cuda:0') tensor(2.0971e-06, device='cuda:0') tensor(3.4437e-10, device='cuda:0')
+Epoch 64
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003820
+Average total loss: 2.306405
+tensor(-12.5947, device='cuda:0') tensor(2.0752e-06, device='cuda:0') tensor(3.3901e-10, device='cuda:0')
+Epoch 65
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003761
+Average total loss: 2.306346
+tensor(-12.6101, device='cuda:0') tensor(2.0538e-06, device='cuda:0') tensor(3.3381e-10, device='cuda:0')
+Epoch 66
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003704
+Average total loss: 2.306289
+tensor(-12.6254, device='cuda:0') tensor(2.0331e-06, device='cuda:0') tensor(3.2876e-10, device='cuda:0')
+Epoch 67
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003648
+Average total loss: 2.306233
+tensor(-12.6404, device='cuda:0') tensor(2.0129e-06, device='cuda:0') tensor(3.2385e-10, device='cuda:0')
+Epoch 68
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003594
+Average total loss: 2.306179
+tensor(-12.6552, device='cuda:0') tensor(1.9932e-06, device='cuda:0') tensor(3.1909e-10, device='cuda:0')
+Epoch 69
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003542
+Average total loss: 2.306126
+tensor(-12.6698, device='cuda:0') tensor(1.9741e-06, device='cuda:0') tensor(3.1445e-10, device='cuda:0')
+Epoch 70
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003490
+Average total loss: 2.306075
+tensor(-12.6843, device='cuda:0') tensor(1.9554e-06, device='cuda:0') tensor(3.0995e-10, device='cuda:0')
+Epoch 71
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003441
+Average total loss: 2.306026
+tensor(-12.6985, device='cuda:0') tensor(1.9371e-06, device='cuda:0') tensor(3.0556e-10, device='cuda:0')
+Epoch 72
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003392
+Average total loss: 2.305977
+tensor(-12.7126, device='cuda:0') tensor(1.9193e-06, device='cuda:0') tensor(3.0130e-10, device='cuda:0')
+Epoch 73
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003345
+Average total loss: 2.305930
+tensor(-12.7265, device='cuda:0') tensor(1.9020e-06, device='cuda:0') tensor(2.9715e-10, device='cuda:0')
+Epoch 74
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003300
+Average total loss: 2.305884
+tensor(-12.7402, device='cuda:0') tensor(1.8850e-06, device='cuda:0') tensor(2.9310e-10, device='cuda:0')
+Epoch 75
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003255
+Average total loss: 2.305840
+tensor(-12.7537, device='cuda:0') tensor(1.8685e-06, device='cuda:0') tensor(2.8916e-10, device='cuda:0')
+Epoch 76
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003211
+Average total loss: 2.305796
+tensor(-12.7670, device='cuda:0') tensor(1.8523e-06, device='cuda:0') tensor(2.8533e-10, device='cuda:0')
+Epoch 77
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003169
+Average total loss: 2.305754
+tensor(-12.7802, device='cuda:0') tensor(1.8365e-06, device='cuda:0') tensor(2.8159e-10, device='cuda:0')
+Epoch 78
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003128
+Average total loss: 2.305713
+tensor(-12.7933, device='cuda:0') tensor(1.8210e-06, device='cuda:0') tensor(2.7794e-10, device='cuda:0')
+Epoch 79
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003087
+Average total loss: 2.305672
+tensor(-12.8062, device='cuda:0') tensor(1.8058e-06, device='cuda:0') tensor(2.7438e-10, device='cuda:0')
+Epoch 80
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003048
+Average total loss: 2.305633
+tensor(-12.8189, device='cuda:0') tensor(1.7909e-06, device='cuda:0') tensor(2.7091e-10, device='cuda:0')
+Epoch 81
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.003010
+Average total loss: 2.305595
+tensor(-12.8315, device='cuda:0') tensor(1.7763e-06, device='cuda:0') tensor(2.6753e-10, device='cuda:0')
+Epoch 82
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002972
+Average total loss: 2.305557
+tensor(-12.8439, device='cuda:0') tensor(1.7620e-06, device='cuda:0') tensor(2.6422e-10, device='cuda:0')
+Epoch 83
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002936
+Average total loss: 2.305521
+tensor(-12.8562, device='cuda:0') tensor(1.7480e-06, device='cuda:0') tensor(2.6099e-10, device='cuda:0')
+Epoch 84
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002900
+Average total loss: 2.305485
+tensor(-12.8683, device='cuda:0') tensor(1.7342e-06, device='cuda:0') tensor(2.5784e-10, device='cuda:0')
+Epoch 85
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002865
+Average total loss: 2.305450
+tensor(-12.8804, device='cuda:0') tensor(1.7207e-06, device='cuda:0') tensor(2.5476e-10, device='cuda:0')
+Epoch 86
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002831
+Average total loss: 2.305416
+tensor(-12.8922, device='cuda:0') tensor(1.7073e-06, device='cuda:0') tensor(2.5175e-10, device='cuda:0')
+Epoch 87
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002798
+Average total loss: 2.305383
+tensor(-12.9040, device='cuda:0') tensor(1.6942e-06, device='cuda:0') tensor(2.4881e-10, device='cuda:0')
+Epoch 88
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002766
+Average total loss: 2.305350
+tensor(-12.9156, device='cuda:0') tensor(1.6814e-06, device='cuda:0') tensor(2.4594e-10, device='cuda:0')
+Epoch 89
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002734
+Average total loss: 2.305319
+tensor(-12.9271, device='cuda:0') tensor(1.6687e-06, device='cuda:0') tensor(2.4313e-10, device='cuda:0')
+Epoch 90
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002703
+Average total loss: 2.305288
+tensor(-12.9385, device='cuda:0') tensor(1.6563e-06, device='cuda:0') tensor(2.4038e-10, device='cuda:0')
+Epoch 91
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002672
+Average total loss: 2.305257
+tensor(-12.9497, device='cuda:0') tensor(1.6440e-06, device='cuda:0') tensor(2.3769e-10, device='cuda:0')
+Epoch 92
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002643
+Average total loss: 2.305227
+tensor(-12.9609, device='cuda:0') tensor(1.6319e-06, device='cuda:0') tensor(2.3505e-10, device='cuda:0')
+Epoch 93
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002613
+Average total loss: 2.305198
+tensor(-12.9719, device='cuda:0') tensor(1.6199e-06, device='cuda:0') tensor(2.3248e-10, device='cuda:0')
+Epoch 94
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002585
+Average total loss: 2.305170
+tensor(-12.9828, device='cuda:0') tensor(1.6081e-06, device='cuda:0') tensor(2.2996e-10, device='cuda:0')
+Epoch 95
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002557
+Average total loss: 2.305142
+tensor(-12.9936, device='cuda:0') tensor(1.5965e-06, device='cuda:0') tensor(2.2749e-10, device='cuda:0')
+Epoch 96
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002530
+Average total loss: 2.305115
+tensor(-13.0043, device='cuda:0') tensor(1.5851e-06, device='cuda:0') tensor(2.2507e-10, device='cuda:0')
+Epoch 97
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002503
+Average total loss: 2.305088
+tensor(-13.0149, device='cuda:0') tensor(1.5738e-06, device='cuda:0') tensor(2.2270e-10, device='cuda:0')
+Epoch 98
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002477
+Average total loss: 2.305062
+tensor(-13.0253, device='cuda:0') tensor(1.5626e-06, device='cuda:0') tensor(2.2038e-10, device='cuda:0')
+Epoch 99
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002451
+Average total loss: 2.305036
+tensor(-13.0357, device='cuda:0') tensor(1.5515e-06, device='cuda:0') tensor(2.1810e-10, device='cuda:0')
+Epoch 100
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002426
+Average total loss: 2.305011
+tensor(-13.0460, device='cuda:0') tensor(1.5406e-06, device='cuda:0') tensor(2.1588e-10, device='cuda:0')
+Epoch 101
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002401
+Average total loss: 2.304986
+tensor(-13.0562, device='cuda:0') tensor(1.5288e-06, device='cuda:0') tensor(2.1369e-10, device='cuda:0')
+Epoch 102
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002377
+Average total loss: 2.304962
+tensor(-13.0662, device='cuda:0') tensor(1.5181e-06, device='cuda:0') tensor(2.1155e-10, device='cuda:0')
+Epoch 103
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002353
+Average total loss: 2.304938
+tensor(-13.0762, device='cuda:0') tensor(1.5076e-06, device='cuda:0') tensor(2.0944e-10, device='cuda:0')
+Epoch 104
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002330
+Average total loss: 2.304915
+tensor(-13.0861, device='cuda:0') tensor(1.4971e-06, device='cuda:0') tensor(2.0738e-10, device='cuda:0')
+Epoch 105
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002307
+Average total loss: 2.304892
+tensor(-13.0959, device='cuda:0') tensor(1.4867e-06, device='cuda:0') tensor(2.0536e-10, device='cuda:0')
+Epoch 106
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002285
+Average total loss: 2.304870
+tensor(-13.1056, device='cuda:0') tensor(1.4764e-06, device='cuda:0') tensor(2.0338e-10, device='cuda:0')
+Epoch 107
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002263
+Average total loss: 2.304848
+tensor(-13.1152, device='cuda:0') tensor(1.4662e-06, device='cuda:0') tensor(2.0143e-10, device='cuda:0')
+Epoch 108
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002241
+Average total loss: 2.304826
+tensor(-13.1248, device='cuda:0') tensor(1.4561e-06, device='cuda:0') tensor(1.9952e-10, device='cuda:0')
+Epoch 109
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002220
+Average total loss: 2.304805
+tensor(-13.1342, device='cuda:0') tensor(1.4461e-06, device='cuda:0') tensor(1.9765e-10, device='cuda:0')
+Epoch 110
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002199
+Average total loss: 2.304784
+tensor(-13.1436, device='cuda:0') tensor(1.4362e-06, device='cuda:0') tensor(1.9580e-10, device='cuda:0')
+Epoch 111
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002179
+Average total loss: 2.304764
+tensor(-13.1528, device='cuda:0') tensor(1.4263e-06, device='cuda:0') tensor(1.9400e-10, device='cuda:0')
+Epoch 112
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002159
+Average total loss: 2.304744
+tensor(-13.1620, device='cuda:0') tensor(1.4165e-06, device='cuda:0') tensor(1.9222e-10, device='cuda:0')
+Epoch 113
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002139
+Average total loss: 2.304724
+tensor(-13.1712, device='cuda:0') tensor(1.4068e-06, device='cuda:0') tensor(1.9048e-10, device='cuda:0')
+Epoch 114
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002120
+Average total loss: 2.304705
+tensor(-13.1802, device='cuda:0') tensor(1.3972e-06, device='cuda:0') tensor(1.8876e-10, device='cuda:0')
+Epoch 115
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002101
+Average total loss: 2.304686
+tensor(-13.1892, device='cuda:0') tensor(1.3876e-06, device='cuda:0') tensor(1.8708e-10, device='cuda:0')
+Epoch 116
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002082
+Average total loss: 2.304667
+tensor(-13.1980, device='cuda:0') tensor(1.3781e-06, device='cuda:0') tensor(1.8542e-10, device='cuda:0')
+Epoch 117
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002064
+Average total loss: 2.304649
+tensor(-13.2068, device='cuda:0') tensor(1.3686e-06, device='cuda:0') tensor(1.8380e-10, device='cuda:0')
+Epoch 118
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002054
+Average total loss: 2.304639
+tensor(-13.2077, device='cuda:0') tensor(1.3678e-06, device='cuda:0') tensor(1.8363e-10, device='cuda:0')
+Epoch 119
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002052
+Average total loss: 2.304637
+tensor(-13.2086, device='cuda:0') tensor(1.3669e-06, device='cuda:0') tensor(1.8347e-10, device='cuda:0')
+Epoch 120
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002050
+Average total loss: 2.304635
+tensor(-13.2095, device='cuda:0') tensor(1.3661e-06, device='cuda:0') tensor(1.8331e-10, device='cuda:0')
+Epoch 121
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002048
+Average total loss: 2.304633
+tensor(-13.2104, device='cuda:0') tensor(1.3652e-06, device='cuda:0') tensor(1.8314e-10, device='cuda:0')
+Epoch 122
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002046
+Average total loss: 2.304631
+tensor(-13.2113, device='cuda:0') tensor(1.3644e-06, device='cuda:0') tensor(1.8298e-10, device='cuda:0')
+Epoch 123
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002045
+Average total loss: 2.304630
+tensor(-13.2122, device='cuda:0') tensor(1.3635e-06, device='cuda:0') tensor(1.8282e-10, device='cuda:0')
+Epoch 124
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002043
+Average total loss: 2.304628
+tensor(-13.2131, device='cuda:0') tensor(1.3626e-06, device='cuda:0') tensor(1.8266e-10, device='cuda:0')
+Epoch 125
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002041
+Average total loss: 2.304626
+tensor(-13.2140, device='cuda:0') tensor(1.3617e-06, device='cuda:0') tensor(1.8250e-10, device='cuda:0')
+Epoch 126
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002039
+Average total loss: 2.304624
+tensor(-13.2148, device='cuda:0') tensor(1.3607e-06, device='cuda:0') tensor(1.8233e-10, device='cuda:0')
+Epoch 127
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002037
+Average total loss: 2.304622
+tensor(-13.2157, device='cuda:0') tensor(1.3598e-06, device='cuda:0') tensor(1.8217e-10, device='cuda:0')
+Epoch 128
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002036
+Average total loss: 2.304620
+tensor(-13.2166, device='cuda:0') tensor(1.3588e-06, device='cuda:0') tensor(1.8201e-10, device='cuda:0')
+Epoch 129
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002034
+Average total loss: 2.304619
+tensor(-13.2175, device='cuda:0') tensor(1.3578e-06, device='cuda:0') tensor(1.8185e-10, device='cuda:0')
+Epoch 130
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002033
+Average total loss: 2.304618
+tensor(-13.2176, device='cuda:0') tensor(1.3577e-06, device='cuda:0') tensor(1.8183e-10, device='cuda:0')
+Epoch 131
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002033
+Average total loss: 2.304617
+tensor(-13.2177, device='cuda:0') tensor(1.3577e-06, device='cuda:0') tensor(1.8181e-10, device='cuda:0')
+Epoch 132
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002032
+Average total loss: 2.304617
+tensor(-13.2178, device='cuda:0') tensor(1.3576e-06, device='cuda:0') tensor(1.8180e-10, device='cuda:0')
+Epoch 133
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002032
+Average total loss: 2.304617
+tensor(-13.2179, device='cuda:0') tensor(1.3575e-06, device='cuda:0') tensor(1.8178e-10, device='cuda:0')
+Epoch 134
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002032
+Average total loss: 2.304617
+tensor(-13.2180, device='cuda:0') tensor(1.3574e-06, device='cuda:0') tensor(1.8176e-10, device='cuda:0')
+Epoch 135
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002032
+Average total loss: 2.304617
+tensor(-13.2181, device='cuda:0') tensor(1.3573e-06, device='cuda:0') tensor(1.8175e-10, device='cuda:0')
+Epoch 136
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002032
+Average total loss: 2.304616
+tensor(-13.2182, device='cuda:0') tensor(1.3573e-06, device='cuda:0') tensor(1.8173e-10, device='cuda:0')
+Epoch 137
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2183, device='cuda:0') tensor(1.3572e-06, device='cuda:0') tensor(1.7404e-10, device='cuda:0')
+Epoch 138
+Average batch original loss after noise: 2.302584
+Average KL loss: 0.002031
+Average total loss: 2.304615
+tensor(-13.2183, device='cuda:0') tensor(1.3588e-06, device='cuda:0') tensor(1.8170e-10, device='cuda:0')
+Epoch 139
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2184, device='cuda:0') tensor(1.3588e-06, device='cuda:0') tensor(1.8168e-10, device='cuda:0')
+Epoch 140
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2185, device='cuda:0') tensor(1.3587e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+Epoch 141
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2185, device='cuda:0') tensor(1.3587e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+Epoch 142
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2185, device='cuda:0') tensor(1.3587e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+Epoch 143
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2185, device='cuda:0') tensor(1.3587e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+Epoch 144
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2185, device='cuda:0') tensor(1.3587e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+Epoch 145
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2185, device='cuda:0') tensor(1.3587e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+Epoch 146
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2185, device='cuda:0') tensor(1.3587e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+Epoch 147
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2185, device='cuda:0') tensor(1.3586e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+Epoch 148
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2185, device='cuda:0') tensor(1.3586e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+Epoch 149
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2185, device='cuda:0') tensor(1.3586e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+Epoch 150
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002031
+Average total loss: 2.304616
+tensor(-13.2185, device='cuda:0') tensor(1.3586e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+ Percentile value: -13.218534469604492
+Non-zero model percentage: 9.000003814697266%, Non-zero mask percentage: 9.000003814697266%
+
+--- Pruning Level [2/7]: ---
+conv1.weight         | nonzeros =     327 /    1728             ( 18.92%) | total_pruned =    1401 | shape = torch.Size([64, 3, 3, 3])
+conv1.bias           | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+bn1.weight           | nonzeros =      15 /      64             ( 23.44%) | total_pruned =      49 | shape = torch.Size([64])
+bn1.bias             | nonzeros =      14 /      64             ( 21.88%) | total_pruned =      50 | shape = torch.Size([64])
+layer1.0.conv1.weight | nonzeros =    3433 /   36864             (  9.31%) | total_pruned =   33431 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn1.weight  | nonzeros =      22 /      64             ( 34.38%) | total_pruned =      42 | shape = torch.Size([64])
+layer1.0.bn1.bias    | nonzeros =      29 /      64             ( 45.31%) | total_pruned =      35 | shape = torch.Size([64])
+layer1.0.conv2.weight | nonzeros =    6746 /   36864             ( 18.30%) | total_pruned =   30118 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn2.weight  | nonzeros =      29 /      64             ( 45.31%) | total_pruned =      35 | shape = torch.Size([64])
+layer1.0.bn2.bias    | nonzeros =      34 /      64             ( 53.12%) | total_pruned =      30 | shape = torch.Size([64])
+layer1.1.conv1.weight | nonzeros =    6997 /   36864             ( 18.98%) | total_pruned =   29867 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn1.weight  | nonzeros =      24 /      64             ( 37.50%) | total_pruned =      40 | shape = torch.Size([64])
+layer1.1.bn1.bias    | nonzeros =      27 /      64             ( 42.19%) | total_pruned =      37 | shape = torch.Size([64])
+layer1.1.conv2.weight | nonzeros =    7346 /   36864             ( 19.93%) | total_pruned =   29518 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn2.weight  | nonzeros =      37 /      64             ( 57.81%) | total_pruned =      27 | shape = torch.Size([64])
+layer1.1.bn2.bias    | nonzeros =      44 /      64             ( 68.75%) | total_pruned =      20 | shape = torch.Size([64])
+layer2.0.conv1.weight | nonzeros =   20162 /   73728             ( 27.35%) | total_pruned =   53566 | shape = torch.Size([128, 64, 3, 3])
+layer2.0.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn1.weight  | nonzeros =      33 /     128             ( 25.78%) | total_pruned =      95 | shape = torch.Size([128])
+layer2.0.bn1.bias    | nonzeros =      76 /     128             ( 59.38%) | total_pruned =      52 | shape = torch.Size([128])
+layer2.0.conv2.weight | nonzeros =   36397 /  147456             ( 24.68%) | total_pruned =  111059 | shape = torch.Size([128, 128, 3, 3])
+layer2.0.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn2.weight  | nonzeros =      51 /     128             ( 39.84%) | total_pruned =      77 | shape = torch.Size([128])
+layer2.0.bn2.bias    | nonzeros =      89 /     128             ( 69.53%) | total_pruned =      39 | shape = torch.Size([128])
+layer2.0.shortcut.0.weight | nonzeros =    2484 /    8192             ( 30.32%) | total_pruned =    5708 | shape = torch.Size([128, 64, 1, 1])
+layer2.0.shortcut.0.bias | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.shortcut.1.weight | nonzeros =      52 /     128             ( 40.62%) | total_pruned =      76 | shape = torch.Size([128])
+layer2.0.shortcut.1.bias | nonzeros =      86 /     128             ( 67.19%) | total_pruned =      42 | shape = torch.Size([128])
+layer2.1.conv1.weight | nonzeros =   13360 /  147456             (  9.06%) | total_pruned =  134096 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn1.weight  | nonzeros =      69 /     128             ( 53.91%) | total_pruned =      59 | shape = torch.Size([128])
+layer2.1.bn1.bias    | nonzeros =      62 /     128             ( 48.44%) | total_pruned =      66 | shape = torch.Size([128])
+layer2.1.conv2.weight | nonzeros =   10332 /  147456             (  7.01%) | total_pruned =  137124 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn2.weight  | nonzeros =      59 /     128             ( 46.09%) | total_pruned =      69 | shape = torch.Size([128])
+layer2.1.bn2.bias    | nonzeros =      94 /     128             ( 73.44%) | total_pruned =      34 | shape = torch.Size([128])
+layer3.0.conv1.weight | nonzeros =   78017 /  294912             ( 26.45%) | total_pruned =  216895 | shape = torch.Size([256, 128, 3, 3])
+layer3.0.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn1.weight  | nonzeros =     116 /     256             ( 45.31%) | total_pruned =     140 | shape = torch.Size([256])
+layer3.0.bn1.bias    | nonzeros =     191 /     256             ( 74.61%) | total_pruned =      65 | shape = torch.Size([256])
+layer3.0.conv2.weight | nonzeros =   90477 /  589824             ( 15.34%) | total_pruned =  499347 | shape = torch.Size([256, 256, 3, 3])
+layer3.0.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn2.weight  | nonzeros =     143 /     256             ( 55.86%) | total_pruned =     113 | shape = torch.Size([256])
+layer3.0.bn2.bias    | nonzeros =     177 /     256             ( 69.14%) | total_pruned =      79 | shape = torch.Size([256])
+layer3.0.shortcut.0.weight | nonzeros =    5533 /   32768             ( 16.89%) | total_pruned =   27235 | shape = torch.Size([256, 128, 1, 1])
+layer3.0.shortcut.0.bias | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.shortcut.1.weight | nonzeros =     121 /     256             ( 47.27%) | total_pruned =     135 | shape = torch.Size([256])
+layer3.0.shortcut.1.bias | nonzeros =     172 /     256             ( 67.19%) | total_pruned =      84 | shape = torch.Size([256])
+layer3.1.conv1.weight | nonzeros =   21142 /  589824             (  3.58%) | total_pruned =  568682 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn1.weight  | nonzeros =     110 /     256             ( 42.97%) | total_pruned =     146 | shape = torch.Size([256])
+layer3.1.bn1.bias    | nonzeros =     125 /     256             ( 48.83%) | total_pruned =     131 | shape = torch.Size([256])
+layer3.1.conv2.weight | nonzeros =   14994 /  589824             (  2.54%) | total_pruned =  574830 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn2.weight  | nonzeros =     134 /     256             ( 52.34%) | total_pruned =     122 | shape = torch.Size([256])
+layer3.1.bn2.bias    | nonzeros =     174 /     256             ( 67.97%) | total_pruned =      82 | shape = torch.Size([256])
+layer4.0.conv1.weight | nonzeros =  107982 / 1179648             (  9.15%) | total_pruned = 1071666 | shape = torch.Size([512, 256, 3, 3])
+layer4.0.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn1.weight  | nonzeros =     254 /     512             ( 49.61%) | total_pruned =     258 | shape = torch.Size([512])
+layer4.0.bn1.bias    | nonzeros =     327 /     512             ( 63.87%) | total_pruned =     185 | shape = torch.Size([512])
+layer4.0.conv2.weight | nonzeros =  163968 / 2359296             (  6.95%) | total_pruned = 2195328 | shape = torch.Size([512, 512, 3, 3])
+layer4.0.conv2.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn2.weight  | nonzeros =     233 /     512             ( 45.51%) | total_pruned =     279 | shape = torch.Size([512])
+layer4.0.bn2.bias    | nonzeros =     406 /     512             ( 79.30%) | total_pruned =     106 | shape = torch.Size([512])
+layer4.0.shortcut.0.weight | nonzeros =   11011 /  131072             (  8.40%) | total_pruned =  120061 | shape = torch.Size([512, 256, 1, 1])
+layer4.0.shortcut.0.bias | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.shortcut.1.weight | nonzeros =     191 /     512             ( 37.30%) | total_pruned =     321 | shape = torch.Size([512])
+layer4.0.shortcut.1.bias | nonzeros =     401 /     512             ( 78.32%) | total_pruned =     111 | shape = torch.Size([512])
+layer4.1.conv1.weight | nonzeros =  186005 / 2359296             (  7.88%) | total_pruned = 2173291 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.bn1.weight  | nonzeros =     250 /     512             ( 48.83%) | total_pruned =     262 | shape = torch.Size([512])
+layer4.1.bn1.bias    | nonzeros =     277 /     512             ( 54.10%) | total_pruned =     235 | shape = torch.Size([512])
+layer4.1.conv2.weight | nonzeros =  208929 / 2359296             (  8.86%) | total_pruned = 2150367 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv2.bias  | nonzeros =     512 /     512             (100.00%) | total_pruned =       0 | shape = torch.Size([512])
+layer4.1.bn2.weight  | nonzeros =     308 /     512             ( 60.16%) | total_pruned =     204 | shape = torch.Size([512])
+layer4.1.bn2.bias    | nonzeros =     507 /     512             ( 99.02%) | total_pruned =       5 | shape = torch.Size([512])
+linear.weight        | nonzeros =    4362 /    5120             ( 85.20%) | total_pruned =     758 | shape = torch.Size([10, 512])
+linear.bias          | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 1006089, pruned : 10172673, total: 11178762, Compression rate :      11.11x  ( 91.00% pruned)
+Train Epoch: 66/200 Loss: 0.027847 Accuracy: 82.67 100.00 % Best test Accuracy: 83.72%
+tensor(-13.2185, device='cuda:0') tensor(1.3586e-06, device='cuda:0') tensor(1.8166e-10, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002022
+Average total loss: 2.304607
+tensor(-13.2273, device='cuda:0') tensor(1.2895e-06, device='cuda:0') tensor(1.8009e-10, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.002005
+Average total loss: 2.304590
+tensor(-13.2359, device='cuda:0') tensor(1.2277e-06, device='cuda:0') tensor(1.7853e-10, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001987
+Average total loss: 2.304572
+tensor(-13.2445, device='cuda:0') tensor(1.1722e-06, device='cuda:0') tensor(1.7701e-10, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001971
+Average total loss: 2.304555
+tensor(-13.2530, device='cuda:0') tensor(1.1220e-06, device='cuda:0') tensor(1.7551e-10, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001954
+Average total loss: 2.304539
+tensor(-13.2614, device='cuda:0') tensor(1.0763e-06, device='cuda:0') tensor(1.7404e-10, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001938
+Average total loss: 2.304522
+tensor(-13.2697, device='cuda:0') tensor(1.0343e-06, device='cuda:0') tensor(1.7259e-10, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001922
+Average total loss: 2.304506
+tensor(-13.2780, device='cuda:0') tensor(9.9576e-07, device='cuda:0') tensor(1.7117e-10, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001906
+Average total loss: 2.304491
+tensor(-13.2863, device='cuda:0') tensor(9.6003e-07, device='cuda:0') tensor(1.6977e-10, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001890
+Average total loss: 2.304475
+tensor(-13.2944, device='cuda:0') tensor(9.2683e-07, device='cuda:0') tensor(1.6839e-10, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001875
+Average total loss: 2.304460
+tensor(-13.3025, device='cuda:0') tensor(8.9592e-07, device='cuda:0') tensor(1.6703e-10, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001860
+Average total loss: 2.304445
+tensor(-13.3105, device='cuda:0') tensor(8.6694e-07, device='cuda:0') tensor(1.6569e-10, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001845
+Average total loss: 2.304430
+tensor(-13.3185, device='cuda:0') tensor(8.3980e-07, device='cuda:0') tensor(1.6438e-10, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001837
+Average total loss: 2.304422
+tensor(-13.3193, device='cuda:0') tensor(8.3724e-07, device='cuda:0') tensor(1.6425e-10, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001835
+Average total loss: 2.304420
+tensor(-13.3201, device='cuda:0') tensor(8.3468e-07, device='cuda:0') tensor(1.6412e-10, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001834
+Average total loss: 2.304419
+tensor(-13.3209, device='cuda:0') tensor(8.3214e-07, device='cuda:0') tensor(1.6399e-10, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001832
+Average total loss: 2.304417
+tensor(-13.3217, device='cuda:0') tensor(8.2962e-07, device='cuda:0') tensor(1.6386e-10, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001831
+Average total loss: 2.304416
+tensor(-13.3225, device='cuda:0') tensor(8.2712e-07, device='cuda:0') tensor(1.6373e-10, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001830
+Average total loss: 2.304414
+tensor(-13.3233, device='cuda:0') tensor(8.2463e-07, device='cuda:0') tensor(1.6360e-10, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001828
+Average total loss: 2.304413
+tensor(-13.3241, device='cuda:0') tensor(8.2215e-07, device='cuda:0') tensor(1.6347e-10, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001827
+Average total loss: 2.304412
+tensor(-13.3249, device='cuda:0') tensor(8.1969e-07, device='cuda:0') tensor(1.6334e-10, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001825
+Average total loss: 2.304410
+tensor(-13.3256, device='cuda:0') tensor(8.1725e-07, device='cuda:0') tensor(1.6321e-10, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001824
+Average total loss: 2.304409
+tensor(-13.3264, device='cuda:0') tensor(8.1481e-07, device='cuda:0') tensor(1.6308e-10, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001822
+Average total loss: 2.304407
+tensor(-13.3272, device='cuda:0') tensor(8.1239e-07, device='cuda:0') tensor(1.6295e-10, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001822
+Average total loss: 2.304406
+tensor(-13.3273, device='cuda:0') tensor(8.1219e-07, device='cuda:0') tensor(1.6294e-10, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001821
+Average total loss: 2.304406
+tensor(-13.3274, device='cuda:0') tensor(8.1199e-07, device='cuda:0') tensor(1.6292e-10, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001821
+Average total loss: 2.304406
+tensor(-13.3275, device='cuda:0') tensor(8.1179e-07, device='cuda:0') tensor(1.6290e-10, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001821
+Average total loss: 2.304406
+tensor(-13.3276, device='cuda:0') tensor(8.1159e-07, device='cuda:0') tensor(1.6289e-10, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001821
+Average total loss: 2.304406
+tensor(-13.3277, device='cuda:0') tensor(8.1145e-07, device='cuda:0') tensor(1.6287e-10, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001821
+Average total loss: 2.304406
+tensor(-13.3278, device='cuda:0') tensor(8.1125e-07, device='cuda:0') tensor(1.6286e-10, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304405
+tensor(-13.3279, device='cuda:0') tensor(8.1105e-07, device='cuda:0') tensor(1.6284e-10, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304405
+tensor(-13.3280, device='cuda:0') tensor(8.1086e-07, device='cuda:0') tensor(1.6283e-10, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304405
+tensor(-13.3281, device='cuda:0') tensor(8.1066e-07, device='cuda:0') tensor(1.6281e-10, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304405
+tensor(-13.3282, device='cuda:0') tensor(8.1046e-07, device='cuda:0') tensor(1.6280e-10, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304405
+tensor(-13.3283, device='cuda:0') tensor(8.1026e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304404
+tensor(-13.3283, device='cuda:0') tensor(8.1023e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304404
+tensor(-13.3283, device='cuda:0') tensor(8.1020e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304404
+tensor(-13.3283, device='cuda:0') tensor(8.1018e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304404
+tensor(-13.3283, device='cuda:0') tensor(8.1015e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304404
+tensor(-13.3283, device='cuda:0') tensor(8.1012e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304404
+tensor(-13.3283, device='cuda:0') tensor(8.1009e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304404
+tensor(-13.3283, device='cuda:0') tensor(8.1007e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304404
+tensor(-13.3283, device='cuda:0') tensor(8.1004e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304404
+tensor(-13.3283, device='cuda:0') tensor(8.1001e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001820
+Average total loss: 2.304404
+tensor(-13.3283, device='cuda:0') tensor(8.0998e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+ Percentile value: -13.328252792358398
+Non-zero model percentage: 2.7000038623809814%, Non-zero mask percentage: 2.7000038623809814%
+
+--- Pruning Level [3/7]: ---
+conv1.weight         | nonzeros =     315 /    1728             ( 18.23%) | total_pruned =    1413 | shape = torch.Size([64, 3, 3, 3])
+conv1.bias           | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+bn1.weight           | nonzeros =      15 /      64             ( 23.44%) | total_pruned =      49 | shape = torch.Size([64])
+bn1.bias             | nonzeros =      13 /      64             ( 20.31%) | total_pruned =      51 | shape = torch.Size([64])
+layer1.0.conv1.weight | nonzeros =    1765 /   36864             (  4.79%) | total_pruned =   35099 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn1.weight  | nonzeros =      22 /      64             ( 34.38%) | total_pruned =      42 | shape = torch.Size([64])
+layer1.0.bn1.bias    | nonzeros =      25 /      64             ( 39.06%) | total_pruned =      39 | shape = torch.Size([64])
+layer1.0.conv2.weight | nonzeros =    3028 /   36864             (  8.21%) | total_pruned =   33836 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn2.weight  | nonzeros =      28 /      64             ( 43.75%) | total_pruned =      36 | shape = torch.Size([64])
+layer1.0.bn2.bias    | nonzeros =      32 /      64             ( 50.00%) | total_pruned =      32 | shape = torch.Size([64])
+layer1.1.conv1.weight | nonzeros =    2978 /   36864             (  8.08%) | total_pruned =   33886 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn1.weight  | nonzeros =      23 /      64             ( 35.94%) | total_pruned =      41 | shape = torch.Size([64])
+layer1.1.bn1.bias    | nonzeros =      23 /      64             ( 35.94%) | total_pruned =      41 | shape = torch.Size([64])
+layer1.1.conv2.weight | nonzeros =    2906 /   36864             (  7.88%) | total_pruned =   33958 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn2.weight  | nonzeros =      34 /      64             ( 53.12%) | total_pruned =      30 | shape = torch.Size([64])
+layer1.1.bn2.bias    | nonzeros =      43 /      64             ( 67.19%) | total_pruned =      21 | shape = torch.Size([64])
+layer2.0.conv1.weight | nonzeros =    7861 /   73728             ( 10.66%) | total_pruned =   65867 | shape = torch.Size([128, 64, 3, 3])
+layer2.0.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn1.weight  | nonzeros =      33 /     128             ( 25.78%) | total_pruned =      95 | shape = torch.Size([128])
+layer2.0.bn1.bias    | nonzeros =      71 /     128             ( 55.47%) | total_pruned =      57 | shape = torch.Size([128])
+layer2.0.conv2.weight | nonzeros =   12151 /  147456             (  8.24%) | total_pruned =  135305 | shape = torch.Size([128, 128, 3, 3])
+layer2.0.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn2.weight  | nonzeros =      50 /     128             ( 39.06%) | total_pruned =      78 | shape = torch.Size([128])
+layer2.0.bn2.bias    | nonzeros =      87 /     128             ( 67.97%) | total_pruned =      41 | shape = torch.Size([128])
+layer2.0.shortcut.0.weight | nonzeros =    1360 /    8192             ( 16.60%) | total_pruned =    6832 | shape = torch.Size([128, 64, 1, 1])
+layer2.0.shortcut.0.bias | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.shortcut.1.weight | nonzeros =      51 /     128             ( 39.84%) | total_pruned =      77 | shape = torch.Size([128])
+layer2.0.shortcut.1.bias | nonzeros =      84 /     128             ( 65.62%) | total_pruned =      44 | shape = torch.Size([128])
+layer2.1.conv1.weight | nonzeros =    2147 /  147456             (  1.46%) | total_pruned =  145309 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn1.weight  | nonzeros =      59 /     128             ( 46.09%) | total_pruned =      69 | shape = torch.Size([128])
+layer2.1.bn1.bias    | nonzeros =      54 /     128             ( 42.19%) | total_pruned =      74 | shape = torch.Size([128])
+layer2.1.conv2.weight | nonzeros =    1757 /  147456             (  1.19%) | total_pruned =  145699 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn2.weight  | nonzeros =      50 /     128             ( 39.06%) | total_pruned =      78 | shape = torch.Size([128])
+layer2.1.bn2.bias    | nonzeros =      93 /     128             ( 72.66%) | total_pruned =      35 | shape = torch.Size([128])
+layer3.0.conv1.weight | nonzeros =   26115 /  294912             (  8.86%) | total_pruned =  268797 | shape = torch.Size([256, 128, 3, 3])
+layer3.0.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn1.weight  | nonzeros =     116 /     256             ( 45.31%) | total_pruned =     140 | shape = torch.Size([256])
+layer3.0.bn1.bias    | nonzeros =     189 /     256             ( 73.83%) | total_pruned =      67 | shape = torch.Size([256])
+layer3.0.conv2.weight | nonzeros =   27019 /  589824             (  4.58%) | total_pruned =  562805 | shape = torch.Size([256, 256, 3, 3])
+layer3.0.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn2.weight  | nonzeros =     139 /     256             ( 54.30%) | total_pruned =     117 | shape = torch.Size([256])
+layer3.0.bn2.bias    | nonzeros =     176 /     256             ( 68.75%) | total_pruned =      80 | shape = torch.Size([256])
+layer3.0.shortcut.0.weight | nonzeros =    1951 /   32768             (  5.95%) | total_pruned =   30817 | shape = torch.Size([256, 128, 1, 1])
+layer3.0.shortcut.0.bias | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.shortcut.1.weight | nonzeros =     111 /     256             ( 43.36%) | total_pruned =     145 | shape = torch.Size([256])
+layer3.0.shortcut.1.bias | nonzeros =     169 /     256             ( 66.02%) | total_pruned =      87 | shape = torch.Size([256])
+layer3.1.conv1.weight | nonzeros =    2177 /  589824             (  0.37%) | total_pruned =  587647 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn1.weight  | nonzeros =      98 /     256             ( 38.28%) | total_pruned =     158 | shape = torch.Size([256])
+layer3.1.bn1.bias    | nonzeros =     115 /     256             ( 44.92%) | total_pruned =     141 | shape = torch.Size([256])
+layer3.1.conv2.weight | nonzeros =    1681 /  589824             (  0.29%) | total_pruned =  588143 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn2.weight  | nonzeros =      98 /     256             ( 38.28%) | total_pruned =     158 | shape = torch.Size([256])
+layer3.1.bn2.bias    | nonzeros =     171 /     256             ( 66.80%) | total_pruned =      85 | shape = torch.Size([256])
+layer4.0.conv1.weight | nonzeros =   31108 / 1179648             (  2.64%) | total_pruned = 1148540 | shape = torch.Size([512, 256, 3, 3])
+layer4.0.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn1.weight  | nonzeros =     249 /     512             ( 48.63%) | total_pruned =     263 | shape = torch.Size([512])
+layer4.0.bn1.bias    | nonzeros =     323 /     512             ( 63.09%) | total_pruned =     189 | shape = torch.Size([512])
+layer4.0.conv2.weight | nonzeros =   46609 / 2359296             (  1.98%) | total_pruned = 2312687 | shape = torch.Size([512, 512, 3, 3])
+layer4.0.conv2.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn2.weight  | nonzeros =     225 /     512             ( 43.95%) | total_pruned =     287 | shape = torch.Size([512])
+layer4.0.bn2.bias    | nonzeros =     399 /     512             ( 77.93%) | total_pruned =     113 | shape = torch.Size([512])
+layer4.0.shortcut.0.weight | nonzeros =    3757 /  131072             (  2.87%) | total_pruned =  127315 | shape = torch.Size([512, 256, 1, 1])
+layer4.0.shortcut.0.bias | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.shortcut.1.weight | nonzeros =     158 /     512             ( 30.86%) | total_pruned =     354 | shape = torch.Size([512])
+layer4.0.shortcut.1.bias | nonzeros =     391 /     512             ( 76.37%) | total_pruned =     121 | shape = torch.Size([512])
+layer4.1.conv1.weight | nonzeros =   60857 / 2359296             (  2.58%) | total_pruned = 2298439 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.bn1.weight  | nonzeros =     239 /     512             ( 46.68%) | total_pruned =     273 | shape = torch.Size([512])
+layer4.1.bn1.bias    | nonzeros =     266 /     512             ( 51.95%) | total_pruned =     246 | shape = torch.Size([512])
+layer4.1.conv2.weight | nonzeros =   54596 / 2359296             (  2.31%) | total_pruned = 2304700 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv2.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.bn2.weight  | nonzeros =     301 /     512             ( 58.79%) | total_pruned =     211 | shape = torch.Size([512])
+layer4.1.bn2.bias    | nonzeros =     507 /     512             ( 99.02%) | total_pruned =       5 | shape = torch.Size([512])
+linear.weight        | nonzeros =    4349 /    5120             ( 84.94%) | total_pruned =     771 | shape = torch.Size([10, 512])
+linear.bias          | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 301827, pruned : 10876935, total: 11178762, Compression rate :      37.04x  ( 97.30% pruned)
+Train Epoch: 177/200 Loss: 0.105234 Accuracy: 78.44 99.91 % Best test Accuracy: 80.97%
+tensor(-13.3283, device='cuda:0') tensor(8.0996e-07, device='cuda:0') tensor(1.6278e-10, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001813
+Average total loss: 2.304398
+tensor(-13.3361, device='cuda:0') tensor(7.8522e-07, device='cuda:0') tensor(1.6151e-10, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001799
+Average total loss: 2.304384
+tensor(-13.3439, device='cuda:0') tensor(7.6189e-07, device='cuda:0') tensor(1.6026e-10, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001785
+Average total loss: 2.304370
+tensor(-13.3516, device='cuda:0') tensor(7.3985e-07, device='cuda:0') tensor(1.5903e-10, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001771
+Average total loss: 2.304356
+tensor(-13.3592, device='cuda:0') tensor(7.1899e-07, device='cuda:0') tensor(1.5782e-10, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001758
+Average total loss: 2.304343
+tensor(-13.3668, device='cuda:0') tensor(6.9926e-07, device='cuda:0') tensor(1.5663e-10, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001744
+Average total loss: 2.304329
+tensor(-13.3744, device='cuda:0') tensor(6.8055e-07, device='cuda:0') tensor(1.5545e-10, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001731
+Average total loss: 2.304316
+tensor(-13.3818, device='cuda:0') tensor(6.6278e-07, device='cuda:0') tensor(1.5429e-10, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001719
+Average total loss: 2.304303
+tensor(-13.3893, device='cuda:0') tensor(6.4580e-07, device='cuda:0') tensor(1.5315e-10, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001706
+Average total loss: 2.304291
+tensor(-13.3966, device='cuda:0') tensor(6.2961e-07, device='cuda:0') tensor(1.5203e-10, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001693
+Average total loss: 2.304278
+tensor(-13.4039, device='cuda:0') tensor(6.1418e-07, device='cuda:0') tensor(1.5092e-10, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001681
+Average total loss: 2.304266
+tensor(-13.4112, device='cuda:0') tensor(5.9942e-07, device='cuda:0') tensor(1.4982e-10, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001669
+Average total loss: 2.304254
+tensor(-13.4184, device='cuda:0') tensor(5.8530e-07, device='cuda:0') tensor(1.4875e-10, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001662
+Average total loss: 2.304247
+tensor(-13.4191, device='cuda:0') tensor(5.8378e-07, device='cuda:0') tensor(1.4864e-10, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001661
+Average total loss: 2.304246
+tensor(-13.4198, device='cuda:0') tensor(5.8226e-07, device='cuda:0') tensor(1.4854e-10, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001660
+Average total loss: 2.304245
+tensor(-13.4205, device='cuda:0') tensor(5.8075e-07, device='cuda:0') tensor(1.4844e-10, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001659
+Average total loss: 2.304244
+tensor(-13.4212, device='cuda:0') tensor(5.7925e-07, device='cuda:0') tensor(1.4833e-10, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001658
+Average total loss: 2.304242
+tensor(-13.4219, device='cuda:0') tensor(5.7777e-07, device='cuda:0') tensor(1.4823e-10, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001656
+Average total loss: 2.304241
+tensor(-13.4226, device='cuda:0') tensor(5.7629e-07, device='cuda:0') tensor(1.4812e-10, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001655
+Average total loss: 2.304240
+tensor(-13.4233, device='cuda:0') tensor(5.7484e-07, device='cuda:0') tensor(1.4802e-10, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001654
+Average total loss: 2.304239
+tensor(-13.4240, device='cuda:0') tensor(5.7338e-07, device='cuda:0') tensor(1.4792e-10, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001653
+Average total loss: 2.304238
+tensor(-13.4247, device='cuda:0') tensor(5.7194e-07, device='cuda:0') tensor(1.4781e-10, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001652
+Average total loss: 2.304237
+tensor(-13.4254, device='cuda:0') tensor(5.7051e-07, device='cuda:0') tensor(1.4771e-10, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001651
+Average total loss: 2.304236
+tensor(-13.4261, device='cuda:0') tensor(5.6910e-07, device='cuda:0') tensor(1.4761e-10, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001650
+Average total loss: 2.304235
+tensor(-13.4262, device='cuda:0') tensor(5.6900e-07, device='cuda:0') tensor(1.4759e-10, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001650
+Average total loss: 2.304235
+tensor(-13.4263, device='cuda:0') tensor(5.6891e-07, device='cuda:0') tensor(1.4758e-10, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001650
+Average total loss: 2.304235
+tensor(-13.4264, device='cuda:0') tensor(5.6882e-07, device='cuda:0') tensor(1.4756e-10, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001650
+Average total loss: 2.304234
+tensor(-13.4265, device='cuda:0') tensor(5.6873e-07, device='cuda:0') tensor(1.4755e-10, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001649
+Average total loss: 2.304234
+tensor(-13.4266, device='cuda:0') tensor(5.6863e-07, device='cuda:0') tensor(1.4754e-10, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001649
+Average total loss: 2.304234
+tensor(-13.4267, device='cuda:0') tensor(5.6854e-07, device='cuda:0') tensor(1.4752e-10, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001649
+Average total loss: 2.304234
+tensor(-13.4268, device='cuda:0') tensor(5.6845e-07, device='cuda:0') tensor(1.4751e-10, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001649
+Average total loss: 2.304234
+tensor(-13.4269, device='cuda:0') tensor(5.6836e-07, device='cuda:0') tensor(1.4749e-10, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001649
+Average total loss: 2.304234
+tensor(-13.4270, device='cuda:0') tensor(5.6826e-07, device='cuda:0') tensor(1.4748e-10, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001649
+Average total loss: 2.304233
+tensor(-13.4271, device='cuda:0') tensor(5.6817e-07, device='cuda:0') tensor(1.4747e-10, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001648
+Average total loss: 2.304233
+tensor(-13.4272, device='cuda:0') tensor(5.6808e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001648
+Average total loss: 2.304233
+tensor(-13.4272, device='cuda:0') tensor(5.6806e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001648
+Average total loss: 2.304233
+tensor(-13.4272, device='cuda:0') tensor(5.6805e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001648
+Average total loss: 2.304233
+tensor(-13.4272, device='cuda:0') tensor(5.6804e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001648
+Average total loss: 2.304233
+tensor(-13.4272, device='cuda:0') tensor(5.6803e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001648
+Average total loss: 2.304233
+tensor(-13.4272, device='cuda:0') tensor(5.6801e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001648
+Average total loss: 2.304233
+tensor(-13.4272, device='cuda:0') tensor(5.6800e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001648
+Average total loss: 2.304233
+tensor(-13.4272, device='cuda:0') tensor(5.6799e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001648
+Average total loss: 2.304233
+tensor(-13.4272, device='cuda:0') tensor(5.6797e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001648
+Average total loss: 2.304233
+tensor(-13.4272, device='cuda:0') tensor(5.6796e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001648
+Average total loss: 2.304233
+tensor(-13.4272, device='cuda:0') tensor(5.6795e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+ Percentile value: -13.427125930786133
+Non-zero model percentage: 0.8100091218948364%, Non-zero mask percentage: 0.8100091218948364%
+
+--- Pruning Level [4/7]: ---
+conv1.weight         | nonzeros =     295 /    1728             ( 17.07%) | total_pruned =    1433 | shape = torch.Size([64, 3, 3, 3])
+conv1.bias           | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+bn1.weight           | nonzeros =      15 /      64             ( 23.44%) | total_pruned =      49 | shape = torch.Size([64])
+bn1.bias             | nonzeros =      11 /      64             ( 17.19%) | total_pruned =      53 | shape = torch.Size([64])
+layer1.0.conv1.weight | nonzeros =     953 /   36864             (  2.59%) | total_pruned =   35911 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn1.weight  | nonzeros =      22 /      64             ( 34.38%) | total_pruned =      42 | shape = torch.Size([64])
+layer1.0.bn1.bias    | nonzeros =      22 /      64             ( 34.38%) | total_pruned =      42 | shape = torch.Size([64])
+layer1.0.conv2.weight | nonzeros =    1462 /   36864             (  3.97%) | total_pruned =   35402 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn2.weight  | nonzeros =      26 /      64             ( 40.62%) | total_pruned =      38 | shape = torch.Size([64])
+layer1.0.bn2.bias    | nonzeros =      31 /      64             ( 48.44%) | total_pruned =      33 | shape = torch.Size([64])
+layer1.1.conv1.weight | nonzeros =    1349 /   36864             (  3.66%) | total_pruned =   35515 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn1.weight  | nonzeros =      22 /      64             ( 34.38%) | total_pruned =      42 | shape = torch.Size([64])
+layer1.1.bn1.bias    | nonzeros =      19 /      64             ( 29.69%) | total_pruned =      45 | shape = torch.Size([64])
+layer1.1.conv2.weight | nonzeros =    1341 /   36864             (  3.64%) | total_pruned =   35523 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn2.weight  | nonzeros =      33 /      64             ( 51.56%) | total_pruned =      31 | shape = torch.Size([64])
+layer1.1.bn2.bias    | nonzeros =      40 /      64             ( 62.50%) | total_pruned =      24 | shape = torch.Size([64])
+layer2.0.conv1.weight | nonzeros =    2981 /   73728             (  4.04%) | total_pruned =   70747 | shape = torch.Size([128, 64, 3, 3])
+layer2.0.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn1.weight  | nonzeros =      31 /     128             ( 24.22%) | total_pruned =      97 | shape = torch.Size([128])
+layer2.0.bn1.bias    | nonzeros =      60 /     128             ( 46.88%) | total_pruned =      68 | shape = torch.Size([128])
+layer2.0.conv2.weight | nonzeros =    4297 /  147456             (  2.91%) | total_pruned =  143159 | shape = torch.Size([128, 128, 3, 3])
+layer2.0.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn2.weight  | nonzeros =      48 /     128             ( 37.50%) | total_pruned =      80 | shape = torch.Size([128])
+layer2.0.bn2.bias    | nonzeros =      83 /     128             ( 64.84%) | total_pruned =      45 | shape = torch.Size([128])
+layer2.0.shortcut.0.weight | nonzeros =     792 /    8192             (  9.67%) | total_pruned =    7400 | shape = torch.Size([128, 64, 1, 1])
+layer2.0.shortcut.0.bias | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.shortcut.1.weight | nonzeros =      42 /     128             ( 32.81%) | total_pruned =      86 | shape = torch.Size([128])
+layer2.0.shortcut.1.bias | nonzeros =      79 /     128             ( 61.72%) | total_pruned =      49 | shape = torch.Size([128])
+layer2.1.conv1.weight | nonzeros =     527 /  147456             (  0.36%) | total_pruned =  146929 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn1.weight  | nonzeros =      46 /     128             ( 35.94%) | total_pruned =      82 | shape = torch.Size([128])
+layer2.1.bn1.bias    | nonzeros =      45 /     128             ( 35.16%) | total_pruned =      83 | shape = torch.Size([128])
+layer2.1.conv2.weight | nonzeros =     424 /  147456             (  0.29%) | total_pruned =  147032 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn2.weight  | nonzeros =      43 /     128             ( 33.59%) | total_pruned =      85 | shape = torch.Size([128])
+layer2.1.bn2.bias    | nonzeros =      91 /     128             ( 71.09%) | total_pruned =      37 | shape = torch.Size([128])
+layer3.0.conv1.weight | nonzeros =    9181 /  294912             (  3.11%) | total_pruned =  285731 | shape = torch.Size([256, 128, 3, 3])
+layer3.0.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn1.weight  | nonzeros =     111 /     256             ( 43.36%) | total_pruned =     145 | shape = torch.Size([256])
+layer3.0.bn1.bias    | nonzeros =     186 /     256             ( 72.66%) | total_pruned =      70 | shape = torch.Size([256])
+layer3.0.conv2.weight | nonzeros =   10748 /  589824             (  1.82%) | total_pruned =  579076 | shape = torch.Size([256, 256, 3, 3])
+layer3.0.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn2.weight  | nonzeros =     135 /     256             ( 52.73%) | total_pruned =     121 | shape = torch.Size([256])
+layer3.0.bn2.bias    | nonzeros =     165 /     256             ( 64.45%) | total_pruned =      91 | shape = torch.Size([256])
+layer3.0.shortcut.0.weight | nonzeros =     912 /   32768             (  2.78%) | total_pruned =   31856 | shape = torch.Size([256, 128, 1, 1])
+layer3.0.shortcut.0.bias | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.shortcut.1.weight | nonzeros =      94 /     256             ( 36.72%) | total_pruned =     162 | shape = torch.Size([256])
+layer3.0.shortcut.1.bias | nonzeros =     164 /     256             ( 64.06%) | total_pruned =      92 | shape = torch.Size([256])
+layer3.1.conv1.weight | nonzeros =     371 /  589824             (  0.06%) | total_pruned =  589453 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn1.weight  | nonzeros =      76 /     256             ( 29.69%) | total_pruned =     180 | shape = torch.Size([256])
+layer3.1.bn1.bias    | nonzeros =      91 /     256             ( 35.55%) | total_pruned =     165 | shape = torch.Size([256])
+layer3.1.conv2.weight | nonzeros =     337 /  589824             (  0.06%) | total_pruned =  589487 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn2.weight  | nonzeros =      68 /     256             ( 26.56%) | total_pruned =     188 | shape = torch.Size([256])
+layer3.1.bn2.bias    | nonzeros =     165 /     256             ( 64.45%) | total_pruned =      91 | shape = torch.Size([256])
+layer4.0.conv1.weight | nonzeros =   10074 / 1179648             (  0.85%) | total_pruned = 1169574 | shape = torch.Size([512, 256, 3, 3])
+layer4.0.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn1.weight  | nonzeros =     230 /     512             ( 44.92%) | total_pruned =     282 | shape = torch.Size([512])
+layer4.0.bn1.bias    | nonzeros =     318 /     512             ( 62.11%) | total_pruned =     194 | shape = torch.Size([512])
+layer4.0.conv2.weight | nonzeros =    9031 / 2359296             (  0.38%) | total_pruned = 2350265 | shape = torch.Size([512, 512, 3, 3])
+layer4.0.conv2.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn2.weight  | nonzeros =     200 /     512             ( 39.06%) | total_pruned =     312 | shape = torch.Size([512])
+layer4.0.bn2.bias    | nonzeros =     371 /     512             ( 72.46%) | total_pruned =     141 | shape = torch.Size([512])
+layer4.0.shortcut.0.weight | nonzeros =     979 /  131072             (  0.75%) | total_pruned =  130093 | shape = torch.Size([512, 256, 1, 1])
+layer4.0.shortcut.0.bias | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.shortcut.1.weight | nonzeros =     113 /     512             ( 22.07%) | total_pruned =     399 | shape = torch.Size([512])
+layer4.0.shortcut.1.bias | nonzeros =     375 /     512             ( 73.24%) | total_pruned =     137 | shape = torch.Size([512])
+layer4.1.conv1.weight | nonzeros =   13716 / 2359296             (  0.58%) | total_pruned = 2345580 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.bn1.weight  | nonzeros =     210 /     512             ( 41.02%) | total_pruned =     302 | shape = torch.Size([512])
+layer4.1.bn1.bias    | nonzeros =     223 /     512             ( 43.55%) | total_pruned =     289 | shape = torch.Size([512])
+layer4.1.conv2.weight | nonzeros =   11563 / 2359296             (  0.49%) | total_pruned = 2347733 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv2.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.bn2.weight  | nonzeros =     285 /     512             ( 55.66%) | total_pruned =     227 | shape = torch.Size([512])
+layer4.1.bn2.bias    | nonzeros =     507 /     512             ( 99.02%) | total_pruned =       5 | shape = torch.Size([512])
+linear.weight        | nonzeros =    4310 /    5120             ( 84.18%) | total_pruned =     810 | shape = torch.Size([10, 512])
+linear.bias          | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 90549, pruned : 11088213, total: 11178762, Compression rate :     123.46x  ( 99.19% pruned)
+Train Epoch: 175/200 Loss: 0.487269 Accuracy: 74.58 83.30 % Best test Accuracy: 75.14%
+tensor(-13.4272, device='cuda:0') tensor(5.6794e-07, device='cuda:0') tensor(1.4745e-10, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001643
+Average total loss: 2.304228
+tensor(-13.4343, device='cuda:0') tensor(5.5495e-07, device='cuda:0') tensor(1.4641e-10, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001631
+Average total loss: 2.304216
+tensor(-13.4413, device='cuda:0') tensor(5.4244e-07, device='cuda:0') tensor(1.4538e-10, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001620
+Average total loss: 2.304205
+tensor(-13.4483, device='cuda:0') tensor(5.3043e-07, device='cuda:0') tensor(1.4437e-10, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001608
+Average total loss: 2.304193
+tensor(-13.4553, device='cuda:0') tensor(5.1889e-07, device='cuda:0') tensor(1.4336e-10, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001597
+Average total loss: 2.304182
+tensor(-13.4622, device='cuda:0') tensor(5.0779e-07, device='cuda:0') tensor(1.4238e-10, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001586
+Average total loss: 2.304171
+tensor(-13.4691, device='cuda:0') tensor(4.9711e-07, device='cuda:0') tensor(1.4140e-10, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001575
+Average total loss: 2.304160
+tensor(-13.4759, device='cuda:0') tensor(4.8681e-07, device='cuda:0') tensor(1.4044e-10, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001565
+Average total loss: 2.304150
+tensor(-13.4826, device='cuda:0') tensor(4.7689e-07, device='cuda:0') tensor(1.3950e-10, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001554
+Average total loss: 2.304139
+tensor(-13.4894, device='cuda:0') tensor(4.6732e-07, device='cuda:0') tensor(1.3856e-10, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001544
+Average total loss: 2.304129
+tensor(-13.4961, device='cuda:0') tensor(4.5808e-07, device='cuda:0') tensor(1.3764e-10, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001534
+Average total loss: 2.304119
+tensor(-13.5027, device='cuda:0') tensor(4.4913e-07, device='cuda:0') tensor(1.3673e-10, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001524
+Average total loss: 2.304108
+tensor(-13.5093, device='cuda:0') tensor(4.4048e-07, device='cuda:0') tensor(1.3583e-10, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001518
+Average total loss: 2.304103
+tensor(-13.5099, device='cuda:0') tensor(4.3963e-07, device='cuda:0') tensor(1.3574e-10, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001517
+Average total loss: 2.304102
+tensor(-13.5106, device='cuda:0') tensor(4.3879e-07, device='cuda:0') tensor(1.3565e-10, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001516
+Average total loss: 2.304101
+tensor(-13.5112, device='cuda:0') tensor(4.3795e-07, device='cuda:0') tensor(1.3556e-10, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001515
+Average total loss: 2.304100
+tensor(-13.5119, device='cuda:0') tensor(4.3712e-07, device='cuda:0') tensor(1.3547e-10, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001514
+Average total loss: 2.304099
+tensor(-13.5125, device='cuda:0') tensor(4.3630e-07, device='cuda:0') tensor(1.3539e-10, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001513
+Average total loss: 2.304098
+tensor(-13.5132, device='cuda:0') tensor(4.3548e-07, device='cuda:0') tensor(1.3530e-10, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001512
+Average total loss: 2.304097
+tensor(-13.5139, device='cuda:0') tensor(4.3466e-07, device='cuda:0') tensor(1.3521e-10, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001511
+Average total loss: 2.304096
+tensor(-13.5145, device='cuda:0') tensor(4.3385e-07, device='cuda:0') tensor(1.3512e-10, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001510
+Average total loss: 2.304095
+tensor(-13.5152, device='cuda:0') tensor(4.3305e-07, device='cuda:0') tensor(1.3503e-10, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001509
+Average total loss: 2.304094
+tensor(-13.5158, device='cuda:0') tensor(4.3224e-07, device='cuda:0') tensor(1.3494e-10, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001508
+Average total loss: 2.304093
+tensor(-13.5165, device='cuda:0') tensor(4.3145e-07, device='cuda:0') tensor(1.3486e-10, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5165, device='cuda:0') tensor(4.3132e-07, device='cuda:0') tensor(1.3485e-10, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5166, device='cuda:0') tensor(4.3118e-07, device='cuda:0') tensor(1.3484e-10, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5166, device='cuda:0') tensor(4.3105e-07, device='cuda:0') tensor(1.3484e-10, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5167, device='cuda:0') tensor(4.3091e-07, device='cuda:0') tensor(1.3483e-10, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5167, device='cuda:0') tensor(4.3079e-07, device='cuda:0') tensor(1.3482e-10, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5168, device='cuda:0') tensor(4.3065e-07, device='cuda:0') tensor(1.3482e-10, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5168, device='cuda:0') tensor(4.3052e-07, device='cuda:0') tensor(1.3481e-10, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5168, device='cuda:0') tensor(4.3038e-07, device='cuda:0') tensor(1.3480e-10, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5169, device='cuda:0') tensor(4.3026e-07, device='cuda:0') tensor(1.3480e-10, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5169, device='cuda:0') tensor(4.3012e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5170, device='cuda:0') tensor(4.2999e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5170, device='cuda:0') tensor(4.2999e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5170, device='cuda:0') tensor(4.2999e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5170, device='cuda:0') tensor(4.2999e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5170, device='cuda:0') tensor(4.2999e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5170, device='cuda:0') tensor(4.2999e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5170, device='cuda:0') tensor(4.2999e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5170, device='cuda:0') tensor(4.2999e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5170, device='cuda:0') tensor(4.3000e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5170, device='cuda:0') tensor(4.3000e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001507
+Average total loss: 2.304092
+tensor(-13.5170, device='cuda:0') tensor(4.3000e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+ Percentile value: -13.516799926757812
+Non-zero model percentage: 0.2430054396390915%, Non-zero mask percentage: 0.2430054396390915%
+
+--- Pruning Level [5/7]: ---
+conv1.weight         | nonzeros =     262 /    1728             ( 15.16%) | total_pruned =    1466 | shape = torch.Size([64, 3, 3, 3])
+conv1.bias           | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+bn1.weight           | nonzeros =      15 /      64             ( 23.44%) | total_pruned =      49 | shape = torch.Size([64])
+bn1.bias             | nonzeros =      11 /      64             ( 17.19%) | total_pruned =      53 | shape = torch.Size([64])
+layer1.0.conv1.weight | nonzeros =     397 /   36864             (  1.08%) | total_pruned =   36467 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn1.weight  | nonzeros =      17 /      64             ( 26.56%) | total_pruned =      47 | shape = torch.Size([64])
+layer1.0.bn1.bias    | nonzeros =      16 /      64             ( 25.00%) | total_pruned =      48 | shape = torch.Size([64])
+layer1.0.conv2.weight | nonzeros =     545 /   36864             (  1.48%) | total_pruned =   36319 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn2.weight  | nonzeros =      22 /      64             ( 34.38%) | total_pruned =      42 | shape = torch.Size([64])
+layer1.0.bn2.bias    | nonzeros =      29 /      64             ( 45.31%) | total_pruned =      35 | shape = torch.Size([64])
+layer1.1.conv1.weight | nonzeros =     433 /   36864             (  1.17%) | total_pruned =   36431 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn1.weight  | nonzeros =      19 /      64             ( 29.69%) | total_pruned =      45 | shape = torch.Size([64])
+layer1.1.bn1.bias    | nonzeros =      10 /      64             ( 15.62%) | total_pruned =      54 | shape = torch.Size([64])
+layer1.1.conv2.weight | nonzeros =     444 /   36864             (  1.20%) | total_pruned =   36420 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn2.weight  | nonzeros =      27 /      64             ( 42.19%) | total_pruned =      37 | shape = torch.Size([64])
+layer1.1.bn2.bias    | nonzeros =      35 /      64             ( 54.69%) | total_pruned =      29 | shape = torch.Size([64])
+layer2.0.conv1.weight | nonzeros =     659 /   73728             (  0.89%) | total_pruned =   73069 | shape = torch.Size([128, 64, 3, 3])
+layer2.0.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn1.weight  | nonzeros =      26 /     128             ( 20.31%) | total_pruned =     102 | shape = torch.Size([128])
+layer2.0.bn1.bias    | nonzeros =      43 /     128             ( 33.59%) | total_pruned =      85 | shape = torch.Size([128])
+layer2.0.conv2.weight | nonzeros =     987 /  147456             (  0.67%) | total_pruned =  146469 | shape = torch.Size([128, 128, 3, 3])
+layer2.0.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn2.weight  | nonzeros =      41 /     128             ( 32.03%) | total_pruned =      87 | shape = torch.Size([128])
+layer2.0.bn2.bias    | nonzeros =      69 /     128             ( 53.91%) | total_pruned =      59 | shape = torch.Size([128])
+layer2.0.shortcut.0.weight | nonzeros =     362 /    8192             (  4.42%) | total_pruned =    7830 | shape = torch.Size([128, 64, 1, 1])
+layer2.0.shortcut.0.bias | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.shortcut.1.weight | nonzeros =      37 /     128             ( 28.91%) | total_pruned =      91 | shape = torch.Size([128])
+layer2.0.shortcut.1.bias | nonzeros =      68 /     128             ( 53.12%) | total_pruned =      60 | shape = torch.Size([128])
+layer2.1.conv1.weight | nonzeros =      96 /  147456             (  0.07%) | total_pruned =  147360 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn1.weight  | nonzeros =      31 /     128             ( 24.22%) | total_pruned =      97 | shape = torch.Size([128])
+layer2.1.bn1.bias    | nonzeros =      29 /     128             ( 22.66%) | total_pruned =      99 | shape = torch.Size([128])
+layer2.1.conv2.weight | nonzeros =      82 /  147456             (  0.06%) | total_pruned =  147374 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn2.weight  | nonzeros =      28 /     128             ( 21.88%) | total_pruned =     100 | shape = torch.Size([128])
+layer2.1.bn2.bias    | nonzeros =      84 /     128             ( 65.62%) | total_pruned =      44 | shape = torch.Size([128])
+layer3.0.conv1.weight | nonzeros =    1962 /  294912             (  0.67%) | total_pruned =  292950 | shape = torch.Size([256, 128, 3, 3])
+layer3.0.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn1.weight  | nonzeros =     104 /     256             ( 40.62%) | total_pruned =     152 | shape = torch.Size([256])
+layer3.0.bn1.bias    | nonzeros =     178 /     256             ( 69.53%) | total_pruned =      78 | shape = torch.Size([256])
+layer3.0.conv2.weight | nonzeros =    2719 /  589824             (  0.46%) | total_pruned =  587105 | shape = torch.Size([256, 256, 3, 3])
+layer3.0.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn2.weight  | nonzeros =     119 /     256             ( 46.48%) | total_pruned =     137 | shape = torch.Size([256])
+layer3.0.bn2.bias    | nonzeros =     154 /     256             ( 60.16%) | total_pruned =     102 | shape = torch.Size([256])
+layer3.0.shortcut.0.weight | nonzeros =     297 /   32768             (  0.91%) | total_pruned =   32471 | shape = torch.Size([256, 128, 1, 1])
+layer3.0.shortcut.0.bias | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.shortcut.1.weight | nonzeros =      66 /     256             ( 25.78%) | total_pruned =     190 | shape = torch.Size([256])
+layer3.0.shortcut.1.bias | nonzeros =     144 /     256             ( 56.25%) | total_pruned =     112 | shape = torch.Size([256])
+layer3.1.conv1.weight | nonzeros =      28 /  589824             (  0.00%) | total_pruned =  589796 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn1.weight  | nonzeros =      28 /     256             ( 10.94%) | total_pruned =     228 | shape = torch.Size([256])
+layer3.1.bn1.bias    | nonzeros =      59 /     256             ( 23.05%) | total_pruned =     197 | shape = torch.Size([256])
+layer3.1.conv2.weight | nonzeros =      40 /  589824             (  0.01%) | total_pruned =  589784 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn2.weight  | nonzeros =      32 /     256             ( 12.50%) | total_pruned =     224 | shape = torch.Size([256])
+layer3.1.bn2.bias    | nonzeros =     155 /     256             ( 60.55%) | total_pruned =     101 | shape = torch.Size([256])
+layer4.0.conv1.weight | nonzeros =    2321 / 1179648             (  0.20%) | total_pruned = 1177327 | shape = torch.Size([512, 256, 3, 3])
+layer4.0.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn1.weight  | nonzeros =     197 /     512             ( 38.48%) | total_pruned =     315 | shape = torch.Size([512])
+layer4.0.bn1.bias    | nonzeros =     289 /     512             ( 56.45%) | total_pruned =     223 | shape = torch.Size([512])
+layer4.0.conv2.weight | nonzeros =    1785 / 2359296             (  0.08%) | total_pruned = 2357511 | shape = torch.Size([512, 512, 3, 3])
+layer4.0.conv2.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn2.weight  | nonzeros =     165 /     512             ( 32.23%) | total_pruned =     347 | shape = torch.Size([512])
+layer4.0.bn2.bias    | nonzeros =     334 /     512             ( 65.23%) | total_pruned =     178 | shape = torch.Size([512])
+layer4.0.shortcut.0.weight | nonzeros =     234 /  131072             (  0.18%) | total_pruned =  130838 | shape = torch.Size([512, 256, 1, 1])
+layer4.0.shortcut.0.bias | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.shortcut.1.weight | nonzeros =      61 /     512             ( 11.91%) | total_pruned =     451 | shape = torch.Size([512])
+layer4.0.shortcut.1.bias | nonzeros =     337 /     512             ( 65.82%) | total_pruned =     175 | shape = torch.Size([512])
+layer4.1.conv1.weight | nonzeros =    2849 / 2359296             (  0.12%) | total_pruned = 2356447 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.bn1.weight  | nonzeros =     191 /     512             ( 37.30%) | total_pruned =     321 | shape = torch.Size([512])
+layer4.1.bn1.bias    | nonzeros =     164 /     512             ( 32.03%) | total_pruned =     348 | shape = torch.Size([512])
+layer4.1.conv2.weight | nonzeros =    2244 / 2359296             (  0.10%) | total_pruned = 2357052 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv2.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.bn2.weight  | nonzeros =     259 /     512             ( 50.59%) | total_pruned =     253 | shape = torch.Size([512])
+layer4.1.bn2.bias    | nonzeros =     507 /     512             ( 99.02%) | total_pruned =       5 | shape = torch.Size([512])
+linear.weight        | nonzeros =    4209 /    5120             ( 82.21%) | total_pruned =     911 | shape = torch.Size([10, 512])
+linear.bias          | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 27165, pruned : 11151597, total: 11178762, Compression rate :     411.51x  ( 99.76% pruned)
+Train Epoch: 107/200 Loss: 1.128146 Accuracy: 61.04 62.89 % Best test Accuracy: 61.26%
+tensor(-13.5170, device='cuda:0') tensor(4.3000e-07, device='cuda:0') tensor(1.3479e-10, device='cuda:0')
+Epoch 1
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001502
+Average total loss: 2.304087
+tensor(-13.5235, device='cuda:0') tensor(4.2187e-07, device='cuda:0') tensor(1.3391e-10, device='cuda:0')
+Epoch 2
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001492
+Average total loss: 2.304077
+tensor(-13.5299, device='cuda:0') tensor(4.1403e-07, device='cuda:0') tensor(1.3305e-10, device='cuda:0')
+Epoch 3
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001483
+Average total loss: 2.304068
+tensor(-13.5364, device='cuda:0') tensor(4.0644e-07, device='cuda:0') tensor(1.3220e-10, device='cuda:0')
+Epoch 4
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001473
+Average total loss: 2.304058
+tensor(-13.5427, device='cuda:0') tensor(3.9908e-07, device='cuda:0') tensor(1.3136e-10, device='cuda:0')
+Epoch 5
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001464
+Average total loss: 2.304049
+tensor(-13.5491, device='cuda:0') tensor(3.9195e-07, device='cuda:0') tensor(1.3053e-10, device='cuda:0')
+Epoch 6
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001455
+Average total loss: 2.304040
+tensor(-13.5554, device='cuda:0') tensor(3.8506e-07, device='cuda:0') tensor(1.2971e-10, device='cuda:0')
+Epoch 7
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001446
+Average total loss: 2.304030
+tensor(-13.5616, device='cuda:0') tensor(3.7836e-07, device='cuda:0') tensor(1.2890e-10, device='cuda:0')
+Epoch 8
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001437
+Average total loss: 2.304021
+tensor(-13.5679, device='cuda:0') tensor(3.7180e-07, device='cuda:0') tensor(1.2810e-10, device='cuda:0')
+Epoch 9
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001428
+Average total loss: 2.304013
+tensor(-13.5741, device='cuda:0') tensor(3.6545e-07, device='cuda:0') tensor(1.2731e-10, device='cuda:0')
+Epoch 10
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001419
+Average total loss: 2.304004
+tensor(-13.5802, device='cuda:0') tensor(3.5929e-07, device='cuda:0') tensor(1.2653e-10, device='cuda:0')
+Epoch 11
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001410
+Average total loss: 2.303995
+tensor(-13.5863, device='cuda:0') tensor(3.5332e-07, device='cuda:0') tensor(1.2576e-10, device='cuda:0')
+Epoch 12
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001402
+Average total loss: 2.303987
+tensor(-13.5924, device='cuda:0') tensor(3.4752e-07, device='cuda:0') tensor(1.2500e-10, device='cuda:0')
+Epoch 13
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001397
+Average total loss: 2.303982
+tensor(-13.5930, device='cuda:0') tensor(3.4699e-07, device='cuda:0') tensor(1.2492e-10, device='cuda:0')
+Epoch 14
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001396
+Average total loss: 2.303981
+tensor(-13.5936, device='cuda:0') tensor(3.4646e-07, device='cuda:0') tensor(1.2485e-10, device='cuda:0')
+Epoch 15
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001395
+Average total loss: 2.303980
+tensor(-13.5942, device='cuda:0') tensor(3.4593e-07, device='cuda:0') tensor(1.2477e-10, device='cuda:0')
+Epoch 16
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001394
+Average total loss: 2.303979
+tensor(-13.5948, device='cuda:0') tensor(3.4541e-07, device='cuda:0') tensor(1.2469e-10, device='cuda:0')
+Epoch 17
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001394
+Average total loss: 2.303978
+tensor(-13.5954, device='cuda:0') tensor(3.4489e-07, device='cuda:0') tensor(1.2462e-10, device='cuda:0')
+Epoch 18
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001393
+Average total loss: 2.303978
+tensor(-13.5960, device='cuda:0') tensor(3.4438e-07, device='cuda:0') tensor(1.2454e-10, device='cuda:0')
+Epoch 19
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001392
+Average total loss: 2.303977
+tensor(-13.5966, device='cuda:0') tensor(3.4386e-07, device='cuda:0') tensor(1.2447e-10, device='cuda:0')
+Epoch 20
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001391
+Average total loss: 2.303976
+tensor(-13.5972, device='cuda:0') tensor(3.4335e-07, device='cuda:0') tensor(1.2439e-10, device='cuda:0')
+Epoch 21
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001390
+Average total loss: 2.303975
+tensor(-13.5979, device='cuda:0') tensor(3.4284e-07, device='cuda:0') tensor(1.2432e-10, device='cuda:0')
+Epoch 22
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001389
+Average total loss: 2.303974
+tensor(-13.5985, device='cuda:0') tensor(3.4235e-07, device='cuda:0') tensor(1.2424e-10, device='cuda:0')
+Epoch 23
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001388
+Average total loss: 2.303973
+tensor(-13.5991, device='cuda:0') tensor(3.4185e-07, device='cuda:0') tensor(1.2416e-10, device='cuda:0')
+Epoch 24
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001388
+Average total loss: 2.303973
+tensor(-13.5991, device='cuda:0') tensor(3.4180e-07, device='cuda:0') tensor(1.2416e-10, device='cuda:0')
+Epoch 25
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001388
+Average total loss: 2.303973
+tensor(-13.5992, device='cuda:0') tensor(3.4174e-07, device='cuda:0') tensor(1.2415e-10, device='cuda:0')
+Epoch 26
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001388
+Average total loss: 2.303973
+tensor(-13.5992, device='cuda:0') tensor(3.4170e-07, device='cuda:0') tensor(1.2415e-10, device='cuda:0')
+Epoch 27
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001388
+Average total loss: 2.303973
+tensor(-13.5993, device='cuda:0') tensor(3.4164e-07, device='cuda:0') tensor(1.2414e-10, device='cuda:0')
+Epoch 28
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001388
+Average total loss: 2.303973
+tensor(-13.5993, device='cuda:0') tensor(3.4159e-07, device='cuda:0') tensor(1.2414e-10, device='cuda:0')
+Epoch 29
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001388
+Average total loss: 2.303972
+tensor(-13.5994, device='cuda:0') tensor(3.4153e-07, device='cuda:0') tensor(1.2413e-10, device='cuda:0')
+Epoch 30
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001388
+Average total loss: 2.303972
+tensor(-13.5994, device='cuda:0') tensor(3.4148e-07, device='cuda:0') tensor(1.2412e-10, device='cuda:0')
+Epoch 31
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001388
+Average total loss: 2.303972
+tensor(-13.5994, device='cuda:0') tensor(3.4143e-07, device='cuda:0') tensor(1.2412e-10, device='cuda:0')
+Epoch 32
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5995, device='cuda:0') tensor(3.4138e-07, device='cuda:0') tensor(1.2411e-10, device='cuda:0')
+Epoch 33
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5995, device='cuda:0') tensor(3.4132e-07, device='cuda:0') tensor(1.2411e-10, device='cuda:0')
+Epoch 34
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5996, device='cuda:0') tensor(3.4127e-07, device='cuda:0') tensor(1.2410e-10, device='cuda:0')
+Epoch 35
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5996, device='cuda:0') tensor(3.4127e-07, device='cuda:0') tensor(1.2410e-10, device='cuda:0')
+Epoch 36
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5996, device='cuda:0') tensor(3.4127e-07, device='cuda:0') tensor(1.2410e-10, device='cuda:0')
+Epoch 37
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5996, device='cuda:0') tensor(3.4127e-07, device='cuda:0') tensor(1.2410e-10, device='cuda:0')
+Epoch 38
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5996, device='cuda:0') tensor(3.4127e-07, device='cuda:0') tensor(1.2410e-10, device='cuda:0')
+Epoch 39
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5996, device='cuda:0') tensor(3.4127e-07, device='cuda:0') tensor(1.2410e-10, device='cuda:0')
+Epoch 40
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5996, device='cuda:0') tensor(3.4127e-07, device='cuda:0') tensor(1.2410e-10, device='cuda:0')
+Epoch 41
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5996, device='cuda:0') tensor(3.4127e-07, device='cuda:0') tensor(1.2410e-10, device='cuda:0')
+Epoch 42
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5996, device='cuda:0') tensor(3.4127e-07, device='cuda:0') tensor(1.2410e-10, device='cuda:0')
+Epoch 43
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5996, device='cuda:0') tensor(3.4127e-07, device='cuda:0') tensor(1.2410e-10, device='cuda:0')
+Epoch 44
+Average batch original loss after noise: 2.302585
+Average KL loss: 0.001387
+Average total loss: 2.303972
+tensor(-13.5996, device='cuda:0') tensor(3.4127e-07, device='cuda:0') tensor(1.2410e-10, device='cuda:0')
+ Percentile value: -13.597466468811035
+Non-zero model percentage: 0.07290609925985336%, Non-zero mask percentage: 0.07290609925985336%
+
+--- Pruning Level [6/7]: ---
+conv1.weight         | nonzeros =     157 /    1728             (  9.09%) | total_pruned =    1571 | shape = torch.Size([64, 3, 3, 3])
+conv1.bias           | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+bn1.weight           | nonzeros =      14 /      64             ( 21.88%) | total_pruned =      50 | shape = torch.Size([64])
+bn1.bias             | nonzeros =       9 /      64             ( 14.06%) | total_pruned =      55 | shape = torch.Size([64])
+layer1.0.conv1.weight | nonzeros =      75 /   36864             (  0.20%) | total_pruned =   36789 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn1.weight  | nonzeros =      10 /      64             ( 15.62%) | total_pruned =      54 | shape = torch.Size([64])
+layer1.0.bn1.bias    | nonzeros =       5 /      64             (  7.81%) | total_pruned =      59 | shape = torch.Size([64])
+layer1.0.conv2.weight | nonzeros =      84 /   36864             (  0.23%) | total_pruned =   36780 | shape = torch.Size([64, 64, 3, 3])
+layer1.0.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.0.bn2.weight  | nonzeros =      17 /      64             ( 26.56%) | total_pruned =      47 | shape = torch.Size([64])
+layer1.0.bn2.bias    | nonzeros =      12 /      64             ( 18.75%) | total_pruned =      52 | shape = torch.Size([64])
+layer1.1.conv1.weight | nonzeros =      47 /   36864             (  0.13%) | total_pruned =   36817 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv1.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn1.weight  | nonzeros =      14 /      64             ( 21.88%) | total_pruned =      50 | shape = torch.Size([64])
+layer1.1.bn1.bias    | nonzeros =       2 /      64             (  3.12%) | total_pruned =      62 | shape = torch.Size([64])
+layer1.1.conv2.weight | nonzeros =      68 /   36864             (  0.18%) | total_pruned =   36796 | shape = torch.Size([64, 64, 3, 3])
+layer1.1.conv2.bias  | nonzeros =       0 /      64             (  0.00%) | total_pruned =      64 | shape = torch.Size([64])
+layer1.1.bn2.weight  | nonzeros =      14 /      64             ( 21.88%) | total_pruned =      50 | shape = torch.Size([64])
+layer1.1.bn2.bias    | nonzeros =      26 /      64             ( 40.62%) | total_pruned =      38 | shape = torch.Size([64])
+layer2.0.conv1.weight | nonzeros =      19 /   73728             (  0.03%) | total_pruned =   73709 | shape = torch.Size([128, 64, 3, 3])
+layer2.0.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn1.weight  | nonzeros =      18 /     128             ( 14.06%) | total_pruned =     110 | shape = torch.Size([128])
+layer2.0.bn1.bias    | nonzeros =      13 /     128             ( 10.16%) | total_pruned =     115 | shape = torch.Size([128])
+layer2.0.conv2.weight | nonzeros =      39 /  147456             (  0.03%) | total_pruned =  147417 | shape = torch.Size([128, 128, 3, 3])
+layer2.0.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.bn2.weight  | nonzeros =      23 /     128             ( 17.97%) | total_pruned =     105 | shape = torch.Size([128])
+layer2.0.bn2.bias    | nonzeros =      36 /     128             ( 28.12%) | total_pruned =      92 | shape = torch.Size([128])
+layer2.0.shortcut.0.weight | nonzeros =      82 /    8192             (  1.00%) | total_pruned =    8110 | shape = torch.Size([128, 64, 1, 1])
+layer2.0.shortcut.0.bias | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.0.shortcut.1.weight | nonzeros =      30 /     128             ( 23.44%) | total_pruned =      98 | shape = torch.Size([128])
+layer2.0.shortcut.1.bias | nonzeros =      33 /     128             ( 25.78%) | total_pruned =      95 | shape = torch.Size([128])
+layer2.1.conv1.weight | nonzeros =       8 /  147456             (  0.01%) | total_pruned =  147448 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv1.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn1.weight  | nonzeros =       8 /     128             (  6.25%) | total_pruned =     120 | shape = torch.Size([128])
+layer2.1.bn1.bias    | nonzeros =       4 /     128             (  3.12%) | total_pruned =     124 | shape = torch.Size([128])
+layer2.1.conv2.weight | nonzeros =       8 /  147456             (  0.01%) | total_pruned =  147448 | shape = torch.Size([128, 128, 3, 3])
+layer2.1.conv2.bias  | nonzeros =       0 /     128             (  0.00%) | total_pruned =     128 | shape = torch.Size([128])
+layer2.1.bn2.weight  | nonzeros =      10 /     128             (  7.81%) | total_pruned =     118 | shape = torch.Size([128])
+layer2.1.bn2.bias    | nonzeros =      49 /     128             ( 38.28%) | total_pruned =      79 | shape = torch.Size([128])
+layer3.0.conv1.weight | nonzeros =     110 /  294912             (  0.04%) | total_pruned =  294802 | shape = torch.Size([256, 128, 3, 3])
+layer3.0.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn1.weight  | nonzeros =      71 /     256             ( 27.73%) | total_pruned =     185 | shape = torch.Size([256])
+layer3.0.bn1.bias    | nonzeros =     130 /     256             ( 50.78%) | total_pruned =     126 | shape = torch.Size([256])
+layer3.0.conv2.weight | nonzeros =     179 /  589824             (  0.03%) | total_pruned =  589645 | shape = torch.Size([256, 256, 3, 3])
+layer3.0.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.bn2.weight  | nonzeros =      82 /     256             ( 32.03%) | total_pruned =     174 | shape = torch.Size([256])
+layer3.0.bn2.bias    | nonzeros =     112 /     256             ( 43.75%) | total_pruned =     144 | shape = torch.Size([256])
+layer3.0.shortcut.0.weight | nonzeros =      45 /   32768             (  0.14%) | total_pruned =   32723 | shape = torch.Size([256, 128, 1, 1])
+layer3.0.shortcut.0.bias | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.0.shortcut.1.weight | nonzeros =      28 /     256             ( 10.94%) | total_pruned =     228 | shape = torch.Size([256])
+layer3.0.shortcut.1.bias | nonzeros =     101 /     256             ( 39.45%) | total_pruned =     155 | shape = torch.Size([256])
+layer3.1.conv1.weight | nonzeros =       1 /  589824             (  0.00%) | total_pruned =  589823 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv1.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn1.weight  | nonzeros =       5 /     256             (  1.95%) | total_pruned =     251 | shape = torch.Size([256])
+layer3.1.bn1.bias    | nonzeros =      13 /     256             (  5.08%) | total_pruned =     243 | shape = torch.Size([256])
+layer3.1.conv2.weight | nonzeros =       1 /  589824             (  0.00%) | total_pruned =  589823 | shape = torch.Size([256, 256, 3, 3])
+layer3.1.conv2.bias  | nonzeros =       0 /     256             (  0.00%) | total_pruned =     256 | shape = torch.Size([256])
+layer3.1.bn2.weight  | nonzeros =       4 /     256             (  1.56%) | total_pruned =     252 | shape = torch.Size([256])
+layer3.1.bn2.bias    | nonzeros =     103 /     256             ( 40.23%) | total_pruned =     153 | shape = torch.Size([256])
+layer4.0.conv1.weight | nonzeros =     188 / 1179648             (  0.02%) | total_pruned = 1179460 | shape = torch.Size([512, 256, 3, 3])
+layer4.0.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn1.weight  | nonzeros =      99 /     512             ( 19.34%) | total_pruned =     413 | shape = torch.Size([512])
+layer4.0.bn1.bias    | nonzeros =     189 /     512             ( 36.91%) | total_pruned =     323 | shape = torch.Size([512])
+layer4.0.conv2.weight | nonzeros =     148 / 2359296             (  0.01%) | total_pruned = 2359148 | shape = torch.Size([512, 512, 3, 3])
+layer4.0.conv2.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.bn2.weight  | nonzeros =      98 /     512             ( 19.14%) | total_pruned =     414 | shape = torch.Size([512])
+layer4.0.bn2.bias    | nonzeros =     254 /     512             ( 49.61%) | total_pruned =     258 | shape = torch.Size([512])
+layer4.0.shortcut.0.weight | nonzeros =      21 /  131072             (  0.02%) | total_pruned =  131051 | shape = torch.Size([512, 256, 1, 1])
+layer4.0.shortcut.0.bias | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.0.shortcut.1.weight | nonzeros =      16 /     512             (  3.12%) | total_pruned =     496 | shape = torch.Size([512])
+layer4.0.shortcut.1.bias | nonzeros =     252 /     512             ( 49.22%) | total_pruned =     260 | shape = torch.Size([512])
+layer4.1.conv1.weight | nonzeros =     177 / 2359296             (  0.01%) | total_pruned = 2359119 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv1.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.bn1.weight  | nonzeros =     130 /     512             ( 25.39%) | total_pruned =     382 | shape = torch.Size([512])
+layer4.1.bn1.bias    | nonzeros =      58 /     512             ( 11.33%) | total_pruned =     454 | shape = torch.Size([512])
+layer4.1.conv2.weight | nonzeros =     143 / 2359296             (  0.01%) | total_pruned = 2359153 | shape = torch.Size([512, 512, 3, 3])
+layer4.1.conv2.bias  | nonzeros =       0 /     512             (  0.00%) | total_pruned =     512 | shape = torch.Size([512])
+layer4.1.bn2.weight  | nonzeros =     168 /     512             ( 32.81%) | total_pruned =     344 | shape = torch.Size([512])
+layer4.1.bn2.bias    | nonzeros =     506 /     512             ( 98.83%) | total_pruned =       6 | shape = torch.Size([512])
+linear.weight        | nonzeros =    3774 /    5120             ( 73.71%) | total_pruned =    1346 | shape = torch.Size([10, 512])
+linear.bias          | nonzeros =      10 /      10             (100.00%) | total_pruned =       0 | shape = torch.Size([10])
+alive: 8150, pruned : 11170612, total: 11178762, Compression rate :    1371.63x  ( 99.93% pruned)
+Train Epoch: 60/200 Loss: 1.965791 Accuracy: 20.45 20.82 % Best test Accuracy: 21.57%
