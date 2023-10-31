@@ -5,6 +5,7 @@ import numpy as np
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 import math
 import torch.nn.functional as F
+import matplotlib.pyplot as plt
 
 def sigmoid(x):
   return 1 / (1 + math.exp(-x))
@@ -55,6 +56,7 @@ def gumbel_softmax_multi(logits, temperature=0.2):
 
 def soft_quantize(logits, q, temperature=0.2):
     soft_samples = gumbel_softmax_multi(logits, temperature)
+    #print("soft_samples is: ", soft_samples.shape)
     with torch.no_grad():
         quant_values = [torch.tensor([1 - i / (q - 1)]) for i in range(q - 1)] + [torch.tensor([0.0])]
         quant_values = torch.cat(quant_values).to(logits.device)
@@ -72,10 +74,11 @@ def quant_initialization(model,mask,prior_sigma,q=3):
     num_layer = layer + 1
     w0 = torch.cat(w0) 
     #p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
-    p =  nn.Parameter(inverse_sigmoid(1/q)*torch.ones([q-1, w0.size(0)]).to(device), requires_grad=True)
+    p =  nn.Parameter(inverse_sigmoid(1.5/(q))*torch.ones([q-1, w0.size(0)]).to(device), requires_grad=True)
     # p =  nn.Parameter(-5*torch.ones([q-1, w0.size(0)]).to(device), requires_grad=True)
-    # with torch.no_grad():  
-    #     p[0, :].fill_(3.0)
+    with torch.no_grad():  
+        p[0, :].fill_((1.5/q)-0.25)
+    #     print("p elementS are",p[:,0])
     prior = sigmoid(prior_sigma)
     return w0, p, num_layer,prior
 
@@ -101,7 +104,7 @@ def quant_by_noise(model, mask, percent, train_loader_raw, criterion, prior_sigm
     scheduler = ReduceLROnPlateau(optimizer_p, mode='min', factor=0.1, patience=10)
 
     tolerance, best_loss = 0, 1000000.0
-    
+    all_quantized_weights = []
 
     for epoch in range(num_steps):
         # ... [Loss Accumulators]
@@ -124,8 +127,11 @@ def quant_by_noise(model, mask, percent, train_loader_raw, criterion, prior_sigm
                 quantized_weights = soft_quantize(torch.sigmoid(logits),q,temperature=0.2)
                 with torch.no_grad():
                     if batch_idx==0:
-                        print("logits is: ", logits.mean())
-                        print("quantized_weights is: ", quantized_weights.mean())
+                        #print("logits is: ", logits.mean())
+                        print("quantized_weights is: ", quantized_weights)
+                        if epoch == num_steps - 1:
+                            quantized_weights_flat = quantized_weights.view(-1).cpu().detach().numpy()
+                            all_quantized_weights.extend(quantized_weights_flat)
                 #param.data = param.data * quantized_weights.view(param.data.shape)
                 param.mul_(quantized_weights.view(param.data.shape))
                 k += t 
@@ -177,9 +183,18 @@ def quant_by_noise(model, mask, percent, train_loader_raw, criterion, prior_sigm
         for i, param in enumerate(model.parameters()):
             t = len(param.view(-1))
             logits = p[:, k:(k+t)].t()
-            quantized_weights = soft_quantize(torch.sigmoid(logits),temperature=0.2)
+            quantized_weights = soft_quantize(torch.sigmoid(logits),q,temperature=0.2)
             param.data = param.data * quantized_weights.view(param.data.shape)
             k += t
+        plt.hist(all_quantized_weights, bins=50, alpha=0.5, label='All Layers')
+        plt.title(f'Quantized Weights Histogram for All Layers (q={q})')
+        plt.xlabel('Quantized Weight Values')
+        plt.ylabel('Frequency')
+
+        # Save the figure with q in the filename
+        fig_filename = f'all_layers_histogram_q{q}.png'
+        plt.savefig(fig_filename)
+        plt.clf()    
 
 
     return model, p

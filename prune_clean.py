@@ -90,6 +90,7 @@ def main(args):
     end_iter = args.end_iter
     all_loss = np.zeros(end_iter,float)
     all_accuracy = np.zeros(end_iter,float)
+    #q=args.q
 
     noise_type=args.noise_type
     prior_sigma = args.prior
@@ -109,7 +110,7 @@ def main(args):
         # mask, p_new, p_schedule = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
         #     prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl)
         model, p= quant_by_noise(model, mask, args.prune_percent, dataset.train,criterion,
-            prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl,q=4)        
+            prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl,q=args.q)        
         accuracy = test(model, dataset.test, criterion)
         print(_ite,accuracy)
         #continue
@@ -308,6 +309,7 @@ if __name__=="__main__":
     parser.add_argument("--prior", default=0.0, type=float , help="prior centre in kl")
     parser.add_argument("--noise_step", default=10, type=int , help="number of noise iterations")
     parser.add_argument("--rewind_iter", default=3, type=int , help="number of rewind iterations")
+    parser.add_argument("--q", default=3, type=int , help="quantize")
     args = parser.parse_args()
 
 
