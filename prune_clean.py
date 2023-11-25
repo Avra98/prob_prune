@@ -9,7 +9,7 @@ import torch.nn as nn
 import torch.nn.init as init
 #from tensorboardX import SummaryWriter
 
-# Custom Libraries
+# Custom Libraries 
 from utility.data import *
 from utility.log_utils import *
 from utility.func_utils import *
@@ -68,6 +68,14 @@ def main(args):
     else:
         print("\nWrong Model choice\n")
         exit()
+    # Define the scaling factor
+    # scale_factor = 2.0
+
+    # # Loop through the model's parameters and scale them
+    # for param in model.parameters():
+    #     print(param.data)
+        #param.data *= scale_factor
+    
 
     # Making Initial Mask
     mask = make_mask(model)
@@ -99,22 +107,27 @@ def main(args):
     
     p_old = None
     model_schedule = None
+    model_copy = copy.deepcopy(model)
     for _ite in range(args.start_iter, ITERATION):
-        if _ite==0:
-            # optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, 
-            #                                 momentum = args.momentum,
-            # 								weight_decay = args.weight_decay)
-            #loss = train(model, mask, dataset.train, optimizer, criterion)
-            accuracy = test(model, dataset.test, criterion)
-            print(_ite,accuracy)
-        # mask, p_new, p_schedule = prune_by_noise(model, mask, args.prune_percent, dataset.train,criterion,noise_type,
-        #     prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl)
-        model, p= quant_by_noise(model, mask, args.prune_percent, dataset.train,criterion,
-            prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl,q=args.q)        
-        accuracy = test(model, dataset.test, criterion)
-        print(_ite,accuracy)
-        #continue
-        break
+        # if _ite==0:
+        #     # optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, 
+        #     #                                 momentum = args.momentum,
+        #     # 							=	weight_decay = args.weight_decay)
+        #     #loss = train(model, mask, dataset.train, optimizer, criterion)
+        #     accuracy = test(model, dataset.test, criterion)
+        #     print(_ite,accuracy)
+        # # mask, p_new, p_schedule = prune_by_noise(model, mask, args.prune_perc ent, dataset.train,criterion,noise_type,
+        # #     prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl)
+        # model, p= quant_by_noise(model, mask, args.prune_percent, dataset.train,criterion,
+        #     prior_sigma,kl,num_steps=noise_step,lr=args.lr_p, p_init=p_old, reduce_op=args.reduce_kl,q=args.q)        
+        # accuracy = test(model, dataset.test, criterion)
+        # ## loop over both model and model_copy by zip 
+        # # for param1, param2 in zip(model.parameters(), model_copy.parameters()):
+        # #     print(param1.data/param2.data)
+
+        # print(_ite,accuracy)
+        # #continue
+        # break
                 
         
         if not _ite == 0:

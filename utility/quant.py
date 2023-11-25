@@ -54,13 +54,15 @@ def gumbel_softmax_multi(logits, temperature=0.2):
 #     quantized_output = torch.sum(soft_samples * quant_values, dim=-1)
 #     return quantized_output
 
-def soft_quantize(logits, q, temperature=0.2):
+def soft_quantize(logits, q, temperature=0.2,range_val=[0,1]):
     soft_samples = gumbel_softmax_multi(logits, temperature)
     #print("soft_samples is: ", soft_samples.shape)
     with torch.no_grad():
-        quant_values = [torch.tensor([1 - i / (q - 1)]) for i in range(q - 1)] + [torch.tensor([0.0])]
+        min_val, max_val = range_val
+        quant_values = [torch.tensor([min_val + i * (max_val - min_val) / (q - 1)]) for i in range(q)]
+        #quant_values = [3*torch.tensor([1 - i / (q - 1) -0.5]) +1 for i in range(q - 1)] + [torch.tensor([-0.5])]
         quant_values = torch.cat(quant_values).to(logits.device)
-    # print("quant_values is: ", quant_values)
+    #print("quant_values is: ", quant_values)
     quantized_output = torch.sum(soft_samples * quant_values, dim=-1)
     return quantized_output
 
@@ -74,10 +76,10 @@ def quant_initialization(model,mask,prior_sigma,q=3):
     num_layer = layer + 1
     w0 = torch.cat(w0) 
     #p = nn.Parameter(torch.zeros_like(w0), requires_grad=True)
-    p =  nn.Parameter(inverse_sigmoid(1.5/(q))*torch.ones([q-1, w0.size(0)]).to(device), requires_grad=True)
+    p =  nn.Parameter(inverse_sigmoid(1/(q))*torch.ones([q-1, w0.size(0)]).to(device), requires_grad=True)
     # p =  nn.Parameter(-5*torch.ones([q-1, w0.size(0)]).to(device), requires_grad=True)
-    with torch.no_grad():  
-        p[0, :].fill_((1.5/q)-0.25)
+    # with torch.no_grad():  
+    #     p[0, :].fill_((1.5/q)-0.25)
     #     print("p elementS are",p[:,0])
     prior = sigmoid(prior_sigma)
     return w0, p, num_layer,prior
@@ -88,7 +90,8 @@ def quant_by_noise(model, mask, percent, train_loader_raw, criterion, prior_sigm
     kl_loss = 0.0
     device = next(model.parameters()).device
     
-    #_,p,_ ,prior= initialization(model,mask,prior_sigma,noise_type)
+    #_,p,_ ,prior= initialization(model,mask9433470429Ag
+    # ,prior_sigma,noise_type)
     _, p, _, prior = quant_initialization(model, mask, prior_sigma, q)
     if p_init is not None:
         #p = p_init.detach().clone()
@@ -119,16 +122,21 @@ def quant_by_noise(model, mask, percent, train_loader_raw, criterion, prior_sigm
             model_copy = copy.deepcopy(model)
             for param in model_copy.parameters():
                 param.requires_grad = False
+# 0, 0.5,1 
+# 0,1
+# 0.0.33,0.66,1
 
             k = 0
             for i, param in enumerate(model_copy.parameters()):   
                 t = len(param.view(-1))
                 logits = p[:, k:(k+t)].t()
-                quantized_weights = soft_quantize(torch.sigmoid(logits),q,temperature=0.2)
+                quantized_weights = soft_quantize(torch.sigmoid(logits),q,temperature=0.8,range_val=[-3,3])
                 with torch.no_grad():
                     if batch_idx==0:
                         #print("logits is: ", logits.mean())
-                        print("quantized_weights is: ", quantized_weights)
+                        #print("quantized_weights is: ", quantized_weights)
+                        # hard_quantized = hard_quantize(quantized_weights, q, range_val=[-3,3])
+                        # print(" hard quantized_weights is: ", hard_quantized)
                         if epoch == num_steps - 1:
                             quantized_weights_flat = quantized_weights.view(-1).cpu().detach().numpy()
                             all_quantized_weights.extend(quantized_weights_flat)
@@ -148,9 +156,9 @@ def quant_by_noise(model, mask, percent, train_loader_raw, criterion, prior_sigm
             total_loss.backward()
 
             # ... [Loss Computations]
-            with torch.no_grad():
-                if batch_idx==0:
-                    print(torch.mean(p),torch.var(p),torch.mean(p.grad))
+            # with torch.no_grad():
+            #     if batch_idx==0:
+            #         print(torch.mean(p),torch.var(p),torch.mean(p.grad))
             
             # ... [Backward Pass]
 
@@ -178,13 +186,23 @@ def quant_by_noise(model, mask, percent, train_loader_raw, criterion, prior_sigm
 
     # ... [Pruning Steps based on Quantization Importance]
     ## update the actual model based on the quantized weights
+
+    ## make it deterministic 
     with torch.no_grad():
+        
+        #quant_values = [3*torch.tensor([1 - i / (q - 1) -0.5]) for i in range(q - 1)] + [torch.tensor([-1.5])]
+        #quant_values = torch.cat(quant_values).to(logits.device)
         k = 0
         for i, param in enumerate(model.parameters()):
             t = len(param.view(-1))
             logits = p[:, k:(k+t)].t()
-            quantized_weights = soft_quantize(torch.sigmoid(logits),q,temperature=0.2)
-            param.data = param.data * quantized_weights.view(param.data.shape)
+            quantized_weights = soft_quantize(torch.sigmoid(logits),q,temperature=0.8,range_val=[-3,3])
+            #hard_quant =  torch.clamp(torch.round(quantized_weights+0.5)-0.5,min=-0.5, max=2.5)
+            hard_quant = hard_quantize(quantized_weights, q, range_val=[-3,3])   
+            #print(hard_quant)
+
+            param.data = param.data * hard_quant.view(param.data.shape)
+            #param.data = param.data * quantized_weights.view(param.data.shape)
             k += t
         plt.hist(all_quantized_weights, bins=50, alpha=0.5, label='All Layers')
         plt.title(f'Quantized Weights Histogram for All Layers (q={q})')
@@ -199,3 +217,14 @@ def quant_by_noise(model, mask, percent, train_loader_raw, criterion, prior_sigm
 
     return model, p
 
+
+def hard_quantize(soft_quantized, q, range_val):
+    min_val, max_val = range_val
+    discrete_values = torch.linspace(min_val, max_val, q).to(soft_quantized.device)
+    diffs = torch.abs(soft_quantized.unsqueeze(-1) - discrete_values)
+    indices = torch.argmin(diffs, dim=-1)
+    hard_quantized = discrete_values[indices]  
+    return hard_quantized
+
+
+##q=2 is 91.36, q=3 is 95.02 , q=4 is 96.64 , q=5 is 96.55, q=6 is 96.61: temp is 0.5 

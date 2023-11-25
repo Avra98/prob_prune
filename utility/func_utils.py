@@ -116,9 +116,9 @@ def train_with_noise(model, mask, train_loader, optimizer, criterion,
         # Injecting noise into the weights
         for i, param in enumerate(model.parameters()):
             # Scale the noise_std by the layer's coefficient
-            if noise_type[:3] != 'iso':
-                scaled_noise_std = noise_std * (i+1)
-            noise = torch.randn_like(param) * scaled_noise_std
+            # if noise_type[:3] != 'iso':
+            #     scaled_noise_std = noise_std * (i+1)
+            noise = torch.randn_like(param) * noise_std
             param.data += (noise * mask[i])
             noise_list.append(noise)
 
